@@ -44,12 +44,50 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
             align-items: center;
             padding: 0 12px;
-            gap: 8px;
             z-index: 1000;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .taskbar-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .taskbar-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .start-orb-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.15s ease;
+        }
+
+        .start-orb-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .start-orb-btn:active {
+            transform: scale(0.92);
+        }
+
+        .start-orb-img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
         }
 
         #taskbar-clock {
@@ -112,6 +150,105 @@
             background: #D0BCFF;
             border-radius: 50%;
             display: none;
+        }
+
+        /* --- START MENU --- */
+        #start-menu {
+            position: absolute;
+            bottom: 56px;
+            left: 12px;
+            width: 380px;
+            height: 480px;
+            background: #2b2930;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 28px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            animation: slideUpStart 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        @keyframes slideUpStart {
+            from { opacity: 0; transform: translateY(16px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .start-menu-content {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+            color: #E6E1E5;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .start-menu-dock {
+            height: 64px;
+            background: #1e1d24;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            position: relative;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .interface-menu-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #E6E1E5;
+            padding: 8px 16px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s ease;
+        }
+
+        .interface-menu-btn:hover {
+            background: rgba(255, 255, 255, 0.14);
+        }
+
+        .interface-context-popup {
+            position: absolute;
+            bottom: 76px;
+            left: 20px;
+            width: 180px;
+            background: #36343b;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 18px;
+            padding: 8px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            z-index: 2100;
+        }
+
+        .context-popup-item {
+            background: transparent;
+            border: none;
+            color: #E6E1E5;
+            padding: 10px 14px;
+            text-align: left;
+            font-size: 13px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .context-popup-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .context-popup-item.active {
+            color: #D0BCFF;
+            font-weight: 700;
         }
 
         /* --- CALENDAR & TIME FLYOUT --- */
@@ -1184,6 +1321,22 @@
             <div class="toast-body" id="toast-body-text">take a look around to get to know your new operating system! There's so much to learn and to know. To get started why not check out some apps</div>
         </div>
 
+        <div id="start-menu">
+            <div class="start-menu-content" id="start-menu-app-area">
+                <div style="font-size: 14px; color: rgba(255,255,255,0.6); text-align: center; margin-top: 60px;">No applications installed yet</div>
+            </div>
+            <div class="start-menu-dock">
+                <button class="interface-menu-btn" onclick="toggleInterfacePopup()">
+                    <svg style="width:16px; height:16px; fill:#E6E1E5;" viewBox="0 0 24 24"><path d="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z"/></svg>
+                    <span>Interface</span>
+                </button>
+                <div class="interface-context-popup" id="interface-context-popup">
+                    <button class="context-popup-item active" id="mode-btn-list" onclick="setStartMenuMode('list')">List</button>
+                    <button class="context-popup-item" id="mode-btn-compact" onclick="setStartMenuMode('compact')">Compact</button>
+                </div>
+            </div>
+        </div>
+
         <div id="calendar-flyout">
             <div class="flyout-header">
                 <div class="flyout-date-full" id="flyout-full-date">December 12, 2026</div>
@@ -1224,14 +1377,21 @@
         </div>
 
         <div id="taskbar">
-            <div id="taskbar-clock" onclick="toggleCalendarFlyout()">
-                <div class="time-text" id="time-display">00:00</div>
-                <div class="date-text" id="date-display">00/00/00</div>
+            <div class="taskbar-left">
+                <button class="start-orb-btn" onclick="toggleStartMenu()">
+                    <img src="https://i.postimg.cc/Xqh8V6RB/Untitled2546-20261027110329.png" alt="Start Orb" class="start-orb-img">
+                </button>
             </div>
-            <button class="taskbar-icon-btn" onclick="toggleNotificationCenter()">
-                <svg viewBox="0 0 24 24"><path d="M12,22A2,2 0 0,0 14,20H10A2,2 0 0,0 12,22M18,16V11C18,7.93 16.36,5.36 13.5,4.68V4A1.5,1.5 0 0,0 12,2.5A1.5,1.5 0 0,0 10.5,4V4.68C7.63,5.36 6,7.92 6,11V16L4,18V19H20V18L18,16Z"/></svg>
-                <div class="notif-badge" id="notif-bell-badge"></div>
-            </button>
+            <div class="taskbar-right">
+                <div id="taskbar-clock" onclick="toggleCalendarFlyout()">
+                    <div class="time-text" id="time-display">00:00</div>
+                    <div class="date-text" id="date-display">00/00/00</div>
+                </div>
+                <button class="taskbar-icon-btn" onclick="toggleNotificationCenter()">
+                    <svg viewBox="0 0 24 24"><path d="M12,22A2,2 0 0,0 14,20H10A2,2 0 0,0 12,22M18,16V11C18,7.93 16.36,5.36 13.5,4.68V4A1.5,1.5 0 0,0 12,2.5A1.5,1.5 0 0,0 10.5,4V4.68C7.63,5.36 6,7.92 6,11V16L4,18V19H20V18L18,16Z"/></svg>
+                    <div class="notif-badge" id="notif-bell-badge"></div>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -1241,6 +1401,7 @@
         let failedLoginAttempts = 0;
         let isMuted = false;
         let activeNotifCount = 1;
+        let currentStartMode = 'list';
 
         let currentCalendarDate = new Date();
 
@@ -1322,14 +1483,69 @@
         function toggleCalendarFlyout() {
             const flyout = document.getElementById('calendar-flyout');
             const notifCenter = document.getElementById('notification-center');
+            const startMenu = document.getElementById('start-menu');
 
             notifCenter.style.display = 'none';
+            startMenu.style.display = 'none';
+            document.getElementById('interface-context-popup').style.display = 'none';
 
             if (flyout.style.display === 'flex') {
                 flyout.style.display = 'none';
             } else {
                 renderCalendar();
                 flyout.style.display = 'flex';
+            }
+        }
+
+        function toggleNotificationCenter() {
+            const center = document.getElementById('notification-center');
+            const flyout = document.getElementById('calendar-flyout');
+            const startMenu = document.getElementById('start-menu');
+
+            flyout.style.display = 'none';
+            startMenu.style.display = 'none';
+            document.getElementById('interface-context-popup').style.display = 'none';
+
+            if (center.style.display === 'flex') {
+                center.style.display = 'none';
+            } else {
+                center.style.display = 'flex';
+                document.getElementById('notif-bell-badge').style.display = 'none';
+            }
+        }
+
+        function toggleStartMenu() {
+            const startMenu = document.getElementById('start-menu');
+            const flyout = document.getElementById('calendar-flyout');
+            const notifCenter = document.getElementById('notification-center');
+
+            flyout.style.display = 'none';
+            notifCenter.style.display = 'none';
+
+            if (startMenu.style.display === 'flex') {
+                startMenu.style.display = 'none';
+                document.getElementById('interface-context-popup').style.display = 'none';
+            } else {
+                startMenu.style.display = 'flex';
+            }
+        }
+
+        function toggleInterfacePopup() {
+            const popup = document.getElementById('interface-context-popup');
+            popup.style.display = popup.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function setStartMenuMode(mode) {
+            currentStartMode = mode;
+            document.getElementById('interface-context-popup').style.display = 'none';
+
+            document.getElementById('mode-btn-list').classList.remove('active');
+            document.getElementById('mode-btn-compact').classList.remove('active');
+
+            if (mode === 'list') {
+                document.getElementById('mode-btn-list').classList.add('active');
+            } else {
+                document.getElementById('mode-btn-compact').classList.add('active');
             }
         }
 
@@ -1641,20 +1857,6 @@
                     toast.style.opacity = '1';
                 }, 500);
             }, 6000);
-        }
-
-        function toggleNotificationCenter() {
-            const center = document.getElementById('notification-center');
-            const flyout = document.getElementById('calendar-flyout');
-
-            flyout.style.display = 'none';
-
-            if (center.style.display === 'flex') {
-                center.style.display = 'none';
-            } else {
-                center.style.display = 'flex';
-                document.getElementById('notif-bell-badge').style.display = 'none';
-            }
         }
 
         function toggleMuteNotifs() {

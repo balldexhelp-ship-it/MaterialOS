@@ -114,6 +114,132 @@
             display: none;
         }
 
+        /* --- CALENDAR & TIME FLYOUT --- */
+        #calendar-flyout {
+            position: absolute;
+            bottom: 56px;
+            right: 12px;
+            width: 340px;
+            background: rgba(30, 29, 36, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 28px;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+            padding: 24px;
+            gap: 20px;
+            animation: slideUpFlyout 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        @keyframes slideUpFlyout {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .flyout-header {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            text-align: right;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 16px;
+        }
+
+        .flyout-date-full {
+            font-size: 13px;
+            color: #D0BCFF;
+            font-weight: 500;
+        }
+
+        .flyout-time-large {
+            font-size: 32px;
+            font-weight: 500;
+            color: #FFFFFF;
+            letter-spacing: -0.5px;
+            margin-top: 2px;
+        }
+
+        .calendar-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .calendar-month-title {
+            font-size: 15px;
+            font-weight: 500;
+            color: #E6E1E5;
+        }
+
+        .calendar-nav-btn {
+            background: transparent;
+            border: none;
+            color: #E6E1E5;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.2s ease;
+        }
+
+        .calendar-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .calendar-nav-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: #E6E1E5;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+            text-align: center;
+        }
+
+        .calendar-day-label {
+            font-size: 11px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.5);
+            padding-bottom: 6px;
+        }
+
+        .calendar-cell {
+            font-size: 13px;
+            color: #CAC4D0;
+            height: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .calendar-cell:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .calendar-cell.active-day {
+            background: #D0BCFF;
+            color: #381E72;
+            font-weight: 700;
+        }
+
+        .calendar-cell.empty {
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        /* --- NOTIFICATION CENTER --- */
         #notification-center {
             position: absolute;
             bottom: 56px;
@@ -181,11 +307,18 @@
             line-height: 1.45;
         }
 
+        .notif-empty-text {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+            padding: 24px 0;
+        }
+
         .notif-dock {
             margin: auto 12px 12px 12px;
             background: rgba(255, 255, 255, 0.12);
             border-radius: 20px;
-            padding: 10px 14px;
+            padding: 8px 12px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -195,11 +328,11 @@
             background: transparent;
             border: none;
             color: #E6E1E5;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             cursor: pointer;
             padding: 6px 10px;
             border-radius: 12px;
@@ -211,8 +344,8 @@
         }
 
         .dock-btn svg {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             fill: #E6E1E5;
         }
 
@@ -1051,15 +1184,38 @@
             <div class="toast-body" id="toast-body-text">take a look around to get to know your new operating system! There's so much to learn and to know. To get started why not check out some apps</div>
         </div>
 
+        <div id="calendar-flyout">
+            <div class="flyout-header">
+                <div class="flyout-date-full" id="flyout-full-date">December 12, 2026</div>
+                <div class="flyout-time-large" id="flyout-time-large">00:00:00 AM</div>
+            </div>
+            <div class="calendar-controls">
+                <div class="calendar-month-title" id="calendar-month-year">December 2026</div>
+                <div style="display: flex; gap: 4px;">
+                    <button class="calendar-nav-btn" onclick="prevMonth()">
+                        <svg viewBox="0 0 24 24"><path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"/></svg>
+                    </button>
+                    <button class="calendar-nav-btn" onclick="nextMonth()">
+                        <svg viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="calendar-grid" id="calendar-grid-container"></div>
+        </div>
+
         <div id="notification-center">
             <div class="notif-header" id="notif-header-title">All notifications (1)</div>
             <div class="notif-list" id="notif-list-container">
-                <div class="notif-card">
+                <div class="notif-card" id="notif-welcome-card">
                     <div class="notif-card-title">Welcome!</div>
                     <div class="notif-card-body">take a look around to get to know your new operating system! There's so much to learn and to know. To get started why not check out some apps</div>
                 </div>
             </div>
             <div class="notif-dock">
+                <button class="dock-btn" onclick="clearAllNotifications()">
+                    <svg viewBox="0 0 24 24"><path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"/></svg>
+                    <span>Clear all</span>
+                </button>
                 <button class="dock-btn" onclick="toggleMuteNotifs()">
                     <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6Z"/></svg>
                     <span id="mute-btn-text">Mute notifications</span>
@@ -1068,7 +1224,7 @@
         </div>
 
         <div id="taskbar">
-            <div id="taskbar-clock" onclick="toggleNotificationCenter()">
+            <div id="taskbar-clock" onclick="toggleCalendarFlyout()">
                 <div class="time-text" id="time-display">00:00</div>
                 <div class="date-text" id="date-display">00/00/00</div>
             </div>
@@ -1084,23 +1240,98 @@
         let createdPassword = "";
         let failedLoginAttempts = 0;
         let isMuted = false;
+        let activeNotifCount = 1;
+
+        let currentCalendarDate = new Date();
 
         function updateClock() {
             const now = new Date();
             let hours = now.getHours();
             const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
             const ampm = hours >= 12 ? 'PM' : 'AM';
             hours = hours % 12;
             hours = hours ? hours : 12;
+
             document.getElementById('time-display').innerText = `${hours}:${minutes} ${ampm}`;
 
             const day = String(now.getDate()).padStart(2, '0');
             const month = String(now.getMonth() + 1).padStart(2, '0');
             const year = String(now.getFullYear()).slice(-2);
             document.getElementById('date-display').innerText = `${day}/${month}/${year}`;
+
+            document.getElementById('flyout-time-large').innerText = `${hours}:${minutes}:${seconds} ${ampm}`;
+            
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            document.getElementById('flyout-full-date').innerText = `${monthNames[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
         }
         setInterval(updateClock, 1000);
         updateClock();
+
+        function renderCalendar() {
+            const grid = document.getElementById('calendar-grid-container');
+            grid.innerHTML = '';
+
+            const year = currentCalendarDate.getFullYear();
+            const month = currentCalendarDate.getMonth();
+
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            document.getElementById('calendar-month-year').innerText = `${monthNames[month]} ${year}`;
+
+            const dayLabels = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+            dayLabels.forEach(label => {
+                const div = document.createElement('div');
+                div.className = 'calendar-day-label';
+                div.innerText = label;
+                grid.appendChild(div);
+            });
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const today = new Date();
+
+            for (let i = 0; i < firstDay; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'calendar-cell empty';
+                grid.appendChild(emptyCell);
+            }
+
+            for (let d = 1; d <= daysInMonth; d++) {
+                const cell = document.createElement('div');
+                cell.className = 'calendar-cell';
+                cell.innerText = d;
+
+                if (d === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+                    cell.classList.add('active-day');
+                }
+
+                grid.appendChild(cell);
+            }
+        }
+
+        function prevMonth() {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() - 1);
+            renderCalendar();
+        }
+
+        function nextMonth() {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() + 1);
+            renderCalendar();
+        }
+
+        function toggleCalendarFlyout() {
+            const flyout = document.getElementById('calendar-flyout');
+            const notifCenter = document.getElementById('notification-center');
+
+            notifCenter.style.display = 'none';
+
+            if (flyout.style.display === 'flex') {
+                flyout.style.display = 'none';
+            } else {
+                renderCalendar();
+                flyout.style.display = 'flex';
+            }
+        }
 
         window.addEventListener('DOMContentLoaded', () => {
             const isSetupDone = localStorage.getItem('os_setup_done');
@@ -1124,7 +1355,7 @@
             bootScreen.style.display = 'flex';
             bootScreen.style.opacity = '1';
 
-            const duration = showServicesText ? 3000 : 3600;
+            const duration = showServicesText ? 8500 : 8500;
 
             setTimeout(() => {
                 bootScreen.style.opacity = '0';
@@ -1183,7 +1414,7 @@
                         playGreetingSequence();
                     });
                 }, 800);
-            }, 3000);
+            }, 3500);
         }
 
         function playGreetingSequence() {
@@ -1414,6 +1645,10 @@
 
         function toggleNotificationCenter() {
             const center = document.getElementById('notification-center');
+            const flyout = document.getElementById('calendar-flyout');
+
+            flyout.style.display = 'none';
+
             if (center.style.display === 'flex') {
                 center.style.display = 'none';
             } else {
@@ -1425,6 +1660,14 @@
         function toggleMuteNotifs() {
             isMuted = !isMuted;
             document.getElementById('mute-btn-text').innerText = isMuted ? "Unmute notifications" : "Mute notifications";
+        }
+
+        function clearAllNotifications() {
+            const list = document.getElementById('notif-list-container');
+            list.innerHTML = '<div class="notif-empty-text">No new notifications</div>';
+            activeNotifCount = 0;
+            document.getElementById('notif-header-title').innerText = 'All notifications (0)';
+            document.getElementById('notif-bell-badge').style.display = 'none';
         }
     </script>
 </body>

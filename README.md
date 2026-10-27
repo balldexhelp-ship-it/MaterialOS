@@ -17,3 +17,10 @@ I wouldn't check it out though because I currently have no fix for this as it's 
 So it's suggested that you wait until the operating system releases
 
 And in the near future, I will have releases for a file that is material OS but in html where you can run in your browser. 
+
+## warning
+**once many parts of the operating system are done, which as of now things like making your account are already in the operating system. It's worth to note this as a warning
+
+# DO NOT AND I REPEAT DO NOT USE ANY REAL INFORMATION TO FILL OUT YOUR USER INFORMATION 
+This is common sense hopefully to some people, but please save yourself trouble 
+There's no guest option or anything where local storage won't save info for now.

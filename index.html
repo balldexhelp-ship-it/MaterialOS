@@ -46,7 +46,8 @@
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            padding: 0 16px;
+            padding: 0 12px;
+            gap: 8px;
             z-index: 1000;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
@@ -57,13 +58,13 @@
             text-align: right;
             line-height: 1.2;
             cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 6px;
+            padding: 6px 10px;
+            border-radius: 8px;
             transition: background 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         #taskbar-clock:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.12);
         }
 
         .time-text {
@@ -75,6 +76,180 @@
             font-weight: 400;
             font-size: 11px;
             color: rgba(255, 255, 255, 0.7);
+        }
+
+        .taskbar-icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            color: #FFFFFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            position: relative;
+        }
+
+        .taskbar-icon-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .taskbar-icon-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: #FFFFFF;
+        }
+
+        .notif-badge {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 8px;
+            height: 8px;
+            background: #D0BCFF;
+            border-radius: 50%;
+            display: none;
+        }
+
+        #notification-center {
+            position: absolute;
+            bottom: 56px;
+            right: 12px;
+            width: 360px;
+            max-height: 520px;
+            background: rgba(30, 29, 36, 0.88);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 28px;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            animation: slideUpNotif 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        @keyframes slideUpNotif {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .notif-header {
+            padding: 20px 20px 12px 20px;
+            font-size: 15px;
+            font-weight: 500;
+            color: #E6E1E5;
+        }
+
+        .notif-list {
+            padding: 0 16px 16px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow-y: auto;
+            max-height: 360px;
+        }
+
+        .notif-card {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            transition: background 0.2s ease;
+        }
+
+        .notif-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .notif-card-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #D0BCFF;
+        }
+
+        .notif-card-body {
+            font-size: 13px;
+            color: #CAC4D0;
+            line-height: 1.45;
+        }
+
+        .notif-dock {
+            margin: auto 12px 12px 12px;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dock-btn {
+            background: transparent;
+            border: none;
+            color: #E6E1E5;
+            font-size: 13px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 12px;
+            transition: background 0.2s ease;
+        }
+
+        .dock-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .dock-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: #E6E1E5;
+        }
+
+        #toast-banner {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 360px;
+            background: rgba(30, 29, 36, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 24px;
+            padding: 18px 20px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+            z-index: 3000;
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            animation: toastIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .toast-title {
+            font-size: 15px;
+            font-weight: 500;
+            color: #D0BCFF;
+        }
+
+        .toast-body {
+            font-size: 13px;
+            color: #CAC4D0;
+            line-height: 1.45;
         }
 
         #boot-screen {
@@ -113,6 +288,14 @@
             opacity: 0;
             animation-delay: 1.8s;
             animation-fill-mode: forwards;
+        }
+
+        .boot-subtext {
+            margin-top: 16px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 0.3px;
+            font-weight: 400;
         }
 
         @keyframes fadeInLogo {
@@ -179,10 +362,10 @@
 
         .welcome-card {
             position: relative;
-            width: 520px;
-            min-height: 320px;
-            background: rgba(255, 255, 255, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            width: 540px;
+            min-height: 340px;
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid rgba(255, 255, 255, 0.65);
             border-radius: 28px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
             padding: 36px;
@@ -252,6 +435,104 @@
             overflow-y: auto;
             margin-top: 8px;
             margin-bottom: 12px;
+        }
+
+        .form-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .form-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1C1B1F;
+            width: 140px;
+        }
+
+        .form-input {
+            flex: 1;
+            padding: 10px 16px;
+            border-radius: 12px;
+            border: 1px solid #79747E;
+            background: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            color: #1D1B20;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            user-select: text;
+        }
+
+        .form-input:focus {
+            border-color: #6750A4;
+            box-shadow: 0 0 0 2px rgba(103, 80, 164, 0.2);
+        }
+
+        .error-msg {
+            color: #B3261E;
+            font-size: 12px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .shield-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 8px;
+        }
+
+        .shield-icon-badge {
+            width: 56px;
+            height: 56px;
+            background: #E8DEF8;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+
+        .shield-icon-badge svg {
+            width: 28px;
+            height: 28px;
+            fill: #1D192B;
+        }
+
+        .shield-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #1C1B1F;
+        }
+
+        .shield-description {
+            font-size: 13px;
+            color: #49454F;
+            line-height: 1.45;
+            text-align: left;
+            margin-top: 8px;
+            background: rgba(0, 0, 0, 0.03);
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .expandable-content {
+            max-height: 48px;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .expandable-content.expanded {
+            max-height: 250px;
         }
 
         .card-actions {
@@ -437,6 +718,168 @@
             transform: translateY(10px);
             z-index: 8500;
         }
+
+        #login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://i.postimg.cc/SsGx12j9/Untitled2542-20261027024807.png');
+            background-size: cover;
+            background-position: center;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9000;
+            transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        #login-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 14, 19, 0.55);
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
+        }
+
+        .login-card {
+            position: relative;
+            z-index: 9100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            width: 340px;
+        }
+
+        .login-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .login-username {
+            font-size: 22px;
+            font-weight: 500;
+            color: #FFFFFF;
+            letter-spacing: -0.3px;
+        }
+
+        .login-input-group {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .login-password-input {
+            width: 100%;
+            padding: 12px 48px 12px 20px;
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.12);
+            color: #FFFFFF;
+            font-size: 14px;
+            outline: none;
+            backdrop-filter: blur(10px);
+            transition: border-color 0.2s ease, background 0.2s ease;
+            user-select: text;
+        }
+
+        .login-password-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .login-password-input:focus {
+            border-color: #D0BCFF;
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .login-submit-btn {
+            position: absolute;
+            right: 6px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #D0BCFF;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.15s ease, background 0.2s ease;
+        }
+
+        .login-submit-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: #381E72;
+        }
+
+        .login-submit-btn:hover {
+            background: #EADDFF;
+        }
+
+        .login-submit-btn:active {
+            transform: scale(0.92);
+        }
+
+        .forgot-password-box {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            text-align: center;
+            margin-top: 12px;
+            animation: fadeIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .forgot-password-text {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.4;
+        }
+
+        #reset-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(18, 18, 22, 0.92);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            z-index: 9500;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .reset-modal-card {
+            position: relative;
+            width: 440px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 28px;
+            padding: 36px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -444,6 +887,7 @@
     <div id="boot-screen">
         <img src="https://i.postimg.cc/1zD3tp89/Untitled2544-20261027050233.png" alt="OS Logo" class="boot-logo">
         <div class="boot-loader"></div>
+        <div class="boot-subtext" id="boot-subtext" style="display: none;">starting services</div>
     </div>
 
     <div id="welcome-screen">
@@ -466,7 +910,7 @@
             <div id="step-loader" class="setup-step" style="display: none;">
                 <div class="step-loader-container">
                     <div class="material-spinner"></div>
-                    <div class="loader-subtext" id="loader-status-text" style="display: none;">restarting</div>
+                    <div class="loader-subtext" id="loader-status-text">restarting</div>
                 </div>
             </div>
 
@@ -481,6 +925,49 @@
                 </div>
                 <div class="card-actions">
                     <button class="btn-material" onclick="openAgreementPopup()">Next</button>
+                </div>
+            </div>
+
+            <div id="step-user-creation" class="setup-step" style="display: none;">
+                <div>
+                    <h1 class="welcome-title">make a user</h1>
+                    <div class="form-grid">
+                        <div class="form-row">
+                            <label class="form-label" for="username-input">username</label>
+                            <input type="text" id="username-input" class="form-input" placeholder="Enter username" autocomplete="off">
+                        </div>
+                        <div class="form-row">
+                            <label class="form-label" for="password-input">password</label>
+                            <input type="password" id="password-input" class="form-input" placeholder="Enter password">
+                        </div>
+                        <div class="form-row">
+                            <label class="form-label" for="confirm-password-input">confirm password</label>
+                            <input type="password" id="confirm-password-input" class="form-input" placeholder="Confirm password">
+                        </div>
+                    </div>
+                    <div class="error-msg" id="user-creation-error"></div>
+                </div>
+                <div class="card-actions">
+                    <button class="btn-material" onclick="validateUserCreation()">Next</button>
+                </div>
+            </div>
+
+            <div id="step-shield-warning" class="setup-step" style="display: none;">
+                <div class="shield-container">
+                    <div class="shield-icon-badge">
+                        <svg viewBox="0 0 24 24"><path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,3.18L19,6.3V11C19,15.52 16.03,19.72 12,20.93C7.97,19.72 5,15.52 5,11V6.3L12,3.18Z"/></svg>
+                    </div>
+                    <div class="shield-title">Don't forget your password!</div>
+                    <div class="shield-description">
+                        <div class="expandable-content" id="shield-text-content">
+                            If you ever forget your password, you can always reset the data and history on your browser and re-launch the setup, or click "forgot password" on login. However, if you reset your browser data and history you will lose other stored data, so it's best to reset the password without risking any data (e.g. logging into other unrelated Material OS sites). This is your last chance to go back and change your password to something else if needed.
+                        </div>
+                        <button class="btn-text" id="shield-toggle-btn" style="padding: 4px 0; margin-top: 4px; font-size: 12px;" onclick="toggleShieldText()">Show more</button>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <button class="btn-text" onclick="goBackToUserCreation()">Go back</button>
+                    <button class="btn-material" onclick="completeUserSetup()">I understand and create user</button>
                 </div>
             </div>
         </div>
@@ -524,16 +1011,80 @@
         <div class="greeting-text" id="greeting-text">Hi</div>
     </div>
 
-    <div id="desktop">
-        <div id="taskbar">
-            <div id="taskbar-clock">
-                <div class="time-text" id="time-display">00:00</div>
-                <div class="date-text" id="date-display">00/00/00</div>
+    <div id="login-screen">
+        <div class="login-card">
+            <img src="https://i.postimg.cc/ydNwc4V8/Untitled2545-20261027054658.png" alt="Profile Avatar" class="login-avatar">
+            <div class="login-username" id="display-login-username">User</div>
+            <div class="login-input-group">
+                <input type="password" id="login-password-field" class="login-password-input" placeholder="Password" onkeydown="if(event.key==='Enter') verifyLoginPassword()">
+                <button class="login-submit-btn" onclick="verifyLoginPassword()">
+                    <svg viewBox="0 0 24 24"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/></svg>
+                </button>
+            </div>
+            <div class="forgot-password-box" id="forgot-password-container">
+                <div class="forgot-password-text">forgot password? Click the button below to reset your password.</div>
+                <button class="btn-material" onclick="openResetModal()">Reset password</button>
             </div>
         </div>
     </div>
 
+    <div id="reset-modal">
+        <button class="modal-close-btn" onclick="closeResetModal()">✕</button>
+        <div class="reset-modal-card">
+            <div id="reset-loader" style="display: flex; flex-direction: column; align-items: center; gap: 16px;">
+                <div class="material-spinner"></div>
+                <div class="loader-subtext">Preparing password reset...</div>
+            </div>
+            <div id="reset-form" style="display: none; width: 100%; flex-direction: column; gap: 16px;">
+                <h3 style="font-size: 20px; font-weight: 500; color: #1C1B1F; text-align: center;">Reset Password</h3>
+                <input type="password" id="new-reset-password" class="form-input" placeholder="New password">
+                <input type="password" id="confirm-reset-password" class="form-input" placeholder="Confirm new password">
+                <div class="error-msg" id="reset-error-msg"></div>
+                <button class="btn-material" style="width: 100%; margin-top: 8px;" onclick="saveNewPasswordAndLogin()">Save & Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="desktop">
+        <div id="toast-banner">
+            <div class="toast-title" id="toast-title-text">Welcome!</div>
+            <div class="toast-body" id="toast-body-text">take a look around to get to know your new operating system! There's so much to learn and to know. To get started why not check out some apps</div>
+        </div>
+
+        <div id="notification-center">
+            <div class="notif-header" id="notif-header-title">All notifications (1)</div>
+            <div class="notif-list" id="notif-list-container">
+                <div class="notif-card">
+                    <div class="notif-card-title">Welcome!</div>
+                    <div class="notif-card-body">take a look around to get to know your new operating system! There's so much to learn and to know. To get started why not check out some apps</div>
+                </div>
+            </div>
+            <div class="notif-dock">
+                <button class="dock-btn" onclick="toggleMuteNotifs()">
+                    <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6Z"/></svg>
+                    <span id="mute-btn-text">Mute notifications</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="taskbar">
+            <div id="taskbar-clock" onclick="toggleNotificationCenter()">
+                <div class="time-text" id="time-display">00:00</div>
+                <div class="date-text" id="date-display">00/00/00</div>
+            </div>
+            <button class="taskbar-icon-btn" onclick="toggleNotificationCenter()">
+                <svg viewBox="0 0 24 24"><path d="M12,22A2,2 0 0,0 14,20H10A2,2 0 0,0 12,22M18,16V11C18,7.93 16.36,5.36 13.5,4.68V4A1.5,1.5 0 0,0 12,2.5A1.5,1.5 0 0,0 10.5,4V4.68C7.63,5.36 6,7.92 6,11V16L4,18V19H20V18L18,16Z"/></svg>
+                <div class="notif-badge" id="notif-bell-badge"></div>
+            </button>
+        </div>
+    </div>
+
     <script>
+        let createdUsername = "";
+        let createdPassword = "";
+        let failedLoginAttempts = 0;
+        let isMuted = false;
+
         function updateClock() {
             const now = new Date();
             let hours = now.getHours();
@@ -557,30 +1108,37 @@
             if (isSetupDone === 'true') {
                 document.getElementById('boot-screen').style.display = 'none';
                 document.getElementById('welcome-screen').style.display = 'none';
-                document.getElementById('desktop').style.display = 'block';
+                showLoginScreen();
             } else {
-                playBootAnimation(() => {
+                playBootAnimation(false, () => {
                     document.getElementById('welcome-screen').style.display = 'flex';
                 });
             }
         });
 
-        function playBootAnimation(onComplete) {
+        function playBootAnimation(showServicesText, onComplete) {
             const bootScreen = document.getElementById('boot-screen');
+            const bootSubtext = document.getElementById('boot-subtext');
+
+            bootSubtext.style.display = showServicesText ? 'block' : 'none';
             bootScreen.style.display = 'flex';
             bootScreen.style.opacity = '1';
+
+            const duration = showServicesText ? 3000 : 3600;
 
             setTimeout(() => {
                 bootScreen.style.opacity = '0';
                 setTimeout(() => {
                     bootScreen.style.display = 'none';
+                    bootSubtext.style.display = 'none';
                     if (onComplete) onComplete();
                 }, 800);
-            }, 3600);
+            }, duration);
         }
 
         function goToLoadingStep() {
             document.getElementById('step-1').style.display = 'none';
+            document.getElementById('loader-status-text').style.display = 'none';
             document.getElementById('step-loader').style.display = 'flex';
 
             setTimeout(() => {
@@ -609,6 +1167,7 @@
             closeAgreementPopup();
             
             document.getElementById('step-terms').style.display = 'none';
+            document.getElementById('loader-status-text').innerText = 'restarting';
             document.getElementById('loader-status-text').style.display = 'block';
             document.getElementById('step-loader').style.display = 'flex';
 
@@ -620,7 +1179,7 @@
                     welcomeScreen.style.display = 'none';
                     document.getElementById('loader-status-text').style.display = 'none';
 
-                    playBootAnimation(() => {
+                    playBootAnimation(false, () => {
                         playGreetingSequence();
                     });
                 }, 800);
@@ -667,8 +1226,14 @@
                                     greetingScreen.style.opacity = '0';
                                     setTimeout(() => {
                                         greetingScreen.style.display = 'none';
-                                        document.getElementById('desktop').style.display = 'block';
-                                        localStorage.setItem('os_setup_done', 'true');
+                                        
+                                        setTimeout(() => {
+                                            playBootAnimation(true, () => {
+                                                document.getElementById('welcome-screen').style.display = 'flex';
+                                                document.getElementById('welcome-screen').style.opacity = '1';
+                                                document.getElementById('step-user-creation').style.display = 'flex';
+                                            });
+                                        }, 4500);
                                     }, 800);
                                 }, 800);
                             }, 3000);
@@ -676,6 +1241,190 @@
                     }, 800);
                 }, 2000);
             }, 300);
+        }
+
+        function validateUserCreation() {
+            const usernameInput = document.getElementById('username-input').value.trim();
+            const passwordInput = document.getElementById('password-input').value;
+            const confirmPasswordInput = document.getElementById('confirm-password-input').value;
+            const errorMsg = document.getElementById('user-creation-error');
+
+            if (!usernameInput || !passwordInput) {
+                errorMsg.innerText = "Please fill in all fields.";
+                errorMsg.style.display = "block";
+                return;
+            }
+
+            if (passwordInput !== confirmPasswordInput) {
+                errorMsg.innerText = "Passwords do not match.";
+                errorMsg.style.display = "block";
+                return;
+            }
+
+            errorMsg.style.display = "none";
+            createdUsername = usernameInput;
+            createdPassword = passwordInput;
+
+            document.getElementById('step-user-creation').style.display = 'none';
+            document.getElementById('step-shield-warning').style.display = 'flex';
+        }
+
+        function goBackToUserCreation() {
+            document.getElementById('step-shield-warning').style.display = 'none';
+            document.getElementById('step-user-creation').style.display = 'flex';
+        }
+
+        function toggleShieldText() {
+            const content = document.getElementById('shield-text-content');
+            const btn = document.getElementById('shield-toggle-btn');
+
+            if (content.classList.contains('expanded')) {
+                content.classList.remove('expanded');
+                btn.innerText = "Show more";
+            } else {
+                content.classList.add('expanded');
+                btn.innerText = "Show less";
+            }
+        }
+
+        function completeUserSetup() {
+            localStorage.setItem('os_username', createdUsername);
+            localStorage.setItem('os_password', createdPassword);
+
+            document.getElementById('step-shield-warning').style.display = 'none';
+            document.getElementById('loader-status-text').innerText = 'creating user';
+            document.getElementById('loader-status-text').style.display = 'block';
+            document.getElementById('step-loader').style.display = 'flex';
+
+            setTimeout(() => {
+                localStorage.setItem('os_setup_done', 'true');
+                const welcomeScreen = document.getElementById('welcome-screen');
+                welcomeScreen.style.opacity = '0';
+
+                setTimeout(() => {
+                    welcomeScreen.style.display = 'none';
+                    showLoginScreen();
+                }, 800);
+            }, 6000);
+        }
+
+        function showLoginScreen() {
+            const savedUsername = localStorage.getItem('os_username') || "User";
+            document.getElementById('display-login-username').innerText = savedUsername;
+            
+            const loginScreen = document.getElementById('login-screen');
+            loginScreen.style.display = 'flex';
+            loginScreen.style.opacity = '1';
+        }
+
+        function verifyLoginPassword() {
+            const enteredPassword = document.getElementById('login-password-field').value;
+            const actualPassword = localStorage.getItem('os_password');
+
+            if (enteredPassword === actualPassword) {
+                const loginScreen = document.getElementById('login-screen');
+                loginScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loginScreen.style.display = 'none';
+                    launchDesktopEnvironment();
+                }, 800);
+            } else {
+                failedLoginAttempts++;
+                const passwordInput = document.getElementById('login-password-field');
+                passwordInput.value = '';
+                passwordInput.style.borderColor = '#B3261E';
+
+                if (failedLoginAttempts >= 3) {
+                    document.getElementById('forgot-password-container').style.display = 'flex';
+                }
+            }
+        }
+
+        function openResetModal() {
+            const modal = document.getElementById('reset-modal');
+            modal.style.display = 'flex';
+            document.getElementById('reset-loader').style.display = 'flex';
+            document.getElementById('reset-form').style.display = 'none';
+
+            setTimeout(() => {
+                document.getElementById('reset-loader').style.display = 'none';
+                document.getElementById('reset-form').style.display = 'flex';
+            }, 2000);
+        }
+
+        function closeResetModal() {
+            document.getElementById('reset-modal').style.display = 'none';
+        }
+
+        function saveNewPasswordAndLogin() {
+            const newPass = document.getElementById('new-reset-password').value;
+            const confirmPass = document.getElementById('confirm-reset-password').value;
+            const errorMsg = document.getElementById('reset-error-msg');
+
+            if (!newPass) {
+                errorMsg.innerText = "Please enter a new password.";
+                errorMsg.style.display = "block";
+                return;
+            }
+
+            if (newPass !== confirmPass) {
+                errorMsg.innerText = "Passwords do not match.";
+                errorMsg.style.display = "block";
+                return;
+            }
+
+            localStorage.setItem('os_password', newPass);
+            closeResetModal();
+
+            const loginScreen = document.getElementById('login-screen');
+            loginScreen.style.opacity = '0';
+            setTimeout(() => {
+                loginScreen.style.display = 'none';
+                launchDesktopEnvironment();
+            }, 800);
+        }
+
+        function launchDesktopEnvironment() {
+            document.getElementById('desktop').style.display = 'block';
+
+            const firstLoginDone = localStorage.getItem('os_first_login_done');
+            if (firstLoginDone !== 'true') {
+                triggerWelcomeNotification();
+                localStorage.setItem('os_first_login_done', 'true');
+            }
+        }
+
+        function triggerWelcomeNotification() {
+            if (isMuted) return;
+
+            const toast = document.getElementById('toast-banner');
+            toast.style.display = 'flex';
+
+            document.getElementById('notif-bell-badge').style.display = 'block';
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                    toast.style.opacity = '1';
+                }, 500);
+            }, 6000);
+        }
+
+        function toggleNotificationCenter() {
+            const center = document.getElementById('notification-center');
+            if (center.style.display === 'flex') {
+                center.style.display = 'none';
+            } else {
+                center.style.display = 'flex';
+                document.getElementById('notif-bell-badge').style.display = 'none';
+            }
+        }
+
+        function toggleMuteNotifs() {
+            isMuted = !isMuted;
+            document.getElementById('mute-btn-text').innerText = isMuted ? "Unmute notifications" : "Mute notifications";
         }
     </script>
 </body>

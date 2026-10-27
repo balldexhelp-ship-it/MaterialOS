@@ -46,7 +46,8 @@
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            padding: 0 16px;
+            padding: 0 12px;
+            gap: 8px;
             z-index: 1000;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
@@ -57,13 +58,13 @@
             text-align: right;
             line-height: 1.2;
             cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 6px;
+            padding: 6px 10px;
+            border-radius: 8px;
             transition: background 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         #taskbar-clock:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.12);
         }
 
         .time-text {
@@ -75,6 +76,180 @@
             font-weight: 400;
             font-size: 11px;
             color: rgba(255, 255, 255, 0.7);
+        }
+
+        .taskbar-icon-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            color: #FFFFFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            position: relative;
+        }
+
+        .taskbar-icon-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .taskbar-icon-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: #FFFFFF;
+        }
+
+        .notif-badge {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 8px;
+            height: 8px;
+            background: #D0BCFF;
+            border-radius: 50%;
+            display: none;
+        }
+
+        #notification-center {
+            position: absolute;
+            bottom: 56px;
+            right: 12px;
+            width: 360px;
+            max-height: 520px;
+            background: rgba(30, 29, 36, 0.88);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 28px;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            animation: slideUpNotif 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        @keyframes slideUpNotif {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .notif-header {
+            padding: 20px 20px 12px 20px;
+            font-size: 15px;
+            font-weight: 500;
+            color: #E6E1E5;
+        }
+
+        .notif-list {
+            padding: 0 16px 16px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow-y: auto;
+            max-height: 360px;
+        }
+
+        .notif-card {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            transition: background 0.2s ease;
+        }
+
+        .notif-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .notif-card-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #D0BCFF;
+        }
+
+        .notif-card-body {
+            font-size: 13px;
+            color: #CAC4D0;
+            line-height: 1.45;
+        }
+
+        .notif-dock {
+            margin: auto 12px 12px 12px;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dock-btn {
+            background: transparent;
+            border: none;
+            color: #E6E1E5;
+            font-size: 13px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 12px;
+            transition: background 0.2s ease;
+        }
+
+        .dock-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .dock-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: #E6E1E5;
+        }
+
+        #toast-banner {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 360px;
+            background: rgba(30, 29, 36, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 24px;
+            padding: 18px 20px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+            z-index: 3000;
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            animation: toastIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .toast-title {
+            font-size: 15px;
+            font-weight: 500;
+            color: #D0BCFF;
+        }
+
+        .toast-body {
+            font-size: 13px;
+            color: #CAC4D0;
+            line-height: 1.45;
         }
 
         #boot-screen {
@@ -871,11 +1046,36 @@
     </div>
 
     <div id="desktop">
+        <div id="toast-banner">
+            <div class="toast-title" id="toast-title-text">Welcome!</div>
+            <div class="toast-body" id="toast-body-text">take a look around to get to know your new operating system! There's so much to learn and to know. To get started why not check out some apps</div>
+        </div>
+
+        <div id="notification-center">
+            <div class="notif-header" id="notif-header-title">All notifications (1)</div>
+            <div class="notif-list" id="notif-list-container">
+                <div class="notif-card">
+                    <div class="notif-card-title">Welcome!</div>
+                    <div class="notif-card-body">take a look around to get to know your new operating system! There's so much to learn and to know. To get started why not check out some apps</div>
+                </div>
+            </div>
+            <div class="notif-dock">
+                <button class="dock-btn" onclick="toggleMuteNotifs()">
+                    <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6Z"/></svg>
+                    <span id="mute-btn-text">Mute notifications</span>
+                </button>
+            </div>
+        </div>
+
         <div id="taskbar">
-            <div id="taskbar-clock">
+            <div id="taskbar-clock" onclick="toggleNotificationCenter()">
                 <div class="time-text" id="time-display">00:00</div>
                 <div class="date-text" id="date-display">00/00/00</div>
             </div>
+            <button class="taskbar-icon-btn" onclick="toggleNotificationCenter()">
+                <svg viewBox="0 0 24 24"><path d="M12,22A2,2 0 0,0 14,20H10A2,2 0 0,0 12,22M18,16V11C18,7.93 16.36,5.36 13.5,4.68V4A1.5,1.5 0 0,0 12,2.5A1.5,1.5 0 0,0 10.5,4V4.68C7.63,5.36 6,7.92 6,11V16L4,18V19H20V18L18,16Z"/></svg>
+                <div class="notif-badge" id="notif-bell-badge"></div>
+            </button>
         </div>
     </div>
 
@@ -883,6 +1083,7 @@
         let createdUsername = "";
         let createdPassword = "";
         let failedLoginAttempts = 0;
+        let isMuted = false;
 
         function updateClock() {
             const now = new Date();
@@ -1125,7 +1326,7 @@
                 loginScreen.style.opacity = '0';
                 setTimeout(() => {
                     loginScreen.style.display = 'none';
-                    document.getElementById('desktop').style.display = 'block';
+                    launchDesktopEnvironment();
                 }, 800);
             } else {
                 failedLoginAttempts++;
@@ -1179,8 +1380,51 @@
             loginScreen.style.opacity = '0';
             setTimeout(() => {
                 loginScreen.style.display = 'none';
-                document.getElementById('desktop').style.display = 'block';
+                launchDesktopEnvironment();
             }, 800);
+        }
+
+        function launchDesktopEnvironment() {
+            document.getElementById('desktop').style.display = 'block';
+
+            const firstLoginDone = localStorage.getItem('os_first_login_done');
+            if (firstLoginDone !== 'true') {
+                triggerWelcomeNotification();
+                localStorage.setItem('os_first_login_done', 'true');
+            }
+        }
+
+        function triggerWelcomeNotification() {
+            if (isMuted) return;
+
+            const toast = document.getElementById('toast-banner');
+            toast.style.display = 'flex';
+
+            document.getElementById('notif-bell-badge').style.display = 'block';
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                    toast.style.opacity = '1';
+                }, 500);
+            }, 6000);
+        }
+
+        function toggleNotificationCenter() {
+            const center = document.getElementById('notification-center');
+            if (center.style.display === 'flex') {
+                center.style.display = 'none';
+            } else {
+                center.style.display = 'flex';
+                document.getElementById('notif-bell-badge').style.display = 'none';
+            }
+        }
+
+        function toggleMuteNotifs() {
+            isMuted = !isMuted;
+            document.getElementById('mute-btn-text').innerText = isMuted ? "Unmute notifications" : "Mute notifications";
         }
     </script>
 </body>

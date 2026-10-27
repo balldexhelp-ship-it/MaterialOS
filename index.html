@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material OS</title>
+    <!-- Import Product Sans font -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Google Sans', sans-serif;
+            user-select: none;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        /* --- DESKTOP ENVIRONMENT --- */
+        #desktop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://i.postimg.cc/SsGx12j9/Untitled2542-20261027024807.png');
+            background-size: cover;
+            background-position: center;
+            display: none;
+        }
+
+        /* --- TASKBAR --- */
+        #taskbar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 48px;
+            background: linear-gradient(90deg, rgba(18, 18, 22, 0.2) 0%, rgba(18, 18, 22, 0.95) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0 16px;
+            z-index: 1000;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        #taskbar-clock {
+            color: #fff;
+            font-size: 12px;
+            text-align: right;
+            line-height: 1.2;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: background 0.2s ease;
+        }
+
+        #taskbar-clock:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .time-text {
+            font-weight: 500;
+            font-size: 13px;
+        }
+
+        .date-text {
+            font-weight: 400;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* --- BOOT SCREEN --- */
+        #boot-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .boot-logo {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: fadeInLogo 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        .boot-loader {
+            margin-top: 32px;
+            width: 36px;
+            height: 36px;
+            border: 3px solid rgba(255, 255, 255, 0.15);
+            border-top: 3px solid #D0BCFF;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            opacity: 0;
+            animation-delay: 0.8s;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes fadeInLogo {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* --- WELCOME SCREEN --- */
+        #welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 5000;
+            overflow: hidden;
+            transition: opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+            cursor: pointer;
+        }
+
+        /* Floating Material You Shapes */
+        .shape {
+            position: absolute;
+            filter: blur(40px);
+            opacity: 0.5;
+            animation: floatShape 12s ease-in-out infinite alternate;
+            z-index: 4800;
+            pointer-events: none;
+        }
+
+        .shape-1 {
+            width: 350px;
+            height: 350px;
+            background: #D0BCFF;
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            top: 15%;
+            left: 20%;
+        }
+
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: #CCC2DC;
+            border-radius: 60% 40% 30% 70% / 50% 40% 50% 60%;
+            bottom: 15%;
+            right: 20%;
+            animation-delay: -4s;
+        }
+
+        @keyframes floatShape {
+            0% { transform: translate(0px, 0px) scale(1); }
+            100% { transform: translate(30px, -40px) scale(1.08); }
+        }
+
+        /* Welcome Card */
+        .welcome-card {
+            position: relative;
+            width: 480px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 28px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            padding: 36px;
+            z-index: 4900;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        .welcome-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: #1C1B1F;
+            letter-spacing: -0.5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BOOT SCREEN -->
+    <div id="boot-screen">
+        <img src="https://i.postimg.cc/1zD3tp89/Untitled2544-20261027050233.png" alt="OS Logo" class="boot-logo">
+        <div class="boot-loader"></div>
+    </div>
+
+    <!-- WELCOME SCREEN -->
+    <div id="welcome-screen" onclick="dismissWelcome()">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="welcome-card">
+            <h1 class="welcome-title">Welcome to Material OS!</h1>
+        </div>
+    </div>
+
+    <!-- DESKTOP ENVIRONMENT -->
+    <div id="desktop">
+        <!-- TASKBAR -->
+        <div id="taskbar">
+            <div id="taskbar-clock">
+                <div class="time-text" id="time-display">00:00</div>
+                <div class="date-text" id="date-display">00/00/00</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Real-time Clock & Date Engine
+        function updateClock() {
+            const now = new Date();
+            
+            // Format Time (e.g. 5:05 PM)
+            let hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            document.getElementById('time-display').innerText = `${hours}:${minutes} ${ampm}`;
+
+            // Format Date as DD/MM/YY
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = String(now.getFullYear()).slice(-2);
+            document.getElementById('date-display').innerText = `${day}/${month}/${year}`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Boot & Setup Flow Logic
+        window.addEventListener('DOMContentLoaded', () => {
+            const isWelcomed = localStorage.getItem('os_welcomed');
+
+            if (isWelcomed === 'true') {
+                // Skip boot and welcome if already initialized before
+                document.getElementById('boot-screen').style.display = 'none';
+                document.getElementById('welcome-screen').style.display = 'none';
+                document.getElementById('desktop').style.display = 'block';
+            } else {
+                // Play Boot Sequence
+                setTimeout(() => {
+                    const bootScreen = document.getElementById('boot-screen');
+                    bootScreen.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        bootScreen.style.display = 'none';
+                        // Show Welcome Screen
+                        const welcomeScreen = document.getElementById('welcome-screen');
+                        welcomeScreen.style.display = 'flex';
+                    }, 600);
+                }, 3500); // 3.5 seconds total boot sequence
+            }
+        });
+
+        // Dismiss Welcome Screen and transition to Desktop
+        function dismissWelcome() {
+            const welcomeScreen = document.getElementById('welcome-screen');
+            welcomeScreen.style.opacity = '0';
+            
+            setTimeout(() => {
+                welcomeScreen.style.display = 'none';
+                document.getElementById('desktop').style.display = 'block';
+                localStorage.setItem('os_welcomed', 'true');
+            }, 600);
+        }
+    </script>
+</body>
+</html>

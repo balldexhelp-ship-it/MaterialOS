@@ -34,65 +34,21 @@
             display: none;
         }
 
-        /* --- TASKBAR --- */
         #taskbar {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 52px;
-            background: linear-gradient(90deg, rgba(18, 18, 22, 0.3) 0%, rgba(18, 18, 22, 0.95) 100%);
+            height: 48px;
+            background: linear-gradient(90deg, rgba(18, 18, 22, 0.2) 0%, rgba(18, 18, 22, 0.95) 100%);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
             padding: 0 16px;
-            z-index: 10000;
+            z-index: 1000;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        #taskbar-left, #taskbar-right {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex: 1;
-        }
-
-        #taskbar-right {
-            justify-content: flex-end;
-        }
-
-        #taskbar-center {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            flex: 2;
-        }
-
-        .taskbar-app-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: background 0.2s ease, transform 0.15s ease;
-        }
-
-        .taskbar-app-icon:hover {
-            background: rgba(255, 255, 255, 0.22);
-            transform: translateY(-2px);
-        }
-
-        .taskbar-app-icon svg {
-            width: 22px;
-            height: 22px;
-            fill: #E6E1E5;
         }
 
         #taskbar-clock {
@@ -101,13 +57,13 @@
             text-align: right;
             line-height: 1.2;
             cursor: pointer;
-            padding: 6px 10px;
-            border-radius: 12px;
+            padding: 4px 8px;
+            border-radius: 6px;
             transition: background 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         #taskbar-clock:hover {
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .time-text {
@@ -121,368 +77,6 @@
             color: rgba(255, 255, 255, 0.7);
         }
 
-        #notification-center-btn {
-            position: relative;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: background 0.2s ease, transform 0.15s ease;
-        }
-
-        #notification-center-btn:hover {
-            background: rgba(255, 255, 255, 0.18);
-        }
-
-        #notification-center-btn svg {
-            width: 20px;
-            height: 20px;
-            fill: #E6E1E5;
-        }
-
-        .notif-badge {
-            position: absolute;
-            top: 2px;
-            right: 2px;
-            width: 10px;
-            height: 10px;
-            background: #D0BCFF;
-            border-radius: 50%;
-            border: 2px solid #121216;
-            display: none;
-        }
-
-        /* --- WINDOW SYSTEM --- */
-        .os-window {
-            position: absolute;
-            background: #F4F0F8;
-            border-radius: 24px;
-            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.25);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            z-index: 2000;
-            backdrop-filter: blur(20px);
-        }
-
-        .window-header {
-            height: 48px;
-            background: rgba(238, 232, 244, 0.9);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 16px;
-            cursor: grab;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-        }
-
-        .window-header:active {
-            cursor: grabbing;
-        }
-
-        .window-title {
-            font-size: 14px;
-            font-weight: 500;
-            color: #1C1B1F;
-        }
-
-        .window-controls {
-            display: flex;
-            gap: 8px;
-        }
-
-        .window-ctrl-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: background 0.2s ease;
-        }
-
-        .window-ctrl-btn:hover {
-            background: rgba(0, 0, 0, 0.08);
-        }
-
-        .window-ctrl-btn svg {
-            width: 16px;
-            height: 16px;
-            fill: #49454F;
-        }
-
-        .window-body {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* --- CALCULATOR APP --- */
-        #calculator-window {
-            width: 360px;
-            height: 560px;
-            top: 80px;
-            left: calc(50% - 180px);
-        }
-
-        .calc-display-container {
-            padding: 24px 20px 12px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            justify-content: flex-end;
-            min-height: 120px;
-            background: rgba(244, 240, 248, 0.95);
-        }
-
-        .calc-expression {
-            font-size: 16px;
-            color: #79747E;
-            margin-bottom: 4px;
-            min-height: 20px;
-        }
-
-        .calc-result {
-            font-size: 38px;
-            font-weight: 400;
-            color: #1C1B1F;
-            letter-spacing: -0.5px;
-        }
-
-        .calc-scientific-row {
-            display: flex;
-            justify-content: space-around;
-            padding: 8px 16px;
-            background: rgba(244, 240, 248, 0.95);
-            font-size: 15px;
-            color: #49454F;
-        }
-
-        .calc-scientific-row span {
-            cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 8px;
-            transition: background 0.2s;
-        }
-
-        .calc-scientific-row span:hover {
-            background: rgba(0, 0, 0, 0.06);
-        }
-
-        .calc-keypad {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            padding: 12px 16px 20px 16px;
-            background: #ECE6F0;
-            flex: 1;
-        }
-
-        .calc-btn {
-            background: #F4F0F4;
-            border: none;
-            border-radius: 24px;
-            font-size: 18px;
-            font-weight: 500;
-            color: #1C1B1F;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: background 0.15s ease, transform 0.1s ease;
-        }
-
-        .calc-btn:hover {
-            background: #E2D8EC;
-        }
-
-        .calc-btn:active {
-            transform: scale(0.95);
-        }
-
-        .calc-btn.function {
-            background: #CBE6FF;
-            color: #001E31;
-        }
-
-        .calc-btn.function:hover {
-            background: #b4dcff;
-        }
-
-        .calc-btn.operator {
-            background: #D3E4FD;
-            color: #001D35;
-        }
-
-        .calc-btn.operator:hover {
-            background: #bed5fb;
-        }
-
-        .calc-btn.ac {
-            background: #C8E6C9;
-            color: #1B5E20;
-        }
-
-        .calc-btn.ac:hover {
-            background: #b5e0b7;
-        }
-
-        .calc-btn.equals {
-            background: #D0BCFF;
-            color: #381E72;
-        }
-
-        .calc-btn.equals:hover {
-            background: #bc9df6;
-        }
-
-        /* --- NOTIFICATION CENTER --- */
-        #notification-center {
-            position: absolute;
-            bottom: 64px;
-            right: 16px;
-            width: 360px;
-            max-height: 520px;
-            background: rgba(235, 230, 240, 0.92);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 28px;
-            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.25);
-            z-index: 9999;
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            animation: slideUpNotif 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        @keyframes slideUpNotif {
-            from { opacity: 0; transform: translateY(16px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .notif-header {
-            padding: 20px 20px 12px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .notif-header-title {
-            font-size: 16px;
-            font-weight: 500;
-            color: #1C1B1F;
-        }
-
-        .notif-list {
-            padding: 0 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            overflow-y: auto;
-            max-height: 360px;
-            margin-bottom: 12px;
-        }
-
-        .notif-card {
-            background: rgba(255, 255, 255, 0.85);
-            border-radius: 20px;
-            padding: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            position: relative;
-        }
-
-        .notif-card-title {
-            font-size: 15px;
-            font-weight: 500;
-            color: #1D1B20;
-        }
-
-        .notif-card-body {
-            font-size: 13px;
-            color: #49454F;
-            line-height: 1.45;
-        }
-
-        .notif-card-close {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: transparent;
-            border: none;
-            font-size: 16px;
-            color: #49454F;
-            cursor: pointer;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .notif-card-close:hover {
-            background: rgba(0, 0, 0, 0.06);
-        }
-
-        .notif-dock {
-            background: rgba(220, 214, 228, 0.85);
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
-            padding: 14px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-        }
-
-        .notif-count-text {
-            font-size: 13px;
-            font-weight: 500;
-            color: #1C1B1F;
-        }
-
-        .notif-dock-controls {
-            display: flex;
-            gap: 8px;
-        }
-
-        .dock-btn {
-            background: rgba(103, 80, 164, 0.12);
-            color: #6750A4;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 16px;
-            font-size: 12px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-
-        .dock-btn:hover {
-            background: rgba(103, 80, 164, 0.22);
-        }
-
-        .dock-btn.active {
-            background: #6750A4;
-            color: #FFFFFF;
-        }
-
-        /* --- BOOT & SETUP STYLES --- */
         #boot-screen {
             position: fixed;
             top: 0;
@@ -519,14 +113,6 @@
             opacity: 0;
             animation-delay: 1.8s;
             animation-fill-mode: forwards;
-        }
-
-        .boot-subtext {
-            margin-top: 16px;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.7);
-            letter-spacing: 0.3px;
-            font-weight: 400;
         }
 
         @keyframes fadeInLogo {
@@ -593,10 +179,10 @@
 
         .welcome-card {
             position: relative;
-            width: 540px;
-            min-height: 340px;
-            background: rgba(255, 255, 255, 0.88);
-            border: 1px solid rgba(255, 255, 255, 0.65);
+            width: 520px;
+            min-height: 320px;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.6);
             border-radius: 28px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
             padding: 36px;
@@ -604,6 +190,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .setup-step {
@@ -665,104 +252,6 @@
             overflow-y: auto;
             margin-top: 8px;
             margin-bottom: 12px;
-        }
-
-        .form-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-top: 16px;
-        }
-
-        .form-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .form-label {
-            font-size: 14px;
-            font-weight: 500;
-            color: #1C1B1F;
-            width: 140px;
-        }
-
-        .form-input {
-            flex: 1;
-            padding: 10px 16px;
-            border-radius: 12px;
-            border: 1px solid #79747E;
-            background: rgba(255, 255, 255, 0.8);
-            font-size: 14px;
-            color: #1D1B20;
-            outline: none;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
-            user-select: text;
-        }
-
-        .form-input:focus {
-            border-color: #6750A4;
-            box-shadow: 0 0 0 2px rgba(103, 80, 164, 0.2);
-        }
-
-        .error-msg {
-            color: #B3261E;
-            font-size: 12px;
-            margin-top: 8px;
-            display: none;
-        }
-
-        .shield-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: 8px;
-        }
-
-        .shield-icon-badge {
-            width: 56px;
-            height: 56px;
-            background: #E8DEF8;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 4px;
-        }
-
-        .shield-icon-badge svg {
-            width: 28px;
-            height: 28px;
-            fill: #1D192B;
-        }
-
-        .shield-title {
-            font-size: 18px;
-            font-weight: 500;
-            color: #1C1B1F;
-        }
-
-        .shield-description {
-            font-size: 13px;
-            color: #49454F;
-            line-height: 1.45;
-            text-align: left;
-            margin-top: 8px;
-            background: rgba(0, 0, 0, 0.03);
-            padding: 12px 14px;
-            border-radius: 12px;
-            border: 1px solid rgba(0, 0, 0, 0.06);
-        }
-
-        .expandable-content {
-            max-height: 48px;
-            overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .expandable-content.expanded {
-            max-height: 250px;
         }
 
         .card-actions {
@@ -948,168 +437,6 @@
             transform: translateY(10px);
             z-index: 8500;
         }
-
-        #login-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://i.postimg.cc/SsGx12j9/Untitled2542-20261027024807.png');
-            background-size: cover;
-            background-position: center;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9000;
-            transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        #login-screen::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 14, 19, 0.55);
-            backdrop-filter: blur(35px);
-            -webkit-backdrop-filter: blur(35px);
-        }
-
-        .login-card {
-            position: relative;
-            z-index: 9100;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 16px;
-            width: 340px;
-        }
-
-        .login-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .login-username {
-            font-size: 22px;
-            font-weight: 500;
-            color: #FFFFFF;
-            letter-spacing: -0.3px;
-        }
-
-        .login-input-group {
-            position: relative;
-            width: 100%;
-            display: flex;
-            align-items: center;
-        }
-
-        .login-password-input {
-            width: 100%;
-            padding: 12px 48px 12px 20px;
-            border-radius: 28px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            background: rgba(255, 255, 255, 0.12);
-            color: #FFFFFF;
-            font-size: 14px;
-            outline: none;
-            backdrop-filter: blur(10px);
-            transition: border-color 0.2s ease, background 0.2s ease;
-            user-select: text;
-        }
-
-        .login-password-input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .login-password-input:focus {
-            border-color: #D0BCFF;
-            background: rgba(255, 255, 255, 0.18);
-        }
-
-        .login-submit-btn {
-            position: absolute;
-            right: 6px;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: #D0BCFF;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: transform 0.15s ease, background 0.2s ease;
-        }
-
-        .login-submit-btn svg {
-            width: 20px;
-            height: 20px;
-            fill: #381E72;
-        }
-
-        .login-submit-btn:hover {
-            background: #EADDFF;
-        }
-
-        .login-submit-btn:active {
-            transform: scale(0.92);
-        }
-
-        .forgot-password-box {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            text-align: center;
-            margin-top: 12px;
-            animation: fadeIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .forgot-password-text {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.85);
-            line-height: 1.4;
-        }
-
-        #reset-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(18, 18, 22, 0.92);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            z-index: 9500;
-            display: none;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .reset-modal-card {
-            position: relative;
-            width: 440px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 28px;
-            padding: 36px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
     </style>
 </head>
 <body>
@@ -1117,7 +444,6 @@
     <div id="boot-screen">
         <img src="https://i.postimg.cc/1zD3tp89/Untitled2544-20261027050233.png" alt="OS Logo" class="boot-logo">
         <div class="boot-loader"></div>
-        <div class="boot-subtext" id="boot-subtext" style="display: none;">starting services</div>
     </div>
 
     <div id="welcome-screen">
@@ -1140,7 +466,7 @@
             <div id="step-loader" class="setup-step" style="display: none;">
                 <div class="step-loader-container">
                     <div class="material-spinner"></div>
-                    <div class="loader-subtext" id="loader-status-text">restarting</div>
+                    <div class="loader-subtext" id="loader-status-text" style="display: none;">restarting</div>
                 </div>
             </div>
 
@@ -1155,49 +481,6 @@
                 </div>
                 <div class="card-actions">
                     <button class="btn-material" onclick="openAgreementPopup()">Next</button>
-                </div>
-            </div>
-
-            <div id="step-user-creation" class="setup-step" style="display: none;">
-                <div>
-                    <h1 class="welcome-title">make a user</h1>
-                    <div class="form-grid">
-                        <div class="form-row">
-                            <label class="form-label" for="username-input">username</label>
-                            <input type="text" id="username-input" class="form-input" placeholder="Enter username" autocomplete="off">
-                        </div>
-                        <div class="form-row">
-                            <label class="form-label" for="password-input">password</label>
-                            <input type="password" id="password-input" class="form-input" placeholder="Enter password">
-                        </div>
-                        <div class="form-row">
-                            <label class="form-label" for="confirm-password-input">confirm password</label>
-                            <input type="password" id="confirm-password-input" class="form-input" placeholder="Confirm password">
-                        </div>
-                    </div>
-                    <div class="error-msg" id="user-creation-error"></div>
-                </div>
-                <div class="card-actions">
-                    <button class="btn-material" onclick="validateUserCreation()">Next</button>
-                </div>
-            </div>
-
-            <div id="step-shield-warning" class="setup-step" style="display: none;">
-                <div class="shield-container">
-                    <div class="shield-icon-badge">
-                        <svg viewBox="0 0 24 24"><path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,3.18L19,6.3V11C19,15.52 16.03,19.72 12,20.93C7.97,19.72 5,15.52 5,11V6.3L12,3.18Z"/></svg>
-                    </div>
-                    <div class="shield-title">Don't forget your password!</div>
-                    <div class="shield-description">
-                        <div class="expandable-content" id="shield-text-content">
-                            If you ever forget your password, you can always reset the data and history on your browser and re-launch the setup, or click "forgot password" on login. However, if you reset your browser data and history you will lose other stored data, so it's best to reset the password without risking any data (e.g. logging into other unrelated Material OS sites). This is your last chance to go back and change your password to something else if needed.
-                        </div>
-                        <button class="btn-text" id="shield-toggle-btn" style="padding: 4px 0; margin-top: 4px; font-size: 12px;" onclick="toggleShieldText()">Show more</button>
-                    </div>
-                </div>
-                <div class="card-actions">
-                    <button class="btn-text" onclick="goBackToUserCreation()">Go back</button>
-                    <button class="btn-material" onclick="completeUserSetup()">I understand and create user</button>
                 </div>
             </div>
         </div>
@@ -1241,219 +524,16 @@
         <div class="greeting-text" id="greeting-text">Hi</div>
     </div>
 
-    <div id="login-screen">
-        <div class="login-card">
-            <img src="https://i.postimg.cc/ydNwc4V8/Untitled2545-20261027054658.png" alt="Profile Avatar" class="login-avatar">
-            <div class="login-username" id="display-login-username">User</div>
-            <div class="login-input-group">
-                <input type="password" id="login-password-field" class="login-password-input" placeholder="Password" onkeydown="if(event.key==='Enter') verifyLoginPassword()">
-                <button class="login-submit-btn" onclick="verifyLoginPassword()">
-                    <svg viewBox="0 0 24 24"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/></svg>
-                </button>
-            </div>
-            <div class="forgot-password-box" id="forgot-password-container">
-                <div class="forgot-password-text">forgot password? Click the button below to reset your password.</div>
-                <button class="btn-material" onclick="openResetModal()">Reset password</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="reset-modal">
-        <button class="modal-close-btn" onclick="closeResetModal()">✕</button>
-        <div class="reset-modal-card">
-            <div id="reset-loader" style="display: flex; flex-direction: column; align-items: center; gap: 16px;">
-                <div class="material-spinner"></div>
-                <div class="loader-subtext">Preparing password reset...</div>
-            </div>
-            <div id="reset-form" style="display: none; width: 100%; flex-direction: column; gap: 16px;">
-                <h3 style="font-size: 20px; font-weight: 500; color: #1C1B1F; text-align: center;">Reset Password</h3>
-                <input type="password" id="new-reset-password" class="form-input" placeholder="New password">
-                <input type="password" id="confirm-reset-password" class="form-input" placeholder="Confirm new password">
-                <div class="error-msg" id="reset-error-msg"></div>
-                <button class="btn-material" style="width: 100%; margin-top: 8px;" onclick="saveNewPasswordAndLogin()">Save & Continue</button>
-            </div>
-        </div>
-    </div>
-
     <div id="desktop">
-        <div id="notification-center">
-            <div class="notif-header">
-                <span class="notif-header-title">Notifications</span>
-            </div>
-            <div class="notif-list" id="notif-list-container"></div>
-            <div class="notif-dock">
-                <span class="notif-count-text" id="notif-count-display">All notifications. 0</span>
-                <div class="notif-dock-controls">
-                    <button class="dock-btn" id="mute-notif-btn" onclick="toggleMuteNotifications()">Mute</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- CALCULATOR WINDOW -->
-        <div class="os-window" id="calculator-window">
-            <div class="window-header" onmousedown="startWindowDrag(event, 'calculator-window')">
-                <span class="window-title">Calculator</span>
-                <div class="window-controls">
-                    <button class="window-ctrl-btn" onclick="minimizeWindow('calculator-window')" title="Minimize">
-                        <svg viewBox="0 0 24 24"><path d="M19,13H5V11H19V13Z"/></svg>
-                    </button>
-                    <button class="window-ctrl-btn" onclick="closeWindow('calculator-window')" title="Close">
-                        <svg viewBox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"/></svg>
-                    </button>
-                </div>
-            </div>
-            <div class="window-body">
-                <div class="calc-display-container">
-                    <div class="calc-expression" id="calc-expression"></div>
-                    <div class="calc-result" id="calc-result">0</div>
-                </div>
-                <div class="calc-scientific-row">
-                    <span onclick="appendCalc('Math.sqrt(')">&radig;</span>
-                    <span onclick="appendCalc('**')">&pi;</span>
-                    <span onclick="appendCalc('**')">^</span>
-                    <span onclick="appendCalc('!')">!</span>
-                    <span style="color: #6750A4;" onclick="clearCalcEntry()">&#x2335;</span>
-                </div>
-                <div class="calc-keypad">
-                    <button class="calc-btn ac" onclick="clearCalculator()">AC</button>
-                    <button class="calc-btn function" onclick="appendCalc('(')">(</button>
-                    <button class="calc-btn function" onclick="appendCalc(')')">)</button>
-                    <button class="calc-btn operator" onclick="appendCalc('/')">&divide;</button>
-
-                    <button class="calc-btn" onclick="appendCalc('7')">7</button>
-                    <button class="calc-btn" onclick="appendCalc('8')">8</button>
-                    <button class="calc-btn" onclick="appendCalc('9')">9</button>
-                    <button class="calc-btn operator" onclick="appendCalc('*')">&times;</button>
-
-                    <button class="calc-btn" onclick="appendCalc('4')">4</button>
-                    <button class="calc-btn" onclick="appendCalc('5')">5</button>
-                    <button class="calc-btn" onclick="appendCalc('6')">6</button>
-                    <button class="calc-btn operator" onclick="appendCalc('-')">-</button>
-
-                    <button class="calc-btn" onclick="appendCalc('1')">1</button>
-                    <button class="calc-btn" onclick="appendCalc('2')">2</button>
-                    <button class="calc-btn" onclick="appendCalc('3')">3</button>
-                    <button class="calc-btn operator" onclick="appendCalc('+')">+</button>
-
-                    <button class="calc-btn" onclick="appendCalc('0')">0</button>
-                    <button class="calc-btn" onclick="appendCalc('.')">.</button>
-                    <button class="calc-btn function" onclick="backspaceCalc()">&#9003;</button>
-                    <button class="calc-btn equals" onclick="calculateResult()">=</button>
-                </div>
-            </div>
-        </div>
-
         <div id="taskbar">
-            <div id="taskbar-left"></div>
-            <div id="taskbar-center">
-                <div class="taskbar-app-icon" onclick="openWindow('calculator-window')" title="Calculator">
-                    <svg viewBox="0 0 24 24"><path d="M19,3H5C3.89,3 3,3.89 3,5V19C3,20.1 3.89,21 5,21H19C20.1,21 21,20.1 21,19V5C21,3.89 20.1,3 19,3M19,5V7H5V5H19M5,19V9H19V19H5M7,11H9V13H7V11M11,11H13V13H11V11M15,11H17V13H15V11M7,15H9V17H7V15M11,15H13V17H11V15M15,15H17V17H15V15Z"/></svg>
-                </div>
-            </div>
-            <div id="taskbar-right">
-                <div id="taskbar-clock" onclick="toggleNotificationCenter(event)">
-                    <div class="time-text" id="time-display">00:00</div>
-                    <div class="date-text" id="date-display">00/00/00</div>
-                </div>
-                <div id="notification-center-btn" onclick="toggleNotificationCenter(event)">
-                    <svg viewBox="0 0 24 24"><path d="M12,22A2,2 0 0,0 14,20H10A2,2 0 0,0 12,22M18,16V11C18,7.93 16.36,5.36 13.5,4.68V4A1.5,1.5 0 0,0 12,2.5A1.5,1.5 0 0,0 10.5,4V4.68C7.63,5.36 6,7.92 6,11V16L4,18V19H20V18L18,16Z"/></svg>
-                    <div class="notif-badge" id="notif-unread-badge"></div>
-                </div>
+            <div id="taskbar-clock">
+                <div class="time-text" id="time-display">00:00</div>
+                <div class="date-text" id="date-display">00/00/00</div>
             </div>
         </div>
     </div>
 
     <script>
-        let createdUsername = "";
-        let createdPassword = "";
-        let failedLoginAttempts = 0;
-        let notificationsList = [];
-        let isMuted = false;
-
-        // Window Draggable Logic
-        let activeWindow = null;
-        let dragOffsetX = 0;
-        let dragOffsetY = 0;
-
-        function startWindowDrag(e, windowId) {
-            const win = document.getElementById(windowId);
-            activeWindow = win;
-            dragOffsetX = e.clientX - win.offsetLeft;
-            dragOffsetY = e.clientY - win.offsetTop;
-            
-            // Bring to front
-            document.querySelectorAll('.os-window').forEach(w => w.style.zIndex = '2000');
-            win.style.zIndex = '3000';
-
-            document.addEventListener('mousemove', onWindowDrag);
-            document.addEventListener('mouseup', stopWindowDrag);
-        }
-
-        function onWindowDrag(e) {
-            if (!activeWindow) return;
-            activeWindow.style.left = (e.clientX - dragOffsetX) + 'px';
-            activeWindow.style.top = (e.clientY - dragOffsetY) + 'px';
-        }
-
-        function stopWindowDrag() {
-            activeWindow = null;
-            document.removeEventListener('mousemove', onWindowDrag);
-            document.removeEventListener('mouseup', stopWindowDrag);
-        }
-
-        function openWindow(windowId) {
-            const win = document.getElementById(windowId);
-            win.style.display = 'flex';
-            document.querySelectorAll('.os-window').forEach(w => w.style.zIndex = '2000');
-            win.style.zIndex = '3000';
-        }
-
-        function closeWindow(windowId) {
-            document.getElementById(windowId).style.display = 'none';
-        }
-
-        function minimizeWindow(windowId) {
-            document.getElementById(windowId).style.display = 'none';
-        }
-
-        // Calculator Logic
-        let calcInput = "";
-        let calcExpression = "";
-
-        function appendCalc(val) {
-            calcInput += val;
-            document.getElementById('calc-result').innerText = calcInput;
-        }
-
-        function clearCalculator() {
-            calcInput = "";
-            calcExpression = "";
-            document.getElementById('calc-result').innerText = "0";
-            document.getElementById('calc-expression').innerText = "";
-        }
-
-        function clearCalcEntry() {
-            calcInput = "";
-            document.getElementById('calc-result').innerText = "0";
-        }
-
-        function backspaceCalc() {
-            calcInput = calcInput.slice(0, -1);
-            document.getElementById('calc-result').innerText = calcInput === "" ? "0" : calcInput;
-        }
-
-        function calculateResult() {
-            try {
-                document.getElementById('calc-expression').innerText = calcInput;
-                let evaluated = eval(calcInput.replace(/×/g, '*').replace(/÷/g, '/'));
-                calcInput = String(evaluated);
-                document.getElementById('calc-result').innerText = calcInput;
-            } catch (err) {
-                document.getElementById('calc-result').innerText = "Error";
-                calcInput = "";
-            }
-        }
-
         function updateClock() {
             const now = new Date();
             let hours = now.getHours();
@@ -1477,37 +557,30 @@
             if (isSetupDone === 'true') {
                 document.getElementById('boot-screen').style.display = 'none';
                 document.getElementById('welcome-screen').style.display = 'none';
-                showLoginScreen();
+                document.getElementById('desktop').style.display = 'block';
             } else {
-                playBootAnimation(false, () => {
+                playBootAnimation(() => {
                     document.getElementById('welcome-screen').style.display = 'flex';
                 });
             }
         });
 
-        function playBootAnimation(showServicesText, onComplete) {
+        function playBootAnimation(onComplete) {
             const bootScreen = document.getElementById('boot-screen');
-            const bootSubtext = document.getElementById('boot-subtext');
-
-            bootSubtext.style.display = showServicesText ? 'block' : 'none';
             bootScreen.style.display = 'flex';
             bootScreen.style.opacity = '1';
-
-            const duration = showServicesText ? 3000 : 3600;
 
             setTimeout(() => {
                 bootScreen.style.opacity = '0';
                 setTimeout(() => {
                     bootScreen.style.display = 'none';
-                    bootSubtext.style.display = 'none';
                     if (onComplete) onComplete();
                 }, 800);
-            }, duration);
+            }, 3600);
         }
 
         function goToLoadingStep() {
             document.getElementById('step-1').style.display = 'none';
-            document.getElementById('loader-status-text').style.display = 'none';
             document.getElementById('step-loader').style.display = 'flex';
 
             setTimeout(() => {
@@ -1536,7 +609,6 @@
             closeAgreementPopup();
             
             document.getElementById('step-terms').style.display = 'none';
-            document.getElementById('loader-status-text').innerText = 'restarting';
             document.getElementById('loader-status-text').style.display = 'block';
             document.getElementById('step-loader').style.display = 'flex';
 
@@ -1548,7 +620,7 @@
                     welcomeScreen.style.display = 'none';
                     document.getElementById('loader-status-text').style.display = 'none';
 
-                    playBootAnimation(false, () => {
+                    playBootAnimation(() => {
                         playGreetingSequence();
                     });
                 }, 800);
@@ -1595,14 +667,8 @@
                                     greetingScreen.style.opacity = '0';
                                     setTimeout(() => {
                                         greetingScreen.style.display = 'none';
-                                        
-                                        setTimeout(() => {
-                                            playBootAnimation(true, () => {
-                                                document.getElementById('welcome-screen').style.display = 'flex';
-                                                document.getElementById('welcome-screen').style.opacity = '1';
-                                                document.getElementById('step-user-creation').style.display = 'flex';
-                                            });
-                                        }, 4500);
+                                        document.getElementById('desktop').style.display = 'block';
+                                        localStorage.setItem('os_setup_done', 'true');
                                     }, 800);
                                 }, 800);
                             }, 3000);
@@ -1610,216 +676,6 @@
                     }, 800);
                 }, 2000);
             }, 300);
-        }
-
-        function validateUserCreation() {
-            const usernameInput = document.getElementById('username-input').value.trim();
-            const passwordInput = document.getElementById('password-input').value;
-            const confirmPasswordInput = document.getElementById('confirm-password-input').value;
-            const errorMsg = document.getElementById('user-creation-error');
-
-            if (!usernameInput || !passwordInput) {
-                errorMsg.innerText = "Please fill in all fields.";
-                errorMsg.style.display = "block";
-                return;
-            }
-
-            if (passwordInput !== confirmPasswordInput) {
-                errorMsg.innerText = "Passwords do not match.";
-                errorMsg.style.display = "block";
-                return;
-            }
-
-            errorMsg.style.display = "none";
-            createdUsername = usernameInput;
-            createdPassword = passwordInput;
-
-            document.getElementById('step-user-creation').style.display = 'none';
-            document.getElementById('step-shield-warning').style.display = 'flex';
-        }
-
-        function goBackToUserCreation() {
-            document.getElementById('step-shield-warning').style.display = 'none';
-            document.getElementById('step-user-creation').style.display = 'flex';
-        }
-
-        function toggleShieldText() {
-            const content = document.getElementById('shield-text-content');
-            const btn = document.getElementById('shield-toggle-btn');
-
-            if (content.classList.contains('expanded')) {
-                content.classList.remove('expanded');
-                btn.innerText = "Show more";
-            } else {
-                content.classList.add('expanded');
-                btn.innerText = "Show less";
-            }
-        }
-
-        function completeUserSetup() {
-            localStorage.setItem('os_username', createdUsername);
-            localStorage.setItem('os_password', createdPassword);
-
-            document.getElementById('step-shield-warning').style.display = 'none';
-            document.getElementById('loader-status-text').innerText = 'creating user';
-            document.getElementById('loader-status-text').style.display = 'block';
-            document.getElementById('step-loader').style.display = 'flex';
-
-            setTimeout(() => {
-                localStorage.setItem('os_setup_done', 'true');
-                const welcomeScreen = document.getElementById('welcome-screen');
-                welcomeScreen.style.opacity = '0';
-
-                setTimeout(() => {
-                    welcomeScreen.style.display = 'none';
-                    showLoginScreen();
-                }, 800);
-            }, 6000);
-        }
-
-        function showLoginScreen() {
-            const savedUsername = localStorage.getItem('os_username') || "User";
-            document.getElementById('display-login-username').innerText = savedUsername;
-            
-            const loginScreen = document.getElementById('login-screen');
-            loginScreen.style.display = 'flex';
-            loginScreen.style.opacity = '1';
-        }
-
-        function verifyLoginPassword() {
-            const enteredPassword = document.getElementById('login-password-field').value;
-            const actualPassword = localStorage.getItem('os_password');
-
-            if (enteredPassword === actualPassword) {
-                launchDesktopEnvironment();
-            } else {
-                failedLoginAttempts++;
-                const passwordInput = document.getElementById('login-password-field');
-                passwordInput.value = '';
-                passwordInput.style.borderColor = '#B3261E';
-
-                if (failedLoginAttempts >= 3) {
-                    document.getElementById('forgot-password-container').style.display = 'flex';
-                }
-            }
-        }
-
-        function launchDesktopEnvironment() {
-            const loginScreen = document.getElementById('login-screen');
-            loginScreen.style.opacity = '0';
-            setTimeout(() => {
-                loginScreen.style.display = 'none';
-                document.getElementById('desktop').style.display = 'block';
-                checkFirstTimeWelcomeNotification();
-            }, 800);
-        }
-
-        function checkFirstTimeWelcomeNotification() {
-            const hasLoggedInBefore = localStorage.getItem('os_logged_in_before');
-            if (!hasLoggedInBefore) {
-                localStorage.setItem('os_logged_in_before', 'true');
-                addNotification(
-                    "Welcome!",
-                    "take a look around to get to know your new operating system! There's so much to learn and to know. To get started why not check out some apps"
-                );
-            }
-        }
-
-        function addNotification(title, body) {
-            if (isMuted) return;
-            const notif = { id: Date.now(), title, body };
-            notificationsList.unshift(notif);
-            renderNotifications();
-        }
-
-        function removeNotification(id) {
-            notificationsList = notificationsList.filter(n => n.id !== id);
-            renderNotifications();
-        }
-
-        function renderNotifications() {
-            const container = document.getElementById('notif-list-container');
-            container.innerHTML = '';
-
-            notificationsList.forEach(notif => {
-                const card = document.createElement('div');
-                card.className = 'notif-card';
-                card.innerHTML = `
-                    <button class="notif-card-close" onclick="removeNotification(${notif.id})">✕</button>
-                    <div class="notif-card-title">${notif.title}</div>
-                    <div class="notif-card-body">${notif.body}</div>
-                `;
-                container.appendChild(card);
-            });
-
-            document.getElementById('notif-count-display').innerText = `All notifications. ${notificationsList.length}`;
-            const badge = document.getElementById('notif-unread-badge');
-            if (notificationsList.length > 0) {
-                badge.style.display = 'block';
-            } else {
-                badge.style.display = 'none';
-            }
-        }
-
-        function toggleNotificationCenter(e) {
-            if (e) e.stopPropagation();
-            const notifCenter = document.getElementById('notification-center');
-            if (notifCenter.style.display === 'flex') {
-                notifCenter.style.display = 'none';
-            } else {
-                notifCenter.style.display = 'flex';
-                document.getElementById('notif-unread-badge').style.display = 'none';
-            }
-        }
-
-        function toggleMuteNotifications() {
-            isMuted = !isMuted;
-            const btn = document.getElementById('mute-notif-btn');
-            if (isMuted) {
-                btn.classList.add('active');
-                btn.innerText = 'Muted';
-            } else {
-                btn.classList.remove('active');
-                btn.innerText = 'Mute';
-            }
-        }
-
-        function openResetModal() {
-            const modal = document.getElementById('reset-modal');
-            modal.style.display = 'flex';
-            document.getElementById('reset-loader').style.display = 'flex';
-            document.getElementById('reset-form').style.display = 'none';
-
-            setTimeout(() => {
-                document.getElementById('reset-loader').style.display = 'none';
-                document.getElementById('reset-form').style.display = 'flex';
-            }, 2000);
-        }
-
-        function closeResetModal() {
-            document.getElementById('reset-modal').style.display = 'none';
-        }
-
-        function saveNewPasswordAndLogin() {
-            const newPass = document.getElementById('new-reset-password').value;
-            const confirmPass = document.getElementById('confirm-reset-password').value;
-            const errorMsg = document.getElementById('reset-error-msg');
-
-            if (!newPass) {
-                errorMsg.innerText = "Please enter a new password.";
-                errorMsg.style.display = 'block';
-                return;
-            }
-
-            if (newPass !== confirmPass) {
-                errorMsg.innerText = "Passwords do not match.";
-                errorMsg.style.display = 'block';
-                return;
-            }
-
-            localStorage.setItem('os_password', newPass);
-            closeResetModal();
-            launchDesktopEnvironment();
         }
     </script>
 </body>

@@ -115,6 +115,14 @@
             animation-fill-mode: forwards;
         }
 
+        .boot-subtext {
+            margin-top: 16px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 0.3px;
+            font-weight: 400;
+        }
+
         @keyframes fadeInLogo {
             to {
                 opacity: 1;
@@ -179,10 +187,10 @@
 
         .welcome-card {
             position: relative;
-            width: 520px;
-            min-height: 320px;
-            background: rgba(255, 255, 255, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            width: 540px;
+            min-height: 340px;
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid rgba(255, 255, 255, 0.65);
             border-radius: 28px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
             padding: 36px;
@@ -252,6 +260,100 @@
             overflow-y: auto;
             margin-top: 8px;
             margin-bottom: 12px;
+        }
+
+        .form-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .form-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1C1B1F;
+            width: 140px;
+        }
+
+        .form-input {
+            flex: 1;
+            padding: 10px 16px;
+            border-radius: 12px;
+            border: 1px solid #79747E;
+            background: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            color: #1D1B20;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            user-select: text;
+        }
+
+        .form-input:focus {
+            border-color: #6750A4;
+            box-shadow: 0 0 0 2px rgba(103, 80, 164, 0.2);
+        }
+
+        .error-msg {
+            color: #B3261E;
+            font-size: 12px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .shield-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 8px;
+        }
+
+        .shield-icon {
+            width: 56px;
+            height: 56px;
+            background: #E8DEF8;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 26px;
+            color: #1D192B;
+            margin-bottom: 4px;
+        }
+
+        .shield-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #1C1B1F;
+        }
+
+        .shield-description {
+            font-size: 13px;
+            color: #49454F;
+            line-height: 1.45;
+            text-align: left;
+            margin-top: 8px;
+            background: rgba(0, 0, 0, 0.03);
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        .expandable-content {
+            max-height: 48px;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .expandable-content.expanded {
+            max-height: 250px;
         }
 
         .card-actions {
@@ -444,6 +546,7 @@
     <div id="boot-screen">
         <img src="https://i.postimg.cc/1zD3tp89/Untitled2544-20261027050233.png" alt="OS Logo" class="boot-logo">
         <div class="boot-loader"></div>
+        <div class="boot-subtext" id="boot-subtext" style="display: none;">starting services</div>
     </div>
 
     <div id="welcome-screen">
@@ -481,6 +584,47 @@
                 </div>
                 <div class="card-actions">
                     <button class="btn-material" onclick="openAgreementPopup()">Next</button>
+                </div>
+            </div>
+
+            <div id="step-user-creation" class="setup-step" style="display: none;">
+                <div>
+                    <h1 class="welcome-title">make a user</h1>
+                    <div class="form-grid">
+                        <div class="form-row">
+                            <label class="form-label" for="username-input">username</label>
+                            <input type="text" id="username-input" class="form-input" placeholder="Enter username" autocomplete="off">
+                        </div>
+                        <div class="form-row">
+                            <label class="form-label" for="password-input">password</label>
+                            <input type="password" id="password-input" class="form-input" placeholder="Enter password">
+                        </div>
+                        <div class="form-row">
+                            <label class="form-label" for="confirm-password-input">confirm password</label>
+                            <input type="password" id="confirm-password-input" class="form-input" placeholder="Confirm password">
+                        </div>
+                    </div>
+                    <div class="error-msg" id="user-creation-error"></div>
+                </div>
+                <div class="card-actions">
+                    <button class="btn-material" onclick="validateUserCreation()">Next</button>
+                </div>
+            </div>
+
+            <div id="step-shield-warning" class="setup-step" style="display: none;">
+                <div class="shield-container">
+                    <div class="shield-icon">🛡️</div>
+                    <div class="shield-title">Don't forget your password!</div>
+                    <div class="shield-description">
+                        <div class="expandable-content" id="shield-text-content">
+                            If you ever forget your password, you can always reset the data and history on your browser and re-launch the setup, or click "forgot password" on login. However, if you reset your browser data and history you will lose other stored data, so it's best to reset the password without risking any data (e.g. logging into other unrelated Material OS sites). This is your last chance to go back and change your password to something else if needed.
+                        </div>
+                        <button class="btn-text" id="shield-toggle-btn" style="padding: 4px 0; margin-top: 4px; font-size: 12px;" onclick="toggleShieldText()">Show more</button>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <button class="btn-text" onclick="goBackToUserCreation()">Go back</button>
+                    <button class="btn-material" onclick="completeUserSetup()">I understand and create user</button>
                 </div>
             </div>
         </div>
@@ -534,6 +678,9 @@
     </div>
 
     <script>
+        let createdUsername = "";
+        let createdPassword = "";
+
         function updateClock() {
             const now = new Date();
             let hours = now.getHours();
@@ -559,24 +706,30 @@
                 document.getElementById('welcome-screen').style.display = 'none';
                 document.getElementById('desktop').style.display = 'block';
             } else {
-                playBootAnimation(() => {
+                playBootAnimation(false, () => {
                     document.getElementById('welcome-screen').style.display = 'flex';
                 });
             }
         });
 
-        function playBootAnimation(onComplete) {
+        function playBootAnimation(showServicesText, onComplete) {
             const bootScreen = document.getElementById('boot-screen');
+            const bootSubtext = document.getElementById('boot-subtext');
+
+            bootSubtext.style.display = showServicesText ? 'block' : 'none';
             bootScreen.style.display = 'flex';
             bootScreen.style.opacity = '1';
+
+            const duration = showServicesText ? 3000 : 3600;
 
             setTimeout(() => {
                 bootScreen.style.opacity = '0';
                 setTimeout(() => {
                     bootScreen.style.display = 'none';
+                    bootSubtext.style.display = 'none';
                     if (onComplete) onComplete();
                 }, 800);
-            }, 3600);
+            }, duration);
         }
 
         function goToLoadingStep() {
@@ -620,7 +773,7 @@
                     welcomeScreen.style.display = 'none';
                     document.getElementById('loader-status-text').style.display = 'none';
 
-                    playBootAnimation(() => {
+                    playBootAnimation(false, () => {
                         playGreetingSequence();
                     });
                 }, 800);
@@ -667,8 +820,14 @@
                                     greetingScreen.style.opacity = '0';
                                     setTimeout(() => {
                                         greetingScreen.style.display = 'none';
-                                        document.getElementById('desktop').style.display = 'block';
-                                        localStorage.setItem('os_setup_done', 'true');
+                                        
+                                        setTimeout(() => {
+                                            playBootAnimation(true, () => {
+                                                document.getElementById('welcome-screen').style.display = 'flex';
+                                                document.getElementById('welcome-screen').style.opacity = '1';
+                                                document.getElementById('step-user-creation').style.display = 'flex';
+                                            });
+                                        }, 4500);
                                     }, 800);
                                 }, 800);
                             }, 3000);
@@ -676,6 +835,64 @@
                     }, 800);
                 }, 2000);
             }, 300);
+        }
+
+        function validateUserCreation() {
+            const usernameInput = document.getElementById('username-input').value.trim();
+            const passwordInput = document.getElementById('password-input').value;
+            const confirmPasswordInput = document.getElementById('confirm-password-input').value;
+            const errorMsg = document.getElementById('user-creation-error');
+
+            if (!usernameInput || !passwordInput) {
+                errorMsg.innerText = "Please fill in all fields.";
+                errorMsg.style.display = "block";
+                return;
+            }
+
+            if (passwordInput !== confirmPasswordInput) {
+                errorMsg.innerText = "Passwords do not match.";
+                errorMsg.style.display = "block";
+                return;
+            }
+
+            errorMsg.style.display = "none";
+            createdUsername = usernameInput;
+            createdPassword = passwordInput;
+
+            document.getElementById('step-user-creation').style.display = 'none';
+            document.getElementById('step-shield-warning').style.display = 'flex';
+        }
+
+        function goBackToUserCreation() {
+            document.getElementById('step-shield-warning').style.display = 'none';
+            document.getElementById('step-user-creation').style.display = 'flex';
+        }
+
+        function toggleShieldText() {
+            const content = document.getElementById('shield-text-content');
+            const btn = document.getElementById('shield-toggle-btn');
+
+            if (content.classList.contains('expanded')) {
+                content.classList.remove('expanded');
+                btn.innerText = "Show more";
+            } else {
+                content.classList.add('expanded');
+                btn.innerText = "Show less";
+            }
+        }
+
+        function completeUserSetup() {
+            localStorage.setItem('os_username', createdUsername);
+            localStorage.setItem('os_password', createdPassword);
+            localStorage.setItem('os_setup_done', 'true');
+
+            const welcomeScreen = document.getElementById('welcome-screen');
+            welcomeScreen.style.opacity = '0';
+
+            setTimeout(() => {
+                welcomeScreen.style.display = 'none';
+                document.getElementById('desktop').style.display = 'block';
+            }, 800);
         }
     </script>
 </body>

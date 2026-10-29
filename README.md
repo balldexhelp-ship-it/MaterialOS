@@ -34,3 +34,9 @@ and please, dont use personal info. the sMe passwords when making an account. on
 - **added more content into settings**
 - **fixxed start menu orb size**
 - **fixxed an issue with saving personalization settings when in guest account as previous versions with the feature would save wallpaper changes from a guest account to the user made account. And version shows pop-up warning before guest logs off.**
+
+## Known Issues
+**these issues come from official testing and official standards 
+
+- **guest account wallpaper gets changed if the user changes the wallpaper on the user account**
+A change will be made shortly 

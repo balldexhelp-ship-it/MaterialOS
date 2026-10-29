@@ -21,8 +21,11 @@ and please, dont use personal info. the sMe passwords when making an account. on
 (Hopefully this is common sense to some people, but save yourself the trouble.)
 
 
-#What’s New?
+# What’s New?
 
 **Material OS is now in beta version 2.0. Keep in mind that this version number will stay the same for a bit. There should only be around two or three betas for now.**
 
 **Beta 2 focuses on applications like the settings app.**
+
+- **added more content into settings**
+- **fixxed start menu orb size**

@@ -1,42 +1,53 @@
-# MaterialOS
-[![Untitled2544-20261027050233.png](https://i.postimg.cc/1zD3tp89/Untitled2544-20261027050233.png)](https://postimg.cc/XZ7b1BKh)
+MaterialOS
 
-# What is material OS? 
-**this repo which is the official repo where the HTML itself is able to be available**
+Untitled2544-20261027050233.png⁠￼
 
-## info
-Material OS is in Beta meaning the operating system is actively being made, and there are very little useful elements yet to come into the OS meaning also parts of things like application applications and more yet implemented meaning if you do go to pages link most likely material OS will be incomplete
+What is Material OS?
 
+This is the official repo for Material OS, where the HTML itself is available.
 
-# check it out
+Info
 
-https://balldexhelp-ship-it.github.io/MaterialOS/
+Material OS is currently in beta, meaning the operating system is still being made. There aren’t a whole lot of useful features yet, and things like applications and other parts of the OS are still being worked on.
 
+So if you go to certain pages, there’s a good chance Material OS will be incomplete.
 
-I wouldn't check it out though because I currently have no fix for this as it's going to be an actual feature, but with the use of local storage, the only resolution I'm having to try to see if things are implementing or not is to clear all of my Safari history.
-So it's suggested that you wait until the operating system releases
+Check it out
 
-And in the near future, I will have releases for a file that is material OS but in html where you can run in your browser. 
+https://balldexhelp-ship-it.github.io/MaterialOS/⁠￼
 
-## warning
-**once many parts of the operating system are done, which as of now things like making your account are already in the operating system. It's worth to note this as a warning
+I wouldn’t recommend checking it out just yet, though. There’s currently an issue with local storage, and I don’t have a fix for it yet. Since local storage is also going to be an actual feature, the only way I’ve been able to test if things are being implemented properly is by clearing all my Safari history.
 
-# DO NOT AND I REPEAT DO NOT USE ANY REAL INFORMATION TO FILL OUT YOUR USER INFORMATION 
-This is common sense hopefully to some people, but please save yourself trouble 
-There's no guest option or anything where local storage won't save info for now.
+So I’d suggest waiting until the OS is a bit more complete.
 
+In the near future, I’ll also have releases available as HTML files, so you can run Material OS directly in your browser.
 
+Warning
 
-## Whats New?
-Material OS is now in beta version 1.0. Keep in mind that this version number will stay the same for a bit, and there should only be about two or three betas, however, for now.
+A lot of parts of the operating system are still being worked on, although things like account creation are already implemented.
 
+DO NOT, AND I REPEAT, DO NOT USE ANY REAL INFORMATION WHEN FILLING OUT YOUR USER INFORMATION
 
-[![Untitled2548-20261028174231.png](https://i.postimg.cc/7YtqxwtX/Untitled2548-20261028174231.png)](https://postimg.cc/0bSTnRsJ)
+Hopefully this is common sense to some people, but save yourself the trouble.
 
-**Beta 1 is improving animation responsiveness and main components or parts of things like the taskbar or other things. Beta 2 should be about content delivery, meaning you will be seeing a settings app. Things like uploading your own wallpaper are planned, but it's subject to change.**
+There’s no guest option yet, and local storage will save your information for now. Keep that in mind.
 
-### beta 1.1
-This little section is for the more smaller updates. They're not huge, but they're still updates usually ending with .1-1
+What’s New?
 
-updated security when handling and managing user account password passwords 
+Material OS is now in beta version 2.0. Keep in mind that this version number will stay the same for a bit. There should only be around two or three betas for now.
 
+Untitled2548-20261028174231.png⁠￼
+
+Beta 1 focused on improving animation responsiveness and the main components of the OS, like the taskbar and other elements.
+
+Beta 2 is focusing more on content, meaning you’ll start seeing things like a Settings app. Features like uploading your own wallpaper are planned too, but that could still change.
+
+Beta 2.0
+
+The focus is now on the Settings app, with more features coming soon.
+
+Why do beta updates come so often?
+
+It’s beta updates. What do you expect?
+
+Some versions are funky lol.

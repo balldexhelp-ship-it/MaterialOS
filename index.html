@@ -197,28 +197,35 @@
             display: none;
         }
 
-        /* Minimal Start Menu */
+        /* Larger Rounded Square Start Menu */
         #start-menu {
             position: absolute;
             bottom: 56px;
             left: 12px;
-            width: 220px;
+            width: 320px;
+            height: 380px;
             background: rgba(26, 27, 30, 0.94);
             border: 1px solid rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(35px);
             -webkit-backdrop-filter: blur(35px);
-            border-radius: 24px;
+            border-radius: 32px;
             box-shadow: 0 20px 48px rgba(0, 0, 0, 0.6);
             z-index: 9999;
             display: none;
             flex-direction: column;
-            padding: 16px;
+            overflow: hidden;
             animation: slideUpStartMenu 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         @keyframes slideUpStartMenu {
             from { opacity: 0; transform: translateY(20px) scale(0.95); }
             to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .start-menu-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
         }
 
         .start-app-grid {
@@ -266,13 +273,51 @@
             color: rgba(255, 255, 255, 0.9);
         }
 
-        /* Material OS Window Styling */
+        .start-menu-divider {
+            width: 100%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.12);
+            border: none;
+        }
+
+        .start-menu-footer {
+            height: 64px;
+            background: rgba(35, 36, 40, 0.98);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logoff-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #E6E1E5;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s ease, transform 0.1s ease;
+        }
+
+        .logoff-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .logoff-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* Material OS Window Styling with Split Sidebar */
         .os-window {
             position: absolute;
             top: 15%;
-            left: 25%;
-            width: 580px;
-            height: 380px;
+            left: 20%;
+            width: 680px;
+            height: 440px;
             background: rgba(28, 27, 31, 0.95);
             border: 1px solid rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(30px);
@@ -330,14 +375,54 @@
             color: #E6E1E5;
         }
 
-        .window-content {
+        .settings-body {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .settings-sidebar {
+            width: 240px;
+            background: rgba(45, 44, 50, 0.7);
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .settings-user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 10px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .settings-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .settings-username-text {
+            font-size: 13px;
+            font-weight: 500;
+            color: #E6E1E5;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .settings-content-area {
             flex: 1;
             padding: 24px;
             color: #CAC4D0;
             font-size: 14px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
+            overflow-y: auto;
         }
 
         #clock-calendar-flyout {
@@ -1513,17 +1598,26 @@
             <div class="toast-body" id="toast-body-text">take a look around to get to know your new operating system! There's so much to learn and to know. To get started why not check out some apps</div>
         </div>
 
-        <!-- Minimal Start Menu -->
+        <!-- Larger Rounded Square Start Menu -->
         <div id="start-menu">
-            <div class="start-app-grid">
-                <div class="app-item" onclick="openAppWindow('settings')">
-                    <div class="app-icon"><img src="https://i.postimg.cc/mkqW0c9K/Untitled2553-20261028234312.png" alt="Settings"></div>
-                    <div class="app-label">Settings</div>
+            <div class="start-menu-content">
+                <div class="start-app-grid">
+                    <div class="app-item" onclick="openAppWindow('settings')">
+                        <div class="app-icon"><img src="https://i.postimg.cc/mkqW0c9K/Untitled2553-20261028234312.png" alt="Settings"></div>
+                        <div class="app-label">Settings</div>
+                    </div>
                 </div>
+            </div>
+            <hr class="start-menu-divider">
+            <div class="start-menu-footer">
+                <button class="logoff-btn" onclick="logOffSystem()">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M16 17v-3H9v-4h7V7l5 5-5 5M14 2a2 2 0 0 1 2 2v2h-2V4H5v16h9v-2h2v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9z"/></svg>
+                    Log off
+                </button>
             </div>
         </div>
 
-        <!-- Settings App Window -->
+        <!-- Settings App Window with Split Sidebar Layout -->
         <div class="os-window" id="settings-window">
             <div class="window-titlebar">
                 <button class="window-close-btn" onclick="closeAppWindow('settings')" title="Close">
@@ -1531,9 +1625,18 @@
                 </button>
                 <div class="window-title">Settings</div>
             </div>
-            <div class="window-content">
-                <h3 style="color: #E6E1E5; font-weight: 500;">System Settings</h3>
-                <p>Welcome to Material OS Settings. Customize your system preferences and features here.</p>
+            <div class="settings-body">
+                <div class="settings-sidebar">
+                    <div></div>
+                    <div class="settings-user-profile">
+                        <img id="settings-user-avatar" src="https://i.postimg.cc/PxvmH9vP/Untitled2552-20261028230212.png" alt="Profile" class="settings-avatar">
+                        <div id="settings-username-display" class="settings-username-text">User</div>
+                    </div>
+                </div>
+                <div class="settings-content-area">
+                    <h3 style="color: #E6E1E5; font-weight: 500; margin-bottom: 8px;">System Settings</h3>
+                    <p>Welcome to Material OS Settings. Customize your system preferences and features here.</p>
+                </div>
             </div>
         </div>
 
@@ -1734,6 +1837,15 @@
                 `;
                 container.appendChild(appBtn);
             }
+        }
+
+        function logOffSystem() {
+            document.getElementById('start-menu').style.display = 'none';
+            document.getElementById('desktop').style.display = 'none';
+            // Close any open windows
+            document.getElementById('settings-window').style.display = 'none';
+            updateTaskbarMiddleIcons();
+            showLoginScreen();
         }
 
         document.addEventListener('click', (e) => {
@@ -2094,6 +2206,7 @@
 
                 if (computedHash === savedHash) {
                     guestSessionActive = false;
+                    updateSettingsUserSession();
                     const loginScreen = document.getElementById('login-screen');
                     loginScreen.style.opacity = '0';
                     setTimeout(() => {
@@ -2118,9 +2231,10 @@
         function loginAsGuest() {
             guestSessionActive = true;
             guestSessionData = {
-                username: "Guest",
+                username: "User Guest",
                 sessionStartedAt: new Date()
             };
+            updateSettingsUserSession();
 
             const loginScreen = document.getElementById('login-screen');
             loginScreen.style.opacity = '0';
@@ -2128,6 +2242,20 @@
                 loginScreen.style.display = 'none';
                 launchDesktopEnvironment();
             }, 800);
+        }
+
+        function updateSettingsUserSession() {
+            const usernameDisplay = document.getElementById('settings-username-display');
+            const avatarDisplay = document.getElementById('settings-user-avatar');
+
+            if (guestSessionActive) {
+                usernameDisplay.innerText = "User Guest";
+                avatarDisplay.src = "https://i.postimg.cc/Dzyg9xcx/Untitled2554-20261029000459.png";
+            } else {
+                const savedUser = localStorage.getItem('os_username') || "User";
+                usernameDisplay.innerText = savedUser;
+                avatarDisplay.src = "https://i.postimg.cc/PxvmH9vP/Untitled2552-20261028230212.png";
+            }
         }
 
         function openResetModal() {
@@ -2173,6 +2301,8 @@
 
                 closeResetModal();
 
+                guestSessionActive = false;
+                updateSettingsUserSession();
                 const loginScreen = document.getElementById('login-screen');
                 loginScreen.style.opacity = '0';
                 setTimeout(() => {
@@ -2190,7 +2320,7 @@
 
             if (guestSessionActive) {
                 document.getElementById('toast-title-text').innerText = "Welcome, Guest!";
-                document.getElementById('toast-body-text').innerText = "You are in a temporary guest session. Any changes will vanish when you close this window.";
+                document.getElementById('toast-body-text').innerText = "You are in a temporary guest session. Any changes will vanish when you log off.";
             }
 
             const firstLoginDone = localStorage.getItem('os_first_login_done');

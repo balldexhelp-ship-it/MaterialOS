@@ -40,14 +40,14 @@
             left: 0;
             width: 100%;
             height: 48px;
-            background: linear-gradient(90deg, rgba(18, 18, 22, 0.2) 0%, rgba(18, 18, 22, 0.95) 100%);
+            background: linear-gradient(90deg, rgba(18, 18, 22, 0.4) 0%, rgba(18, 18, 22, 0.95) 100%);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0 12px;
-            z-index: 1000;
+            z-index: 8000;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
 
@@ -77,7 +77,7 @@
         }
 
         #start-button:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.18);
         }
 
         #start-button:active {
@@ -88,6 +88,7 @@
             width: 24px;
             height: 24px;
             object-fit: contain;
+            pointer-events: none;
         }
 
         #taskbar-clock {
@@ -152,25 +153,25 @@
             display: none;
         }
 
-        /* Chrome OS Style Start Menu Launcher */
+        /* ChromeOS Style Start Menu Launcher */
         #start-menu {
             position: absolute;
             bottom: 56px;
             left: 12px;
             width: 480px;
             max-height: 560px;
-            background: rgba(30, 32, 28, 0.92);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(26, 27, 30, 0.94);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(35px);
             -webkit-backdrop-filter: blur(35px);
             border-radius: 28px;
             box-shadow: 0 20px 48px rgba(0, 0, 0, 0.6);
-            z-index: 2800;
+            z-index: 9999;
             display: none;
             flex-direction: column;
             padding: 20px;
             overflow-y: auto;
-            animation: slideUpStartMenu 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: slideUpStartMenu 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         @keyframes slideUpStartMenu {
@@ -316,7 +317,7 @@
             -webkit-backdrop-filter: blur(30px);
             border-radius: 28px;
             box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
-            z-index: 2500;
+            z-index: 8500;
             display: none;
             flex-direction: column;
             padding: 20px;
@@ -458,7 +459,7 @@
             -webkit-backdrop-filter: blur(25px);
             border-radius: 28px;
             box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
-            z-index: 2000;
+            z-index: 8500;
             display: none;
             flex-direction: column;
             overflow: hidden;
@@ -560,7 +561,7 @@
             border-radius: 24px;
             padding: 18px 20px;
             box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
-            z-index: 3000;
+            z-index: 9000;
             display: none;
             flex-direction: column;
             gap: 6px;
@@ -1478,7 +1479,7 @@
             <div class="toast-body" id="toast-body-text">take a look around to get to know your new operating system! There's so much to learn and to know. To get started why not check out some apps</div>
         </div>
 
-        <!-- ChromeOS Style Start Menu -->
+        <!-- ChromeOS Style Start Menu Launcher -->
         <div id="start-menu">
             <div class="start-search-bar">
                 <div class="start-search-icon">
@@ -1641,7 +1642,7 @@
             </div>
             <div class="notif-dock">
                 <button class="dock-btn" onclick="toggleMuteNotifs()">
-                    <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 12,6Z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6Z"/></svg>
                     <span id="mute-btn-text">Mute notifications</span>
                 </button>
             </div>
@@ -1649,7 +1650,7 @@
 
         <div id="taskbar">
             <div class="taskbar-left-section">
-                <button id="start-button" onclick="toggleStartMenu()" title="Launcher">
+                <button id="start-button" onclick="toggleStartMenu(event)" title="Launcher">
                     <img src="https://i.postimg.cc/6pFxHGKV/Untitled2546-20261027110329.png" alt="Start Menu">
                 </button>
             </div>
@@ -1748,7 +1749,8 @@
             }
         }
 
-        function toggleStartMenu() {
+        function toggleStartMenu(e) {
+            if (e) e.stopPropagation();
             const startMenu = document.getElementById('start-menu');
             document.getElementById('clock-calendar-flyout').style.display = 'none';
             document.getElementById('notification-center').style.display = 'none';

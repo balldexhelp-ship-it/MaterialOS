@@ -5,7 +5,7 @@
 **this repo which is the official repo where the HTML itself is able to be available**
 
 ## info
-Material OS is in pre alpha meaning the operating system is actively being made, and there are very little useful elements yet to come into the OS meaning also parts of things like application applications and more yet implemented meaning if you do go to pages link most likely material OS will be incomplete
+Material OS is in Beta meaning the operating system is actively being made, and there are very little useful elements yet to come into the OS meaning also parts of things like application applications and more yet implemented meaning if you do go to pages link most likely material OS will be incomplete
 
 
 # check it out
@@ -24,3 +24,10 @@ And in the near future, I will have releases for a file that is material OS but 
 # DO NOT AND I REPEAT DO NOT USE ANY REAL INFORMATION TO FILL OUT YOUR USER INFORMATION 
 This is common sense hopefully to some people, but please save yourself trouble 
 There's no guest option or anything where local storage won't save info for now.
+
+
+
+## Whats New?
+Material OS is now in beta version 1.0. Keep in mind that this version number will stay the same for a bit, and there should only be about two or three betas, however, for now.
+
+**Beta 1 is improving animation responsiveness and main components or parts of things like the taskbar or other things. Beta 2 should be about content delivery, meaning you will be seeing a settings app. Things like uploading your own wallpaper are planned, but it's subject to change.**

@@ -5,8 +5,6 @@
 ## What is Material OS?
 **This is the official repo for Material OS, where the HTML itself is available.**
 
-Info
-
 ## Material OS is currently in beta, meaning the operating system is still being made. There aren’t a whole lot of useful features yet, and things like applications and other parts of the OS are still being worked on.
 **So if you go to certain pages, there’s a good chance Material OS will be incomplete.**
 

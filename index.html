@@ -55,12 +55,23 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            width: 120px;
+        }
+
+        .taskbar-center-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex: 1;
         }
 
         .taskbar-right-section {
             display: flex;
             align-items: center;
+            justify-content: flex-end;
             gap: 8px;
+            width: 120px;
         }
 
         #start-button {
@@ -89,6 +100,39 @@
             height: 24px;
             object-fit: contain;
             pointer-events: none;
+        }
+
+        .taskbar-app-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.12);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            transition: background 0.2s ease, transform 0.15s ease;
+        }
+
+        .taskbar-app-icon:hover {
+            background: rgba(255, 255, 255, 0.22);
+        }
+
+        .taskbar-app-icon img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+        }
+
+        .taskbar-app-indicator {
+            position: absolute;
+            bottom: 3px;
+            width: 12px;
+            height: 3px;
+            background: #D0BCFF;
+            border-radius: 3px;
         }
 
         #taskbar-clock {
@@ -153,24 +197,22 @@
             display: none;
         }
 
-        /* ChromeOS Style Start Menu Launcher */
+        /* Minimal Start Menu */
         #start-menu {
             position: absolute;
             bottom: 56px;
             left: 12px;
-            width: 480px;
-            max-height: 560px;
+            width: 220px;
             background: rgba(26, 27, 30, 0.94);
             border: 1px solid rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(35px);
             -webkit-backdrop-filter: blur(35px);
-            border-radius: 28px;
+            border-radius: 24px;
             box-shadow: 0 20px 48px rgba(0, 0, 0, 0.6);
             z-index: 9999;
             display: none;
             flex-direction: column;
-            padding: 20px;
-            overflow-y: auto;
+            padding: 16px;
             animation: slideUpStartMenu 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -179,131 +221,123 @@
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        .start-search-bar {
-            width: 100%;
-            height: 48px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            display: flex;
-            align-items: center;
-            padding: 0 16px;
-            gap: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            margin-bottom: 16px;
-        }
-
-        .start-search-icon {
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .start-search-input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: #E6E1E5;
-            font-size: 14px;
-        }
-
-        .start-search-input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .start-mic-icon svg {
-            width: 18px;
-            height: 18px;
-            fill: #D0BCFF;
-        }
-
-        .start-promo-banner {
-            background: rgba(255, 255, 255, 0.06);
-            border-radius: 18px;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .promo-dots {
-            display: grid;
-            grid-template-columns: repeat(2, 6px);
-            gap: 4px;
-        }
-
-        .promo-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-        }
-
-        .promo-text-title {
-            font-size: 13px;
-            font-weight: 500;
-            color: #E6E1E5;
-        }
-
-        .promo-text-sub {
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.6);
-            margin-top: 2px;
-        }
-
         .start-app-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 16px 12px;
-            padding: 4px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
         .app-item {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
             cursor: pointer;
-            padding: 8px 4px;
+            padding: 10px 12px;
             border-radius: 16px;
             transition: background 0.2s ease, transform 0.15s ease;
         }
 
         .app-item:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.12);
         }
 
         .app-item:active {
-            transform: scale(0.94);
+            transform: scale(0.96);
         }
 
         .app-icon {
-            width: 44px;
-            height: 44px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
         }
 
         .app-icon img {
-            width: 26px;
-            height: 26px;
+            width: 24px;
+            height: 24px;
             object-fit: contain;
         }
 
         .app-label {
-            font-size: 11px;
-            color: rgba(255, 255, 255, 0.85);
-            text-align: center;
-            white-space: nowrap;
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Material OS Window Styling */
+        .os-window {
+            position: absolute;
+            top: 15%;
+            left: 25%;
+            width: 580px;
+            height: 380px;
+            background: rgba(28, 27, 31, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-radius: 24px;
+            box-shadow: 0 24px 48px rgba(0,0,0,0.5);
+            z-index: 7000;
+            display: none;
+            flex-direction: column;
             overflow: hidden;
-            text-overflow: ellipsis;
-            width: 100%;
+            animation: windowOpen 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes windowOpen {
+            from { opacity: 0; transform: scale(0.94); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .window-titlebar {
+            height: 44px;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            gap: 12px;
+        }
+
+        .window-close-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.2s ease;
+        }
+
+        .window-close-btn:hover {
+            background: rgba(234, 67, 53, 0.2);
+        }
+
+        .window-close-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: #E6E1E5;
+        }
+
+        .window-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #E6E1E5;
+        }
+
+        .window-content {
+            flex: 1;
+            padding: 24px;
+            color: #CAC4D0;
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
         #clock-calendar-flyout {
@@ -1479,136 +1513,27 @@
             <div class="toast-body" id="toast-body-text">take a look around to get to know your new operating system! There's so much to learn and to know. To get started why not check out some apps</div>
         </div>
 
-        <!-- ChromeOS Style Start Menu Launcher -->
+        <!-- Minimal Start Menu -->
         <div id="start-menu">
-            <div class="start-search-bar">
-                <div class="start-search-icon">
-                    <svg viewBox="0 0 24 24" width="18" height="18"><path fill="#4285F4" d="M12.5 11v2.5h6.1c-.2 1.3-1.5 3.8-6.1 3.8-3.7 0-6.7-3-6.7-6.8s3-6.8 6.7-6.8c2.1 0 3.5.9 4.3 1.7l1.9-1.9C17.2 2.1 15 1.2 12.5 1.2 6.6 1.2 1.8 6 1.8 11.9s4.8 10.7 10.7 10.7c6.2 0 10.3-4.3 10.3-10.4 0-.7-.1-1.2-.2-1.7H12.5z"/></svg>
-                </div>
-                <input type="text" class="start-search-input" placeholder="Search your device, apps, settings, web...">
-                <div class="start-mic-icon">
-                    <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
-                </div>
-            </div>
-
-            <div class="start-promo-banner">
-                <div class="promo-dots">
-                    <div class="promo-dot" style="background:#4285F4;"></div>
-                    <div class="promo-dot" style="background:#EA4335;"></div>
-                    <div class="promo-dot" style="background:#FBBC05;"></div>
-                    <div class="promo-dot" style="background:#34A853;"></div>
-                </div>
-                <div>
-                    <div class="promo-text-title">Sort your Apps by name or color</div>
-                    <div class="promo-text-sub">Right click launcher to organize your apps</div>
-                </div>
-            </div>
-
             <div class="start-app-grid">
-                <div class="app-item">
-                    <div class="app-icon" style="background: #4285F4;"><img src="https://api.iconify.design/logos:chrome.svg" alt="Chrome"></div>
-                    <div class="app-label">Chrome</div>
+                <div class="app-item" onclick="openAppWindow('settings')">
+                    <div class="app-icon"><img src="https://i.postimg.cc/mkqW0c9K/Untitled2553-20261028234312.png" alt="Settings"></div>
+                    <div class="app-label">Settings</div>
                 </div>
-                <div class="app-item">
-                    <div class="app-icon" style="background: #FFFFFF;"><img src="https://api.iconify.design/logos:google-play.svg" alt="Play Store"></div>
-                    <div class="app-label">Play Store</div>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon" style="background: #1877F2;"><img src="https://api.iconify.design/logos:zoom-icon.svg" alt="Zoom"></div>
-                    <div class="app-label">Zoom</div>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon" style="background: #107C41;"><img src="https://api.iconify.design/fluent-emoji-flat:open-file-folder.svg" alt="Files"></div>
-                    <div class="app-label">Files</div>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon" style="background: #EA4335;"><img src="https://api.iconify.design/logos:google-gmail.svg" alt="Gmail"></div>
-                    <div class="app-label">Gmail</div>
-                </div>
+            </div>
+        </div>
 
-                <div class="app-item">
-                    <div class="app-icon" style="background: #FFFFFF;"><img src="https://api.iconify.design/logos:chrome.svg" alt="Web Store"></div>
-                    <div class="app-label">Web Store</div>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon" style="background: #4285F4;"><img src="https://api.iconify.design/logos:chrome.svg" alt="Chrome"></div>
-                    <div class="app-label">Chrome</div>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon" style="background: #FFFFFF;"><img src="https://api.iconify.design/logos:google-play.svg" alt="Play Store"></div>
-                    <div class="app-label">Play Store</div>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon" style="background: #EA4335;"><img src="https://api.iconify.design/logos:google-gmail.svg" alt="Gmail"></div>
-                    <div class="app-label">Gmail</div>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon" style="background: #FF0000;"><img src="https://api.iconify.design/logos:youtube-icon.svg" alt="YouTube"></div>
-                    <div class="app-label">YouTube</div>
-                </div>
-
-                <div class="app-item">
-                    <div class="app-icon" style="background: #FF0000;"><img src="https://api.iconify.design/logos:youtube-icon.svg" alt="YouTube"></div>
-                    <div class="app-label">YouTube</div>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon" style="background: #FFFFFF;"><img src="https://api.iconify.design/logos:google-drive.svg" alt="Google Drive"></div>
-                    <div class="app-label">Google Drive</div>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon" style="background: #4285F4;"><img src="https://api.iconify.design/logos:google-docs.svg" alt="Docs"></div>
-                    <div class="app-label">Docs</div>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon" style="background: #FBBC04;"><img src="https://api.iconify.design/logos:google-slides.svg" alt="Slides"></div>
-                    <div class="app-label">Slides</div>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon" style="background: #34A853;"><img src="https://api.iconify.design/logos:google-sheets.svg" alt="Sheets"></div>
-                    <div class="app-label">Sheets</div>
-                </div>
-
-                <div class="app-item">
-                    <div class="app-icon" style="background: #4285F4;"><img src="https://api.iconify.design/logos:google-icon.svg" alt="Google"></div>
-                    <div class="app-label">Google Drive</div>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon" style="background: #FFFFFF;"><img src="https://api.iconify.design/logos:google-play.svg" alt="Play Books"></div>
-                    <div class="app-label">Play Books</div>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon" style="background: #00897B;"><img src="https://api.iconify.design/fluent:calculator-24-filled.svg" alt="Calculator"></div>
-                    <div class="app-label">Calculator</div>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon" style="background: #1A73E8;"><img src="https://api.iconify.design/logos:google-classroom.svg" alt="Classroom"></div>
-                    <div class="app-label">Classroom</div>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon" style="background: #107C41;"><img src="https://api.iconify.design/fluent-emoji-flat:open-file-folder.svg" alt="Files"></div>
-                    <div class="app-label">Files</div>
-                </div>
-
-                <div class="app-item">
-                    <div class="app-icon" style="background: #FF0000;"><img src="https://api.iconify.design/logos:youtube-icon.svg" alt="YouTube"></div>
-                    <div class="app-label">YouTube</div>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon" style="background: #FBBC04;"><img src="https://api.iconify.design/logos:google-keep.svg" alt="Keep"></div>
-                    <div class="app-label">Google Keep</div>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon" style="background: #4285F4;"><img src="https://api.iconify.design/fluent:camera-24-filled.svg" alt="Camera"></div>
-                    <div class="app-label">Camera</div>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon" style="background: #FFFFFF;"><img src="https://api.iconify.design/logos:google-photos.svg" alt="Photos"></div>
-                    <div class="app-label">Photos</div>
-                </div>
-                <div class="app-item">
-                    <div class="app-icon" style="background: #E50914;"><img src="https://api.iconify.design/logos:netflix-icon.svg" alt="Netflix"></div>
-                    <div class="app-label">Netflix</div>
-                </div>
+        <!-- Settings App Window -->
+        <div class="os-window" id="settings-window">
+            <div class="window-titlebar">
+                <button class="window-close-btn" onclick="closeAppWindow('settings')" title="Close">
+                    <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </button>
+                <div class="window-title">Settings</div>
+            </div>
+            <div class="window-content">
+                <h3 style="color: #E6E1E5; font-weight: 500;">System Settings</h3>
+                <p>Welcome to Material OS Settings. Customize your system preferences and features here.</p>
             </div>
         </div>
 
@@ -1654,6 +1579,7 @@
                     <img src="https://i.postimg.cc/6pFxHGKV/Untitled2546-20261027110329.png" alt="Start Menu">
                 </button>
             </div>
+            <div class="taskbar-center-section" id="taskbar-center-apps"></div>
             <div class="taskbar-right-section">
                 <div id="taskbar-clock" onclick="toggleClockCalendar()">
                     <div class="time-text" id="time-display">00:00</div>
@@ -1759,6 +1685,54 @@
                 startMenu.style.display = 'none';
             } else {
                 startMenu.style.display = 'flex';
+            }
+        }
+
+        /* App & Window Management Functions */
+        function openAppWindow(appId) {
+            document.getElementById('start-menu').style.display = 'none';
+            const win = document.getElementById(`${appId}-window`);
+            if (!win) return;
+
+            win.style.display = 'flex';
+            updateTaskbarMiddleIcons();
+        }
+
+        function closeAppWindow(appId) {
+            const win = document.getElementById(`${appId}-window`);
+            if (!win) return;
+
+            win.style.display = 'none';
+            updateTaskbarMiddleIcons();
+        }
+
+        function toggleWindowFromTaskbar(appId) {
+            const win = document.getElementById(`${appId}-window`);
+            if (!win) return;
+
+            if (win.style.display === 'flex') {
+                win.style.display = 'none';
+            } else {
+                win.style.display = 'flex';
+            }
+            updateTaskbarMiddleIcons();
+        }
+
+        function updateTaskbarMiddleIcons() {
+            const container = document.getElementById('taskbar-center-apps');
+            container.innerHTML = '';
+
+            const settingsWin = document.getElementById('settings-window');
+            if (settingsWin && settingsWin.style.display === 'flex') {
+                const appBtn = document.createElement('button');
+                appBtn.className = 'taskbar-app-icon';
+                appBtn.onclick = () => toggleWindowFromTaskbar('settings');
+                appBtn.title = 'Settings';
+                appBtn.innerHTML = `
+                    <img src="https://i.postimg.cc/mkqW0c9K/Untitled2553-20261028234312.png" alt="Settings">
+                    <div class="taskbar-app-indicator"></div>
+                `;
+                container.appendChild(appBtn);
             }
         }
 

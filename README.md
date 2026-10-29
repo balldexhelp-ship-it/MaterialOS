@@ -27,5 +27,8 @@ and please, dont use personal info. the sMe passwords when making an account. on
 
 **Beta 2 focuses on applications like the settings app.**
 
+
+### small fixes 
+
 - **added more content into settings**
 - **fixxed start menu orb size**

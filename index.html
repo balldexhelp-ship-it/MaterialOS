@@ -528,6 +528,131 @@
             text-decoration: underline;
         }
 
+        /* Settings Card Control */
+        .setting-control-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .setting-control-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .setting-control-title {
+            font-size: 15px;
+            font-weight: 500;
+            color: #E6E1E5;
+        }
+
+        .setting-control-desc {
+            font-size: 13px;
+            color: #CAC4D0;
+            line-height: 1.4;
+        }
+
+        .setting-control-btn {
+            background: #D0BCFF;
+            color: #381E72;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.2s ease, transform 0.1s ease;
+        }
+
+        .setting-control-btn:hover {
+            background: #EADDFF;
+        }
+
+        .setting-control-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* Full Screen Wallpaper Popup */
+        #wallpaper-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(18, 18, 22, 0.95);
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
+            z-index: 9999;
+            display: none;
+            flex-direction: column;
+            padding: 36px 48px;
+            color: #E6E1E5;
+            animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .wallpaper-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .wallpaper-modal-title {
+            font-size: 22px;
+            font-weight: 500;
+        }
+
+        .wallpaper-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        .wallpaper-item {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .wallpaper-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .wallpaper-item:hover {
+            transform: scale(1.02);
+        }
+
+        .wallpaper-item.selected {
+            border-color: #D0BCFF;
+            box-shadow: 0 0 0 4px rgba(208, 188, 255, 0.25);
+        }
+
+        .wallpaper-modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
         #clock-calendar-flyout {
             position: absolute;
             bottom: 56px;
@@ -1166,14 +1291,6 @@
             background: rgba(103, 80, 164, 0.08);
         }
 
-        .setup-guest-link-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            margin-top: 12px;
-        }
-
         #terms-modal {
             position: fixed;
             top: 0;
@@ -1591,11 +1708,8 @@
                     </div>
                     <div class="error-msg" id="user-creation-error"></div>
                 </div>
-                <div class="setup-guest-link-row">
-                    <button class="guest-login-btn" onclick="setupAsGuestUser()">Use Guest Account (No Storage)</button>
-                    <div class="card-actions" style="margin-top: 0;">
-                        <button class="btn-material" onclick="validateUserCreation()">Next</button>
-                    </div>
+                <div class="card-actions">
+                    <button class="btn-material" onclick="validateUserCreation()">Next</button>
                 </div>
             </div>
 
@@ -1706,6 +1820,24 @@
         </div>
     </div>
 
+    <!-- Full Screen Wallpaper Selector Popup -->
+    <div id="wallpaper-modal">
+        <div class="wallpaper-modal-header">
+            <div class="wallpaper-modal-title">Select Wallpaper</div>
+            <button class="window-close-btn" onclick="closeWallpaperModal()" title="Close">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+        </div>
+        <div class="wallpaper-grid" id="wallpaper-grid-container">
+            <!-- Wallpapers injected dynamically -->
+        </div>
+        <div class="wallpaper-modal-footer">
+            <input type="file" id="wallpaper-file-input" accept="image/*" style="display: none;" onchange="handleWallpaperUpload(event)">
+            <button class="btn-text" style="color: #E6E1E5; background: rgba(255,255,255,0.08);" onclick="document.getElementById('wallpaper-file-input').click()">Upload</button>
+            <button class="btn-material" onclick="applySelectedWallpaper()">Apply</button>
+        </div>
+    </div>
+
     <div id="desktop">
         <div id="toast-banner">
             <div class="toast-title" id="toast-title-text">Welcome!</div>
@@ -1772,7 +1904,14 @@
                     </div>
                     <div class="settings-panel" id="panel-personalization">
                         <h3 style="color: #E6E1E5; font-weight: 500; margin-bottom: 8px;">Personalization</h3>
-                        <p>Customize your workspace, wallpapers, themes, and visual appearance here.</p>
+                        
+                        <div class="setting-control-card">
+                            <div class="setting-control-info">
+                                <div class="setting-control-title">Change Wallpaper</div>
+                                <div class="setting-control-desc">Change your wallpaper to another default wallpaper or upload your own!</div>
+                            </div>
+                            <button class="setting-control-btn" onclick="openWallpaperModal()">Change wallpaper</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1844,6 +1983,14 @@
 
         let guestSessionActive = false;
         let guestSessionData = {};
+
+        const defaultWallpapers = [
+            'https://i.postimg.cc/NGr5SD8w/Untitled2542-20261027024807.png',
+            'https://i.postimg.cc/RCnNyd15/Untitled2550-20261028213546.png',
+            'https://i.postimg.cc/QNWHwmQR/Untitled2550-20261028214401.png',
+            'https://i.postimg.cc/CMfzX7Cp/Untitled2557-20261029143919.png'
+        ];
+        let pendingWallpaper = "";
 
         const PBKDF2_ITERATIONS = 600000;
         const SALT_BYTE_LENGTH = 16;
@@ -2001,17 +2148,80 @@
             });
         }
 
+        /* Wallpaper Customization Logic */
+        function openWallpaperModal() {
+            const modal = document.getElementById('wallpaper-modal');
+            const container = document.getElementById('wallpaper-grid-container');
+            container.innerHTML = '';
+
+            const currentBg = localStorage.getItem('os_wallpaper') || defaultWallpapers[0];
+            pendingWallpaper = currentBg;
+
+            defaultWallpapers.forEach(url => {
+                const item = document.createElement('div');
+                item.className = 'wallpaper-item' + (url === currentBg ? ' selected' : '');
+                item.onclick = () => {
+                    document.querySelectorAll('.wallpaper-item').forEach(el => el.classList.remove('selected'));
+                    item.classList.add('selected');
+                    pendingWallpaper = url;
+                };
+                item.innerHTML = `<img src="${url}" alt="Wallpaper Option">`;
+                container.appendChild(item);
+            });
+
+            modal.style.display = 'flex';
+        }
+
+        function closeWallpaperModal() {
+            document.getElementById('wallpaper-modal').style.display = 'none';
+        }
+
+        function handleWallpaperUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const customDataUrl = e.target.result;
+                    pendingWallpaper = customDataUrl;
+
+                    const container = document.getElementById('wallpaper-grid-container');
+                    document.querySelectorAll('.wallpaper-item').forEach(el => el.classList.remove('selected'));
+
+                    const item = document.createElement('div');
+                    item.className = 'wallpaper-item selected';
+                    item.innerHTML = `<img src="${customDataUrl}" alt="Uploaded Wallpaper">`;
+                    item.onclick = () => {
+                        document.querySelectorAll('.wallpaper-item').forEach(el => el.classList.remove('selected'));
+                        item.classList.add('selected');
+                        pendingWallpaper = customDataUrl;
+                    };
+                    container.prepend(item);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function applySelectedWallpaper() {
+            if (pendingWallpaper) {
+                localStorage.setItem('os_wallpaper', pendingWallpaper);
+                document.getElementById('desktop').style.backgroundImage = `url('${pendingWallpaper}')`;
+                document.getElementById('login-screen').style.backgroundImage = `url('${pendingWallpaper}')`;
+            }
+            closeWallpaperModal();
+        }
+
+        function loadSavedWallpaper() {
+            const savedBg = localStorage.getItem('os_wallpaper');
+            if (savedBg) {
+                document.getElementById('desktop').style.backgroundImage = `url('${savedBg}')`;
+                document.getElementById('login-screen').style.backgroundImage = `url('${savedBg}')`;
+            }
+        }
+
         function logOffSystem() {
             document.getElementById('start-menu').style.display = 'none';
             document.getElementById('desktop').style.display = 'none';
             document.getElementById('settings-window').style.display = 'none';
-            
-            // If guest session was active, clear memory state completely
-            if (guestSessionActive) {
-                guestSessionActive = false;
-                guestSessionData = {};
-            }
-
             updateTaskbarMiddleIcons();
             showLoginScreen();
         }
@@ -2135,6 +2345,7 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            loadSavedWallpaper();
             const isSetupDone = localStorage.getItem('os_setup_done');
 
             if (isSetupDone === 'true') {
@@ -2307,31 +2518,6 @@
                 errorMsg.innerText = "Error securing password. Please try again.";
                 errorMsg.style.display = "block";
             }
-        }
-
-        function setupAsGuestUser() {
-            guestSessionActive = true;
-            guestSessionData = {
-                username: "User Guest",
-                sessionStartedAt: new Date()
-            };
-
-            document.getElementById('loader-status-text').innerText = 'entering guest mode';
-            document.getElementById('loader-status-text').style.display = 'block';
-            document.getElementById('step-user-creation').style.display = 'none';
-            document.getElementById('step-loader').style.display = 'flex';
-
-            setTimeout(() => {
-                const welcomeScreen = document.getElementById('welcome-screen');
-                welcomeScreen.style.opacity = '0';
-
-                setTimeout(() => {
-                    welcomeScreen.style.display = 'none';
-                    document.getElementById('step-loader').style.display = 'none';
-                    updateSettingsUserSession();
-                    launchDesktopEnvironment();
-                }, 800);
-            }, 2000);
         }
 
         function goBackToUserCreation() {

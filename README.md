@@ -34,3 +34,9 @@ Material OS is now in beta version 1.0. Keep in mind that this version number wi
 [![Untitled2548-20261028174231.png](https://i.postimg.cc/7YtqxwtX/Untitled2548-20261028174231.png)](https://postimg.cc/0bSTnRsJ)
 
 **Beta 1 is improving animation responsiveness and main components or parts of things like the taskbar or other things. Beta 2 should be about content delivery, meaning you will be seeing a settings app. Things like uploading your own wallpaper are planned, but it's subject to change.**
+
+### beta 1.1
+This little section is for the more smaller updates. They're not huge, but they're still updates usually ending with .1-1
+
+updated security when handling and managing user account password passwords 
+

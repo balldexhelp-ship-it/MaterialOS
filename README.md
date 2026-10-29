@@ -30,4 +30,7 @@ There's no guest option or anything where local storage won't save info for now.
 ## Whats New?
 Material OS is now in beta version 1.0. Keep in mind that this version number will stay the same for a bit, and there should only be about two or three betas, however, for now.
 
+
+[![Untitled2548-20261028174231.png](https://i.postimg.cc/7YtqxwtX/Untitled2548-20261028174231.png)](https://postimg.cc/0bSTnRsJ)
+
 **Beta 1 is improving animation responsiveness and main components or parts of things like the taskbar or other things. Beta 2 should be about content delivery, meaning you will be seeing a settings app. Things like uploading your own wallpaper are planned, but it's subject to change.**

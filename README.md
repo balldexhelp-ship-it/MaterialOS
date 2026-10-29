@@ -9,7 +9,7 @@
 **So if you go to certain pages, there’s a good chance Material OS will be incomplete.**
 
 # Try out Material OS BETA 2!
-https://balldexhelp-ship-it.github.io/MaterialOS/⁠￼
+https://balldexhelp-ship-it.github.io/MaterialOS/
 **(I wouldn’t recommend checking it out just yet, though. There’s currently an issue with local storage, and I don’t have a fix for it yet. Since local storage is also going to be an actual feature, the only way I’ve been able to test if things are being implemented properly is by clearing all my Safari history**.
 So I’d suggest waiting until the OS is a bit more complete.
 

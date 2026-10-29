@@ -114,6 +114,153 @@
             display: none;
         }
 
+        /* Clock & Calendar Flyout (Windows 10 style with Material You) */
+        #clock-calendar-flyout {
+            position: absolute;
+            bottom: 56px;
+            right: 12px;
+            width: 340px;
+            background: rgba(30, 29, 36, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 28px;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+            padding: 20px;
+            color: #E6E1E5;
+            animation: slideUpFlyout 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        @keyframes slideUpFlyout {
+            from { opacity: 0; transform: translateY(12px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .flyout-time-header {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+
+        }
+
+        .flyout-large-time {
+            font-size: 38px;
+            font-weight: 400;
+            color: #FFFFFF;
+            letter-spacing: -0.5px;
+            line-height: 1;
+        }
+
+        .flyout-ampm {
+            font-size: 16px;
+            font-weight: 500;
+            color: #D0BCFF;
+        }
+
+        .flyout-full-date {
+            font-size: 14px;
+            font-weight: 400;
+            color: #CAC4D0;
+            margin-top: 6px;
+            margin-bottom: 16px;
+        }
+
+        .flyout-divider {
+            width: 100%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.12);
+            margin-bottom: 16px;
+        }
+
+        .calendar-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 0 4px;
+        }
+
+        .calendar-month-year {
+            font-size: 15px;
+            font-weight: 500;
+            color: #E6E1E5;
+        }
+
+        .calendar-nav-controls {
+            display: flex;
+            gap: 4px;
+        }
+
+        .calendar-nav-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.08);
+            color: #E6E1E5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .calendar-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .calendar-nav-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: #E6E1E5;
+        }
+
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-size: 12px;
+            font-weight: 500;
+            color: #D0BCFF;
+            margin-bottom: 8px;
+        }
+
+        .calendar-days-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            text-align: center;
+        }
+
+        .calendar-day-cell {
+            aspect-ratio: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 13px;
+            border-radius: 50%;
+            color: #E6E1E5;
+            transition: background 0.2s ease, color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .calendar-day-cell:hover:not(.empty-day) {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .calendar-day-cell.other-month {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .calendar-day-cell.today {
+            background: #D0BCFF !important;
+            color: #381E72 !important;
+            font-weight: 700;
+        }
+
         #notification-center {
             position: absolute;
             bottom: 56px;
@@ -1067,8 +1214,33 @@
             </div>
         </div>
 
+        <!-- Clock & Calendar Windows 10 Style Flyout -->
+        <div id="clock-calendar-flyout">
+            <div class="flyout-time-header">
+                <div class="flyout-large-time" id="flyout-time-digits">00:00:00</div>
+                <div class="flyout-ampm" id="flyout-ampm-text">AM</div>
+            </div>
+            <div class="flyout-full-date" id="flyout-date-text">Wednesday, October 28, 2026</div>
+            <div class="flyout-divider"></div>
+            <div class="calendar-nav">
+                <div class="calendar-month-year" id="calendar-month-year-text">October 2026</div>
+                <div class="calendar-nav-controls">
+                    <button class="calendar-nav-btn" onclick="navigateMonth(-1)" title="Previous month">
+                        <svg viewBox="0 0 24 24"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z"/></svg>
+                    </button>
+                    <button class="calendar-nav-btn" onclick="navigateMonth(1)" title="Next month">
+                        <svg viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="calendar-weekdays">
+                <div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div>
+            </div>
+            <div class="calendar-days-grid" id="calendar-days-container"></div>
+        </div>
+
         <div id="taskbar">
-            <div id="taskbar-clock" onclick="toggleNotificationCenter()">
+            <div id="taskbar-clock" onclick="toggleClockCalendarFlyout()">
                 <div class="time-text" id="time-display">00:00</div>
                 <div class="date-text" id="date-display">00/00/00</div>
             </div>
@@ -1085,20 +1257,130 @@
         let failedLoginAttempts = 0;
         let isMuted = false;
 
+        // Calendar viewing state
+        let calendarViewDate = new Date();
+
+        function getOrdinalSuffix(day) {
+            if (day > 3 && day < 21) return 'th';
+            switch (day % 10) {
+                case 1:  return "st";
+                case 2:  return "nd";
+                case 3:  return "rd";
+                default: return "th";
+            }
+        }
+
         function updateClock() {
             const now = new Date();
             let hours = now.getHours();
             const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
             const ampm = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12;
-            hours = hours ? hours : 12;
-            document.getElementById('time-display').innerText = `${hours}:${minutes} ${ampm}`;
+            
+            const hours12 = hours % 12 ? hours % 12 : 12;
+            const hoursStr = String(hours12).padStart(2, '0');
 
-            const day = String(now.getDate()).padStart(2, '0');
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const year = String(now.getFullYear()).slice(-2);
-            document.getElementById('date-display').innerText = `${day}/${month}/${year}`;
+            // Taskbar Clock
+            document.getElementById('time-display').innerText = `${hours12}:${minutes} ${ampm}`;
+            const dayNum = String(now.getDate()).padStart(2, '0');
+            const monthNum = String(now.getMonth() + 1).padStart(2, '0');
+            const yearShort = String(now.getFullYear()).slice(-2);
+            document.getElementById('date-display').innerText = `${dayNum}/${monthNum}/${yearShort}`;
+
+            // Flyout Clock
+            document.getElementById('flyout-time-digits').innerText = `${hoursStr}:${minutes}:${seconds}`;
+            document.getElementById('flyout-ampm-text').innerText = ampm;
+
+            // Flyout Date format: Wednesday, October 28th, 2026
+            const dayName = now.toLocaleDateString('en-US', { weekday: 'long' });
+            const monthName = now.toLocaleDateString('en-US', { month: 'long' });
+            const dayVal = now.getDate();
+            const yearVal = now.getFullYear();
+            const suffix = getOrdinalSuffix(dayVal);
+            
+            document.getElementById('flyout-date-text').innerText = `${dayName}, ${monthName} ${dayVal}${suffix}, ${yearVal}`;
         }
+
+        function renderCalendarGrid() {
+            const container = document.getElementById('calendar-days-container');
+            container.innerHTML = '';
+
+            const today = new Date();
+            const currentYear = calendarViewDate.getFullYear();
+            const currentMonth = calendarViewDate.getMonth();
+
+            // Month and Year label
+            const monthName = calendarViewDate.toLocaleDateString('en-US', { month: 'long' });
+            document.getElementById('calendar-month-year-text').innerText = `${monthName} ${currentYear}`;
+
+            // First day of month
+            const firstDayIndex = new Date(currentYear, currentMonth, 1).getDay();
+            
+            // Last day of current month
+            const lastDate = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+            // Previous month last days
+            const prevLastDate = new Date(currentYear, currentMonth, 0).getDate();
+
+            // Render previous month padding days
+            for (let i = firstDayIndex; i > 0; i--) {
+                const cell = document.createElement('div');
+                cell.className = 'calendar-day-cell other-month';
+                cell.innerText = prevLastDate - i + 1;
+                container.appendChild(cell);
+            }
+
+            // Render current month days
+            for (let day = 1; day <= lastDate; day++) {
+                const cell = document.createElement('div');
+                cell.className = 'calendar-day-cell';
+                cell.innerText = day;
+
+                const isToday = day === today.getDate() &&
+                                currentMonth === today.getMonth() &&
+                                currentYear === today.getFullYear();
+
+                if (isToday) {
+                    cell.classList.add('today');
+                }
+
+                container.appendChild(cell);
+            }
+
+            // Render next month padding days to make full grid rows
+            const totalCells = firstDayIndex + lastDate;
+            const remainingCells = (7 - (totalCells % 7)) % 7;
+            for (let j = 1; j <= remainingCells; j++) {
+                const cell = document.createElement('div');
+                cell.className = 'calendar-day-cell other-month';
+                cell.innerText = j;
+                container.appendChild(cell);
+            }
+        }
+
+        function navigateMonth(direction) {
+            calendarViewDate.setMonth(calendarViewDate.getMonth() + direction);
+            renderCalendarGrid();
+        }
+
+        function toggleClockCalendarFlyout() {
+            const flyout = document.getElementById('clock-calendar-flyout');
+            const notifCenter = document.getElementById('notification-center');
+
+            // Close notification center if open
+            if (notifCenter.style.display === 'flex') {
+                notifCenter.style.display = 'none';
+            }
+
+            if (flyout.style.display === 'flex') {
+                flyout.style.display = 'none';
+            } else {
+                calendarViewDate = new Date();
+                renderCalendarGrid();
+                flyout.style.display = 'flex';
+            }
+        }
+
         setInterval(updateClock, 1000);
         updateClock();
 
@@ -1414,6 +1696,13 @@
 
         function toggleNotificationCenter() {
             const center = document.getElementById('notification-center');
+            const flyout = document.getElementById('clock-calendar-flyout');
+
+            // Close calendar flyout if open
+            if (flyout.style.display === 'flex') {
+                flyout.style.display = 'none';
+            }
+
             if (center.style.display === 'flex') {
                 center.style.display = 'none';
             } else {

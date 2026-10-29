@@ -75,8 +75,8 @@
         }
 
         #start-button {
-            width: 36px;
-            height: 36px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             border: none;
             background: transparent;
@@ -96,8 +96,8 @@
         }
 
         #start-button img {
-            width: 24px;
-            height: 24px;
+            width: 30px;
+            height: 30px;
             object-fit: contain;
             pointer-events: none;
         }
@@ -197,7 +197,7 @@
             display: none;
         }
 
-        /* Larger Rounded Square Start Menu */
+        /* Start Menu */
         #start-menu {
             position: absolute;
             bottom: 56px;
@@ -311,7 +311,7 @@
             transform: scale(0.96);
         }
 
-        /* Material OS Window Styling with Split Sidebar */
+        /* Settings App Window */
         .os-window {
             position: absolute;
             top: 15%;
@@ -388,7 +388,66 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 20px;
+            padding: 16px;
+        }
+
+        .settings-sidebar-top {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .settings-search-bar {
+            width: 100%;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            gap: 8px;
+        }
+
+        .settings-search-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #E6E1E5;
+            font-size: 13px;
+        }
+
+        .settings-search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .settings-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            color: #E6E1E5;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .settings-nav-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .settings-nav-item.active {
+            background: rgba(208, 188, 255, 0.15);
+            color: #D0BCFF;
+        }
+
+        .settings-nav-icon {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
         }
 
         .settings-user-profile {
@@ -423,6 +482,16 @@
             color: #CAC4D0;
             font-size: 14px;
             overflow-y: auto;
+        }
+
+        .settings-panel {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .settings-panel.active {
+            display: flex;
         }
 
         #clock-calendar-flyout {
@@ -1598,7 +1667,7 @@
             <div class="toast-body" id="toast-body-text">take a look around to get to know your new operating system! There's so much to learn and to know. To get started why not check out some apps</div>
         </div>
 
-        <!-- Larger Rounded Square Start Menu -->
+        <!-- Start Menu -->
         <div id="start-menu">
             <div class="start-menu-content">
                 <div class="start-app-grid">
@@ -1617,7 +1686,7 @@
             </div>
         </div>
 
-        <!-- Settings App Window with Split Sidebar Layout -->
+        <!-- Settings App Window -->
         <div class="os-window" id="settings-window">
             <div class="window-titlebar">
                 <button class="window-close-btn" onclick="closeAppWindow('settings')" title="Close">
@@ -1627,15 +1696,34 @@
             </div>
             <div class="settings-body">
                 <div class="settings-sidebar">
-                    <div></div>
+                    <div class="settings-sidebar-top">
+                        <div class="settings-search-bar">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="rgba(255,255,255,0.6)"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                            <input type="text" class="settings-search-input" placeholder="Search settings" oninput="filterSettingsNav(this.value)">
+                        </div>
+                        <div class="settings-nav-item active" id="nav-item-system" onclick="switchSettingsTab('system')">
+                            <img src="https://i.postimg.cc/mkqW0c9K/Untitled2553-20261028234312.png" alt="System" class="settings-nav-icon">
+                            <span>System</span>
+                        </div>
+                        <div class="settings-nav-item" id="nav-item-personalization" onclick="switchSettingsTab('personalization')">
+                            <img src="https://i.postimg.cc/fy9x2hCT/Untitled2555-20261029131530.png" alt="Personalization" class="settings-nav-icon">
+                            <span>Personalization</span>
+                        </div>
+                    </div>
                     <div class="settings-user-profile">
                         <img id="settings-user-avatar" src="https://i.postimg.cc/PxvmH9vP/Untitled2552-20261028230212.png" alt="Profile" class="settings-avatar">
                         <div id="settings-username-display" class="settings-username-text">User</div>
                     </div>
                 </div>
                 <div class="settings-content-area">
-                    <h3 style="color: #E6E1E5; font-weight: 500; margin-bottom: 8px;">System Settings</h3>
-                    <p>Welcome to Material OS Settings. Customize your system preferences and features here.</p>
+                    <div class="settings-panel active" id="panel-system">
+                        <h3 style="color: #E6E1E5; font-weight: 500; margin-bottom: 8px;">System Settings</h3>
+                        <p>Welcome to Material OS Settings. Customize your system preferences and features here.</p>
+                    </div>
+                    <div class="settings-panel" id="panel-personalization">
+                        <h3 style="color: #E6E1E5; font-weight: 500; margin-bottom: 8px;">Personalization</h3>
+                        <p>Customize your workspace, wallpapers, themes, and visual appearance here.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1839,10 +1927,33 @@
             }
         }
 
+        function switchSettingsTab(tabName) {
+            document.querySelectorAll('.settings-nav-item').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.settings-panel').forEach(el => el.classList.remove('active'));
+
+            const navItem = document.getElementById(`nav-item-${tabName}`);
+            const panel = document.getElementById(`panel-${tabName}`);
+
+            if (navItem) navItem.classList.add('active');
+            if (panel) panel.classList.add('active');
+        }
+
+        function filterSettingsNav(query) {
+            const q = query.toLowerCase();
+            const navItems = document.querySelectorAll('.settings-sidebar-top .settings-nav-item');
+            navItems.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                if (text.includes(q)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
         function logOffSystem() {
             document.getElementById('start-menu').style.display = 'none';
             document.getElementById('desktop').style.display = 'none';
-            // Close any open windows
             document.getElementById('settings-window').style.display = 'none';
             updateTaskbarMiddleIcons();
             showLoginScreen();

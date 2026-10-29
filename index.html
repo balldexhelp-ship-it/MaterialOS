@@ -75,8 +75,8 @@
         }
 
         #start-button {
-            width: 42px;
-            height: 42px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             border: none;
             background: transparent;
@@ -96,8 +96,8 @@
         }
 
         #start-button img {
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             object-fit: contain;
             pointer-events: none;
         }
@@ -487,11 +487,45 @@
         .settings-panel {
             display: none;
             flex-direction: column;
-            gap: 12px;
+            gap: 16px;
         }
 
         .settings-panel.active {
             display: flex;
+        }
+
+        .github-promo-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 16px;
+            margin-top: 8px;
+        }
+
+        .github-promo-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .github-promo-text {
+            font-size: 13px;
+            color: #CAC4D0;
+            line-height: 1.5;
+        }
+
+        .github-link {
+            color: #8AB4F8;
+            text-decoration: none;
+        }
+
+        .github-link:hover {
+            text-decoration: underline;
         }
 
         #clock-calendar-flyout {
@@ -1701,9 +1735,9 @@
                             <svg viewBox="0 0 24 24" width="14" height="14" fill="rgba(255,255,255,0.6)"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
                             <input type="text" class="settings-search-input" placeholder="Search settings" oninput="filterSettingsNav(this.value)">
                         </div>
-                        <div class="settings-nav-item active" id="nav-item-system" onclick="switchSettingsTab('system')">
-                            <img src="https://i.postimg.cc/mkqW0c9K/Untitled2553-20261028234312.png" alt="System" class="settings-nav-icon">
-                            <span>System</span>
+                        <div class="settings-nav-item active" id="nav-item-home" onclick="switchSettingsTab('home')">
+                            <img src="https://i.postimg.cc/QNmsCWqD/Untitled2555-20261029132320.png" alt="Home" class="settings-nav-icon">
+                            <span>Home</span>
                         </div>
                         <div class="settings-nav-item" id="nav-item-personalization" onclick="switchSettingsTab('personalization')">
                             <img src="https://i.postimg.cc/fy9x2hCT/Untitled2555-20261029131530.png" alt="Personalization" class="settings-nav-icon">
@@ -1716,9 +1750,14 @@
                     </div>
                 </div>
                 <div class="settings-content-area">
-                    <div class="settings-panel active" id="panel-system">
-                        <h3 style="color: #E6E1E5; font-weight: 500; margin-bottom: 8px;">System Settings</h3>
-                        <p>Welcome to Material OS Settings. Customize your system preferences and features here.</p>
+                    <div class="settings-panel active" id="panel-home">
+                        <h3 style="color: #E6E1E5; font-weight: 500; margin-bottom: 4px;">Welcome!</h3>
+                        <div class="github-promo-card">
+                            <img src="https://i.postimg.cc/52qD7hKD/Untitled2555-20261029132852.png" alt="GitHub" class="github-promo-icon">
+                            <div class="github-promo-text">
+                                Check out our repo so you can get more news and updates <a href="https://github.com/balldexhelp-ship-it/MaterialOS" target="_blank" class="github-link">here</a>!
+                            </div>
+                        </div>
                     </div>
                     <div class="settings-panel" id="panel-personalization">
                         <h3 style="color: #E6E1E5; font-weight: 500; margin-bottom: 8px;">Personalization</h3>

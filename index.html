@@ -40,99 +40,16 @@
             left: 0;
             width: 100%;
             height: 48px;
-            background: linear-gradient(90deg, rgba(18, 18, 22, 0.4) 0%, rgba(18, 18, 22, 0.95) 100%);
+            background: linear-gradient(90deg, rgba(18, 18, 22, 0.2) 0%, rgba(18, 18, 22, 0.95) 100%);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
             padding: 0 12px;
-            z-index: 8000;
+            gap: 8px;
+            z-index: 1000;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .taskbar-left-section {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            width: 120px;
-        }
-
-        .taskbar-center-section {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            flex: 1;
-        }
-
-        .taskbar-right-section {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 8px;
-            width: 120px;
-        }
-
-        #start-button {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: background 0.2s ease, transform 0.15s ease;
-        }
-
-        #start-button:hover {
-            background: rgba(255, 255, 255, 0.18);
-        }
-
-        #start-button:active {
-            transform: scale(0.92);
-        }
-
-        #start-button img {
-            width: 32px;
-            height: 32px;
-            object-fit: contain;
-            pointer-events: none;
-        }
-
-        .taskbar-app-icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.12);
-            border: none;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            transition: background 0.2s ease, transform 0.15s ease;
-        }
-
-        .taskbar-app-icon:hover {
-            background: rgba(255, 255, 255, 0.22);
-        }
-
-        .taskbar-app-icon img {
-            width: 22px;
-            height: 22px;
-            object-fit: contain;
-        }
-
-        .taskbar-app-indicator {
-            position: absolute;
-            bottom: 3px;
-            width: 12px;
-            height: 3px;
-            background: #D0BCFF;
-            border-radius: 3px;
         }
 
         #taskbar-clock {
@@ -197,337 +114,6 @@
             display: none;
         }
 
-        /* Start Menu */
-        #start-menu {
-            position: absolute;
-            bottom: 56px;
-            left: 12px;
-            width: 320px;
-            height: 380px;
-            background: rgba(26, 27, 30, 0.94);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(35px);
-            -webkit-backdrop-filter: blur(35px);
-            border-radius: 32px;
-            box-shadow: 0 20px 48px rgba(0, 0, 0, 0.6);
-            z-index: 9999;
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            animation: slideUpStartMenu 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes slideUpStartMenu {
-            from { opacity: 0; transform: translateY(20px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        .start-menu-content {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        .start-app-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .app-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            padding: 10px 12px;
-            border-radius: 16px;
-            transition: background 0.2s ease, transform 0.15s ease;
-        }
-
-        .app-item:hover {
-            background: rgba(255, 255, 255, 0.12);
-        }
-
-        .app-item:active {
-            transform: scale(0.96);
-        }
-
-        .app-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .app-icon img {
-            width: 24px;
-            height: 24px;
-            object-fit: contain;
-        }
-
-        .app-label {
-            font-size: 14px;
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .start-menu-divider {
-            width: 100%;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.12);
-            border: none;
-        }
-
-        .start-menu-footer {
-            height: 64px;
-            background: rgba(35, 36, 40, 0.98);
-            display: flex;
-            align-items: center;
-            padding: 0 20px;
-        }
-
-        .logoff-btn {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: #E6E1E5;
-            font-size: 13px;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 18px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: background 0.2s ease, transform 0.1s ease;
-        }
-
-        .logoff-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .logoff-btn:active {
-            transform: scale(0.96);
-        }
-
-        /* Settings App Window */
-        .os-window {
-            position: absolute;
-            top: 15%;
-            left: 20%;
-            width: 680px;
-            height: 440px;
-            background: rgba(28, 27, 31, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border-radius: 24px;
-            box-shadow: 0 24px 48px rgba(0,0,0,0.5);
-            z-index: 7000;
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            animation: windowOpen 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes windowOpen {
-            from { opacity: 0; transform: scale(0.94); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .window-titlebar {
-            height: 44px;
-            background: rgba(255, 255, 255, 0.05);
-            display: flex;
-            align-items: center;
-            padding: 0 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            gap: 12px;
-        }
-
-        .window-close-btn {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: background 0.2s ease;
-        }
-
-        .window-close-btn:hover {
-            background: rgba(234, 67, 53, 0.2);
-        }
-
-        .window-close-btn svg {
-            width: 18px;
-            height: 18px;
-            fill: #E6E1E5;
-        }
-
-        .window-title {
-            font-size: 14px;
-            font-weight: 500;
-            color: #E6E1E5;
-        }
-
-        .settings-body {
-            flex: 1;
-            display: flex;
-            overflow: hidden;
-        }
-
-        .settings-sidebar {
-            width: 240px;
-            background: rgba(45, 44, 50, 0.7);
-            border-right: 1px solid rgba(255, 255, 255, 0.08);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 16px;
-        }
-
-        .settings-sidebar-top {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .settings-search-bar {
-            width: 100%;
-            height: 36px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            padding: 0 12px;
-            gap: 8px;
-        }
-
-        .settings-search-input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: #E6E1E5;
-            font-size: 13px;
-        }
-
-        .settings-search-input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .settings-nav-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
-            border-radius: 14px;
-            cursor: pointer;
-            transition: background 0.2s ease;
-            color: #E6E1E5;
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        .settings-nav-item:hover {
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .settings-nav-item.active {
-            background: rgba(208, 188, 255, 0.15);
-            color: #D0BCFF;
-        }
-
-        .settings-nav-icon {
-            width: 18px;
-            height: 18px;
-            object-fit: contain;
-        }
-
-        .settings-user-profile {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(255, 255, 255, 0.06);
-            padding: 10px 14px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .settings-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .settings-username-text {
-            font-size: 13px;
-            font-weight: 500;
-            color: #E6E1E5;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .settings-content-area {
-            flex: 1;
-            padding: 24px;
-            color: #CAC4D0;
-            font-size: 14px;
-            overflow-y: auto;
-        }
-
-        .settings-panel {
-            display: none;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .settings-panel.active {
-            display: flex;
-        }
-
-        .github-promo-card {
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 16px;
-            margin-top: 8px;
-        }
-
-        .github-promo-icon {
-            width: 24px;
-            height: 24px;
-            object-fit: contain;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .github-promo-text {
-            font-size: 13px;
-            color: #CAC4D0;
-            line-height: 1.5;
-        }
-
-        .github-link {
-            color: #8AB4F8;
-            text-decoration: none;
-        }
-
-        .github-link:hover {
-            text-decoration: underline;
-        }
-
         #clock-calendar-flyout {
             position: absolute;
             bottom: 56px;
@@ -539,7 +125,7 @@
             -webkit-backdrop-filter: blur(30px);
             border-radius: 28px;
             box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
-            z-index: 8500;
+            z-index: 2500;
             display: none;
             flex-direction: column;
             padding: 20px;
@@ -681,7 +267,7 @@
             -webkit-backdrop-filter: blur(25px);
             border-radius: 28px;
             box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
-            z-index: 8500;
+            z-index: 2000;
             display: none;
             flex-direction: column;
             overflow: hidden;
@@ -783,7 +369,7 @@
             border-radius: 24px;
             padding: 18px 20px;
             box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
-            z-index: 9000;
+            z-index: 3000;
             display: none;
             flex-direction: column;
             gap: 6px;
@@ -1439,23 +1025,6 @@
             transform: scale(0.92);
         }
 
-        .guest-login-btn {
-            margin-top: 4px;
-            background: rgba(255, 255, 255, 0.15);
-            color: #E6E1E5;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-
-        .guest-login-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-        }
-
         .forgot-password-box {
             display: none;
             flex-direction: column;
@@ -1660,7 +1229,6 @@
                     <svg viewBox="0 0 24 24"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/></svg>
                 </button>
             </div>
-            <button class="guest-login-btn" onclick="loginAsGuest()">Continue as Guest</button>
             <div class="forgot-password-box" id="forgot-password-container">
                 <div class="forgot-password-text">forgot password? Click the button below to reset your password.</div>
                 <button class="btn-material" onclick="openResetModal()">Reset password</button>
@@ -1701,72 +1269,6 @@
             <div class="toast-body" id="toast-body-text">take a look around to get to know your new operating system! There's so much to learn and to know. To get started why not check out some apps</div>
         </div>
 
-        <!-- Start Menu -->
-        <div id="start-menu">
-            <div class="start-menu-content">
-                <div class="start-app-grid">
-                    <div class="app-item" onclick="openAppWindow('settings')">
-                        <div class="app-icon"><img src="https://i.postimg.cc/mkqW0c9K/Untitled2553-20261028234312.png" alt="Settings"></div>
-                        <div class="app-label">Settings</div>
-                    </div>
-                </div>
-            </div>
-            <hr class="start-menu-divider">
-            <div class="start-menu-footer">
-                <button class="logoff-btn" onclick="logOffSystem()">
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M16 17v-3H9v-4h7V7l5 5-5 5M14 2a2 2 0 0 1 2 2v2h-2V4H5v16h9v-2h2v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9z"/></svg>
-                    Log off
-                </button>
-            </div>
-        </div>
-
-        <!-- Settings App Window -->
-        <div class="os-window" id="settings-window">
-            <div class="window-titlebar">
-                <button class="window-close-btn" onclick="closeAppWindow('settings')" title="Close">
-                    <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-                </button>
-                <div class="window-title">Settings</div>
-            </div>
-            <div class="settings-body">
-                <div class="settings-sidebar">
-                    <div class="settings-sidebar-top">
-                        <div class="settings-search-bar">
-                            <svg viewBox="0 0 24 24" width="14" height="14" fill="rgba(255,255,255,0.6)"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-                            <input type="text" class="settings-search-input" placeholder="Search settings" oninput="filterSettingsNav(this.value)">
-                        </div>
-                        <div class="settings-nav-item active" id="nav-item-home" onclick="switchSettingsTab('home')">
-                            <img src="https://i.postimg.cc/QNmsCWqD/Untitled2555-20261029132320.png" alt="Home" class="settings-nav-icon">
-                            <span>Home</span>
-                        </div>
-                        <div class="settings-nav-item" id="nav-item-personalization" onclick="switchSettingsTab('personalization')">
-                            <img src="https://i.postimg.cc/fy9x2hCT/Untitled2555-20261029131530.png" alt="Personalization" class="settings-nav-icon">
-                            <span>Personalization</span>
-                        </div>
-                    </div>
-                    <div class="settings-user-profile">
-                        <img id="settings-user-avatar" src="https://i.postimg.cc/PxvmH9vP/Untitled2552-20261028230212.png" alt="Profile" class="settings-avatar">
-                        <div id="settings-username-display" class="settings-username-text">User</div>
-                    </div>
-                </div>
-                <div class="settings-content-area">
-                    <div class="settings-panel active" id="panel-home">
-                        <h3 style="color: #E6E1E5; font-weight: 500; margin-bottom: 4px;">Welcome!</h3>
-                        <div class="github-promo-card">
-                            <img src="https://i.postimg.cc/52qD7hKD/Untitled2555-20261029132852.png" alt="GitHub" class="github-promo-icon">
-                            <div class="github-promo-text">
-                                Check out our repo so you can get more news and updates <a href="https://github.com/balldexhelp-ship-it/MaterialOS" target="_blank" class="github-link">here</a>!
-                            </div>
-                        </div>
-                    </div>
-                    <div class="settings-panel" id="panel-personalization">
-                        <h3 style="color: #E6E1E5; font-weight: 500; margin-bottom: 8px;">Personalization</h3>
-                        <p>Customize your workspace, wallpapers, themes, and visual appearance here.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div id="clock-calendar-flyout">
             <div class="flyout-header-time">
                 <div class="flyout-main-time" id="flyout-time">00:00:00</div>
@@ -1804,94 +1306,26 @@
         </div>
 
         <div id="taskbar">
-            <div class="taskbar-left-section">
-                <button id="start-button" onclick="toggleStartMenu(event)" title="Launcher">
-                    <img src="https://i.postimg.cc/6pFxHGKV/Untitled2546-20261027110329.png" alt="Start Menu">
-                </button>
+            <div id="taskbar-clock" onclick="toggleClockCalendar()">
+                <div class="time-text" id="time-display">00:00</div>
+                <div class="date-text" id="date-display">00/00/00</div>
             </div>
-            <div class="taskbar-center-section" id="taskbar-center-apps"></div>
-            <div class="taskbar-right-section">
-                <div id="taskbar-clock" onclick="toggleClockCalendar()">
-                    <div class="time-text" id="time-display">00:00</div>
-                    <div class="date-text" id="date-display">00/00/00</div>
-                </div>
-                <button class="taskbar-icon-btn" onclick="toggleNotificationCenter()">
-                    <svg viewBox="0 0 24 24"><path d="M12,22A2,2 0 0,0 14,20H10A2,2 0 0,0 12,22M18,16V11C18,7.93 16.36,5.36 13.5,4.68V4A1.5,1.5 0 0,0 12,2.5A1.5,1.5 0 0,0 10.5,4V4.68C7.63,5.36 6,7.92 6,11V16L4,18V19H20V18L18,16Z"/></svg>
-                    <div class="notif-badge" id="notif-bell-badge"></div>
-                </button>
-            </div>
+            <button class="taskbar-icon-btn" onclick="toggleNotificationCenter()">
+                <svg viewBox="0 0 24 24"><path d="M12,22A2,2 0 0,0 14,20H10A2,2 0 0,0 12,22M18,16V11C18,7.93 16.36,5.36 13.5,4.68V4A1.5,1.5 0 0,0 12,2.5A1.5,1.5 0 0,0 10.5,4V4.68C7.63,5.36 6,7.92 6,11V16L4,18V19H20V18L18,16Z"/></svg>
+                <div class="notif-badge" id="notif-bell-badge"></div>
+            </button>
         </div>
     </div>
 
     <script>
         let createdUsername = "";
         let createdPasswordHash = "";
-        let createdSaltHex = "";
         let failedLoginAttempts = 0;
         let isMuted = false;
         let calendarViewDate = new Date();
 
-        let guestSessionActive = false;
-        let guestSessionData = {};
-
-        const PBKDF2_ITERATIONS = 600000;
-        const SALT_BYTE_LENGTH = 16;
-        const KEY_BYTE_LENGTH = 32;
-
         const eyeOpenSvg = `<svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>`;
         const eyeClosedSvg = `<svg viewBox="0 0 24 24"><path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.45-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.17c0-1.66-1.34-3-3-3l-.17.02z"/></svg>`;
-
-        function bufferToHex(buffer) {
-            return Array.from(new Uint8Array(buffer))
-                .map(b => b.toString(16).padStart(2, '0'))
-                .join('');
-        }
-
-        function hexToBuffer(hex) {
-            if (!hex || hex.length % 2 !== 0) return new Uint8Array(0);
-            const bytes = new Uint8Array(hex.length / 2);
-            for (let i = 0; i < hex.length; i += 2) {
-                bytes[i / 2] = parseInt(hex.substr(i, 2), 16);
-            }
-            return bytes.buffer;
-        }
-
-        function generateRandomSalt() {
-            const salt = new Uint8Array(SALT_BYTE_LENGTH);
-            crypto.getRandomValues(salt);
-            return salt;
-        }
-
-        async function hashPasswordPBKDF2(password, saltUint8Array) {
-            try {
-                const encoder = new TextEncoder();
-                const passwordBuffer = encoder.encode(password);
-
-                const baseKey = await crypto.subtle.importKey(
-                    'raw',
-                    passwordBuffer,
-                    { name: 'PBKDF2' },
-                    false,
-                    ['deriveBits']
-                );
-
-                const derivedBits = await crypto.subtle.deriveBits(
-                    {
-                        name: 'PBKDF2',
-                        salt: saltUint8Array,
-                        iterations: PBKDF2_ITERATIONS,
-                        hash: 'SHA-256'
-                    },
-                    baseKey,
-                    KEY_BYTE_LENGTH * 8
-                );
-
-                return bufferToHex(derivedBits);
-            } catch (err) {
-                console.error("Encryption error during PBKDF2 calculation:", err);
-                throw err;
-            }
-        }
 
         function togglePasswordVisibility(inputId, btn) {
             const input = document.getElementById(inputId);
@@ -1905,108 +1339,13 @@
             }
         }
 
-        function toggleStartMenu(e) {
-            if (e) e.stopPropagation();
-            const startMenu = document.getElementById('start-menu');
-            document.getElementById('clock-calendar-flyout').style.display = 'none';
-            document.getElementById('notification-center').style.display = 'none';
-
-            if (startMenu.style.display === 'flex') {
-                startMenu.style.display = 'none';
-            } else {
-                startMenu.style.display = 'flex';
-            }
+        async function hashPassword(str) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(str);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
         }
-
-        /* App & Window Management Functions */
-        function openAppWindow(appId) {
-            document.getElementById('start-menu').style.display = 'none';
-            const win = document.getElementById(`${appId}-window`);
-            if (!win) return;
-
-            win.style.display = 'flex';
-            updateTaskbarMiddleIcons();
-        }
-
-        function closeAppWindow(appId) {
-            const win = document.getElementById(`${appId}-window`);
-            if (!win) return;
-
-            win.style.display = 'none';
-            updateTaskbarMiddleIcons();
-        }
-
-        function toggleWindowFromTaskbar(appId) {
-            const win = document.getElementById(`${appId}-window`);
-            if (!win) return;
-
-            if (win.style.display === 'flex') {
-                win.style.display = 'none';
-            } else {
-                win.style.display = 'flex';
-            }
-            updateTaskbarMiddleIcons();
-        }
-
-        function updateTaskbarMiddleIcons() {
-            const container = document.getElementById('taskbar-center-apps');
-            container.innerHTML = '';
-
-            const settingsWin = document.getElementById('settings-window');
-            if (settingsWin && settingsWin.style.display === 'flex') {
-                const appBtn = document.createElement('button');
-                appBtn.className = 'taskbar-app-icon';
-                appBtn.onclick = () => toggleWindowFromTaskbar('settings');
-                appBtn.title = 'Settings';
-                appBtn.innerHTML = `
-                    <img src="https://i.postimg.cc/mkqW0c9K/Untitled2553-20261028234312.png" alt="Settings">
-                    <div class="taskbar-app-indicator"></div>
-                `;
-                container.appendChild(appBtn);
-            }
-        }
-
-        function switchSettingsTab(tabName) {
-            document.querySelectorAll('.settings-nav-item').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.settings-panel').forEach(el => el.classList.remove('active'));
-
-            const navItem = document.getElementById(`nav-item-${tabName}`);
-            const panel = document.getElementById(`panel-${tabName}`);
-
-            if (navItem) navItem.classList.add('active');
-            if (panel) panel.classList.add('active');
-        }
-
-        function filterSettingsNav(query) {
-            const q = query.toLowerCase();
-            const navItems = document.querySelectorAll('.settings-sidebar-top .settings-nav-item');
-            navItems.forEach(item => {
-                const text = item.innerText.toLowerCase();
-                if (text.includes(q)) {
-                    item.style.display = 'flex';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        }
-
-        function logOffSystem() {
-            document.getElementById('start-menu').style.display = 'none';
-            document.getElementById('desktop').style.display = 'none';
-            document.getElementById('settings-window').style.display = 'none';
-            updateTaskbarMiddleIcons();
-            showLoginScreen();
-        }
-
-        document.addEventListener('click', (e) => {
-            const startMenu = document.getElementById('start-menu');
-            const startBtn = document.getElementById('start-button');
-            if (startMenu && startMenu.style.display === 'flex') {
-                if (!startMenu.contains(e.target) && !startBtn.contains(e.target)) {
-                    startMenu.style.display = 'none';
-                }
-            }
-        });
 
         function updateClock() {
             const now = new Date();
@@ -2092,7 +1431,6 @@
         function toggleClockCalendar() {
             const flyout = document.getElementById('clock-calendar-flyout');
             document.getElementById('notification-center').style.display = 'none';
-            document.getElementById('start-menu').style.display = 'none';
 
             if (flyout.style.display === 'flex') {
                 flyout.style.display = 'none';
@@ -2106,7 +1444,6 @@
         function toggleNotificationCenter() {
             const center = document.getElementById('notification-center');
             document.getElementById('clock-calendar-flyout').style.display = 'none';
-            document.getElementById('start-menu').style.display = 'none';
 
             if (center.style.display === 'flex') {
                 center.style.display = 'none';
@@ -2275,20 +1612,12 @@
                 return;
             }
 
-            try {
-                errorMsg.style.display = "none";
-                createdUsername = usernameInput;
+            errorMsg.style.display = "none";
+            createdUsername = usernameInput;
+            createdPasswordHash = await hashPassword(passwordInput);
 
-                const saltBytes = generateRandomSalt();
-                createdSaltHex = bufferToHex(saltBytes);
-                createdPasswordHash = await hashPasswordPBKDF2(passwordInput, saltBytes);
-
-                document.getElementById('step-user-creation').style.display = 'none';
-                document.getElementById('step-shield-warning').style.display = 'flex';
-            } catch (err) {
-                errorMsg.innerText = "Error securing password. Please try again.";
-                errorMsg.style.display = "block";
-            }
+            document.getElementById('step-user-creation').style.display = 'none';
+            document.getElementById('step-shield-warning').style.display = 'flex';
         }
 
         function goBackToUserCreation() {
@@ -2312,7 +1641,6 @@
         function completeUserSetup() {
             localStorage.setItem('os_username', createdUsername);
             localStorage.setItem('os_password_hash', createdPasswordHash);
-            localStorage.setItem('os_password_salt', createdSaltHex);
 
             document.getElementById('step-shield-warning').style.display = 'none';
             document.getElementById('loader-status-text').innerText = 'creating user';
@@ -2342,69 +1670,25 @@
 
         async function verifyLoginPassword() {
             const enteredPassword = document.getElementById('login-password-field').value;
-            const savedHash = localStorage.getItem('os_password_hash');
-            const savedSaltHex = localStorage.getItem('os_password_salt');
+            const enteredHash = await hashPassword(enteredPassword);
+            const actualHash = localStorage.getItem('os_password_hash');
 
-            if (!savedHash || !savedSaltHex) {
-                alert("Account error: Saved security details missing.");
-                return;
-            }
-
-            try {
-                const saltBytes = new Uint8Array(hexToBuffer(savedSaltHex));
-                const computedHash = await hashPasswordPBKDF2(enteredPassword, saltBytes);
-
-                if (computedHash === savedHash) {
-                    guestSessionActive = false;
-                    updateSettingsUserSession();
-                    const loginScreen = document.getElementById('login-screen');
-                    loginScreen.style.opacity = '0';
-                    setTimeout(() => {
-                        loginScreen.style.display = 'none';
-                        launchDesktopEnvironment();
-                    }, 800);
-                } else {
-                    failedLoginAttempts++;
-                    const passwordInput = document.getElementById('login-password-field');
-                    passwordInput.value = '';
-                    passwordInput.style.borderColor = '#B3261E';
-
-                    if (failedLoginAttempts >= 3) {
-                        document.getElementById('forgot-password-container').style.display = 'flex';
-                    }
-                }
-            } catch (err) {
-                console.error("Login verification failed:", err);
-            }
-        }
-
-        function loginAsGuest() {
-            guestSessionActive = true;
-            guestSessionData = {
-                username: "User Guest",
-                sessionStartedAt: new Date()
-            };
-            updateSettingsUserSession();
-
-            const loginScreen = document.getElementById('login-screen');
-            loginScreen.style.opacity = '0';
-            setTimeout(() => {
-                loginScreen.style.display = 'none';
-                launchDesktopEnvironment();
-            }, 800);
-        }
-
-        function updateSettingsUserSession() {
-            const usernameDisplay = document.getElementById('settings-username-display');
-            const avatarDisplay = document.getElementById('settings-user-avatar');
-
-            if (guestSessionActive) {
-                usernameDisplay.innerText = "User Guest";
-                avatarDisplay.src = "https://i.postimg.cc/Dzyg9xcx/Untitled2554-20261029000459.png";
+            if (enteredHash === actualHash) {
+                const loginScreen = document.getElementById('login-screen');
+                loginScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loginScreen.style.display = 'none';
+                    launchDesktopEnvironment();
+                }, 800);
             } else {
-                const savedUser = localStorage.getItem('os_username') || "User";
-                usernameDisplay.innerText = savedUser;
-                avatarDisplay.src = "https://i.postimg.cc/PxvmH9vP/Untitled2552-20261028230212.png";
+                failedLoginAttempts++;
+                const passwordInput = document.getElementById('login-password-field');
+                passwordInput.value = '';
+                passwordInput.style.borderColor = '#B3261E';
+
+                if (failedLoginAttempts >= 3) {
+                    document.getElementById('forgot-password-container').style.display = 'flex';
+                }
             }
         }
 
@@ -2441,44 +1725,25 @@
                 return;
             }
 
-            try {
-                const newSaltBytes = generateRandomSalt();
-                const newSaltHex = bufferToHex(newSaltBytes);
-                const newHash = await hashPasswordPBKDF2(newPass, newSaltBytes);
+            const newHash = await hashPassword(newPass);
+            localStorage.setItem('os_password_hash', newHash);
+            closeResetModal();
 
-                localStorage.setItem('os_password_hash', newHash);
-                localStorage.setItem('os_password_salt', newSaltHex);
-
-                closeResetModal();
-
-                guestSessionActive = false;
-                updateSettingsUserSession();
-                const loginScreen = document.getElementById('login-screen');
-                loginScreen.style.opacity = '0';
-                setTimeout(() => {
-                    loginScreen.style.display = 'none';
-                    launchDesktopEnvironment();
-                }, 800);
-            } catch (err) {
-                errorMsg.innerText = "Error updating password. Try again.";
-                errorMsg.style.display = "block";
-            }
+            const loginScreen = document.getElementById('login-screen');
+            loginScreen.style.opacity = '0';
+            setTimeout(() => {
+                loginScreen.style.display = 'none';
+                launchDesktopEnvironment();
+            }, 800);
         }
 
         function launchDesktopEnvironment() {
             document.getElementById('desktop').style.display = 'block';
 
-            if (guestSessionActive) {
-                document.getElementById('toast-title-text').innerText = "Welcome, Guest!";
-                document.getElementById('toast-body-text').innerText = "You are in a temporary guest session. Any changes will vanish when you log off.";
-            }
-
             const firstLoginDone = localStorage.getItem('os_first_login_done');
-            if (firstLoginDone !== 'true' || guestSessionActive) {
+            if (firstLoginDone !== 'true') {
                 triggerWelcomeNotification();
-                if (!guestSessionActive) {
-                    localStorage.setItem('os_first_login_done', 'true');
-                }
+                localStorage.setItem('os_first_login_done', 'true');
             }
         }
 

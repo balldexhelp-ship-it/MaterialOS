@@ -49,6 +49,7 @@
             padding: 0 12px;
             z-index: 8000;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
         }
 
         .taskbar-left-section {
@@ -317,7 +318,7 @@
             top: 15%;
             left: 20%;
             width: 680px;
-            height: 440px;
+            height: 460px;
             background: rgba(28, 27, 31, 0.95);
             border: 1px solid rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(30px);
@@ -394,7 +395,8 @@
         .settings-sidebar-top {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 8px;
+            overflow-y: auto;
         }
 
         .settings-search-bar {
@@ -407,6 +409,7 @@
             align-items: center;
             padding: 0 12px;
             gap: 8px;
+            margin-bottom: 4px;
         }
 
         .settings-search-input {
@@ -425,7 +428,7 @@
         .settings-nav-item {
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
             padding: 10px 12px;
             border-radius: 14px;
             cursor: pointer;
@@ -433,6 +436,12 @@
             color: #E6E1E5;
             font-size: 13px;
             font-weight: 500;
+        }
+
+        .settings-nav-item-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .settings-nav-item:hover {
@@ -450,6 +459,64 @@
             object-fit: contain;
         }
 
+        .settings-arrow-btn {
+            background: transparent;
+            border: none;
+            color: #E6E1E5;
+            cursor: pointer;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .settings-arrow-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .settings-arrow-btn.expanded {
+            transform: rotate(180deg);
+        }
+
+        .settings-subnav-container {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            padding-left: 28px;
+            margin-top: -2px;
+        }
+
+        .settings-subnav-container.open {
+            display: flex;
+        }
+
+        .settings-subnav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            color: #CAC4D0;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .settings-subnav-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #E6E1E5;
+        }
+
+        .settings-subnav-item.active {
+            background: rgba(208, 188, 255, 0.15);
+            color: #D0BCFF;
+        }
+
         .settings-user-profile {
             display: flex;
             align-items: center;
@@ -458,6 +525,7 @@
             padding: 10px 14px;
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 8px;
         }
 
         .settings-avatar {
@@ -577,6 +645,53 @@
 
         .setting-control-btn:active {
             transform: scale(0.96);
+        }
+
+        /* Toggle switch component */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: .3s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #D0BCFF;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(20px);
+            background-color: #381E72;
         }
 
         /* Full Screen Wallpaper Popup */
@@ -1940,14 +2055,31 @@
                             <svg viewBox="0 0 24 24" width="14" height="14" fill="rgba(255,255,255,0.6)"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
                             <input type="text" class="settings-search-input" placeholder="Search settings" oninput="filterSettingsNav(this.value)">
                         </div>
+                        
                         <div class="settings-nav-item active" id="nav-item-home" onclick="switchSettingsTab('home')">
-                            <img src="https://i.postimg.cc/QNmsCWqD/Untitled2555-20261029132320.png" alt="Home" class="settings-nav-icon">
-                            <span>Home</span>
+                            <div class="settings-nav-item-left">
+                                <img src="https://i.postimg.cc/QNmsCWqD/Untitled2555-20261029132320.png" alt="Home" class="settings-nav-icon">
+                                <span>Home</span>
+                            </div>
                         </div>
+
+                        <!-- Personalization Category with Dropdown Arrow -->
                         <div class="settings-nav-item" id="nav-item-personalization" onclick="switchSettingsTab('personalization')">
-                            <img src="https://i.postimg.cc/fy9x2hCT/Untitled2555-20261029131530.png" alt="Personalization" class="settings-nav-icon">
-                            <span>Personalization</span>
+                            <div class="settings-nav-item-left">
+                                <img src="https://i.postimg.cc/fy9x2hCT/Untitled2555-20261029131530.png" alt="Personalization" class="settings-nav-icon">
+                                <span>Personalization</span>
+                            </div>
+                            <button class="settings-arrow-btn" id="personalization-arrow-btn" onclick="togglePersonalizationDropdown(event)">▼</button>
                         </div>
+
+                        <!-- Expanded Personalization Sub-items -->
+                        <div class="settings-subnav-container" id="personalization-subnav">
+                            <div class="settings-subnav-item" id="subnav-item-taskbar" onclick="switchSettingsTab('taskbar')">
+                                <img src="https://i.postimg.cc/TP7T9TGp/Untitled2555-20261029214828.png" alt="Taskbar Settings" class="settings-nav-icon">
+                                <span>Taskbar settings</span>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="settings-user-profile">
                         <img id="settings-user-avatar" src="https://i.postimg.cc/PxvmH9vP/Untitled2552-20261028230212.png" alt="Profile" class="settings-avatar">
@@ -1964,6 +2096,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="settings-panel" id="panel-personalization">
                         <h3 style="color: #E6E1E5; font-weight: 500; margin-bottom: 8px;">Personalization</h3>
                         
@@ -1973,6 +2106,21 @@
                                 <div class="setting-control-desc">Change your wallpaper to another default wallpaper or upload your own!</div>
                             </div>
                             <button class="setting-control-btn" onclick="openWallpaperModal()">Change wallpaper</button>
+                        </div>
+                    </div>
+
+                    <div class="settings-panel" id="panel-taskbar">
+                        <h3 style="color: #E6E1E5; font-weight: 500; margin-bottom: 8px;">Taskbar Settings</h3>
+                        
+                        <div class="setting-control-card">
+                            <div class="setting-control-info">
+                                <div class="setting-control-title">Auto-hide Taskbar</div>
+                                <div class="setting-control-desc">Automatically hide taskbar when not in use</div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="autohide-taskbar-toggle" onchange="toggleAutohideTaskbar(this.checked)">
+                                <span class="slider"></span>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -2009,7 +2157,7 @@
             </div>
             <div class="notif-dock">
                 <button class="dock-btn" onclick="toggleMuteNotifs()">
-                    <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6Z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,22M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M12,6A6,6 0 0,0 6,12A6,6 0 0,0 12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6Z"/></svg>
                     <span id="mute-btn-text">Mute notifications</span>
                 </button>
             </div>
@@ -2190,13 +2338,33 @@
 
         function switchSettingsTab(tabName) {
             document.querySelectorAll('.settings-nav-item').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.settings-subnav-item').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.settings-panel').forEach(el => el.classList.remove('active'));
 
-            const navItem = document.getElementById(`nav-item-${tabName}`);
-            const panel = document.getElementById(`panel-${tabName}`);
+            if (tabName === 'taskbar') {
+                document.getElementById('nav-item-personalization').classList.add('active');
+                document.getElementById('subnav-item-taskbar').classList.add('active');
+            } else {
+                const navItem = document.getElementById(`nav-item-${tabName}`);
+                if (navItem) navItem.classList.add('active');
+            }
 
-            if (navItem) navItem.classList.add('active');
+            const panel = document.getElementById(`panel-${tabName}`);
             if (panel) panel.classList.add('active');
+        }
+
+        function togglePersonalizationDropdown(event) {
+            if (event) event.stopPropagation();
+            const subnav = document.getElementById('personalization-subnav');
+            const arrowBtn = document.getElementById('personalization-arrow-btn');
+
+            if (subnav.classList.contains('open')) {
+                subnav.classList.remove('open');
+                arrowBtn.classList.remove('expanded');
+            } else {
+                subnav.classList.add('open');
+                arrowBtn.classList.add('expanded');
+            }
         }
 
         function filterSettingsNav(query) {
@@ -2212,7 +2380,7 @@
             });
         }
 
-        /* Wallpaper Customization Logic */
+        /* Settings Actions (Wallpaper & Taskbar) */
         function openWallpaperModal() {
             const modal = document.getElementById('wallpaper-modal');
             const container = document.getElementById('wallpaper-grid-container');
@@ -2301,6 +2469,28 @@
             }
         }
 
+        function toggleAutohideTaskbar(enabled) {
+            if (guestSessionActive) {
+                guestSessionData.autohideTaskbar = enabled;
+                guestMadeChanges = true;
+            } else {
+                localStorage.setItem('os_autohide_taskbar', enabled ? 'true' : 'false');
+            }
+            applyTaskbarSettings();
+        }
+
+        function applyTaskbarSettings() {
+            let isAutohide = false;
+            if (guestSessionActive) {
+                isAutohide = guestSessionData.autohideTaskbar === true;
+            } else {
+                isAutohide = localStorage.getItem('os_autohide_taskbar') === 'true';
+            }
+
+            const toggle = document.getElementById('autohide-taskbar-toggle');
+            if (toggle) toggle.checked = isAutohide;
+        }
+
         function logOffSystem() {
             if (guestSessionActive && guestMadeChanges) {
                 document.getElementById('guest-warning-modal').style.display = 'flex';
@@ -2321,6 +2511,7 @@
             guestTempWallpaper = "";
 
             loadSavedWallpaper();
+            applyTaskbarSettings();
 
             document.getElementById('start-menu').style.display = 'none';
             document.getElementById('desktop').style.display = 'none';
@@ -2449,6 +2640,7 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             loadSavedWallpaper();
+            applyTaskbarSettings();
             const isSetupDone = localStorage.getItem('os_setup_done');
 
             if (isSetupDone === 'true') {
@@ -2692,6 +2884,7 @@
                     guestTempWallpaper = "";
 
                     loadSavedWallpaper();
+                    applyTaskbarSettings();
                     updateSettingsUserSession();
 
                     const loginScreen = document.getElementById('login-screen');
@@ -2721,11 +2914,13 @@
             guestTempWallpaper = "";
             guestSessionData = {
                 username: "User Guest",
-                sessionStartedAt: new Date()
+                sessionStartedAt: new Date(),
+                autohideTaskbar: false
             };
             
             // Guest always starts with the default wallpaper independently
             document.getElementById('desktop').style.backgroundImage = `url('${defaultWallpapers[0]}')`;
+            applyTaskbarSettings();
             updateSettingsUserSession();
 
             const loginScreen = document.getElementById('login-screen');
@@ -2797,6 +2992,7 @@
                 guestMadeChanges = false;
                 guestTempWallpaper = "";
                 loadSavedWallpaper();
+                applyTaskbarSettings();
                 updateSettingsUserSession();
 
                 const loginScreen = document.getElementById('login-screen');

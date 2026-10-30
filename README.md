@@ -1,6 +1,6 @@
 # MaterialOS
 
-[![Untitled2544-20261027050233.png](https://i.postimg.cc/1zD3tp89/Untitled2544-20261027050233.png)](https://postimg.cc/XZ7b1BKh)
+[![Untitled2https://i.postimg.cc/tRBLfBV7/Untitled2559-20261029212553.png
 
 ## What is Material OS?
 **This is the official repo for Material OS, where the HTML itself is available.**

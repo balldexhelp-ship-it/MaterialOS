@@ -6,7 +6,7 @@
 **Currently in beta, Material OS is an HTML project. That used the material you design**
 
 
-## new and inproved
+## New and inproved
 **Version 2.1.1**
 **added taskbar alignment but fixxed issues it had.**
 

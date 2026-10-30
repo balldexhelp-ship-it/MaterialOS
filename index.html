@@ -51,7 +51,7 @@
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Taskbar Layout Alignments */
+        /* Taskbar Layout Alignments (Default & Left Only) */
         #taskbar.align-default {
             justify-content: space-between;
         }
@@ -70,27 +70,6 @@
             flex: 1;
         }
         #taskbar.align-default .taskbar-right-section {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 8px;
-            width: 120px;
-        }
-
-        #taskbar.align-centered {
-            justify-content: space-between;
-        }
-        #taskbar.align-centered .taskbar-left-section {
-            display: none;
-        }
-        #taskbar.align-centered .taskbar-center-section {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            flex: 1;
-        }
-        #taskbar.align-centered .taskbar-right-section {
             display: flex;
             align-items: center;
             justify-content: flex-end;
@@ -252,6 +231,7 @@
         #start-menu {
             position: absolute;
             bottom: 56px;
+            left: 12px;
             width: 320px;
             height: 380px;
             background: rgba(26, 27, 30, 0.94);
@@ -337,7 +317,50 @@
             background: rgba(35, 36, 40, 0.98);
             display: flex;
             align-items: center;
-            padding: 0 20px;
+            justify-content: space-between;
+            padding: 0 16px;
+        }
+
+        .footer-left-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-right-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-divider {
+            width: 1px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.15);
+            display: none;
+        }
+
+        .footer-user-profile {
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .footer-username {
+            font-size: 13px;
+            font-weight: 500;
+            color: #E6E1E5;
+            max-width: 100px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .logoff-btn {
@@ -718,6 +741,51 @@
         .setting-select option {
             background: #1C1B1F;
             color: #E6E1E5;
+        }
+
+        /* Toggle Switch Styling */
+        .switch-container {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+
+        .switch-container input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: #E6E1E5;
+            transition: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #D0BCFF;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(20px);
+            background-color: #381E72;
         }
 
         /* Full Screen Wallpaper Popup */
@@ -2059,10 +2127,19 @@
             </div>
             <hr class="start-menu-divider">
             <div class="start-menu-footer">
-                <button class="logoff-btn" onclick="logOffSystem()">
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M16 17v-3H9v-4h7V7l5 5-5 5M14 2a2 2 0 0 1 2 2v2h-2V4H5v16h9v-2h2v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9z"/></svg>
-                    Log off
-                </button>
+                <div class="footer-left-group">
+                    <button class="logoff-btn" onclick="logOffSystem()">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M16 17v-3H9v-4h7V7l5 5-5 5M14 2a2 2 0 0 1 2 2v2h-2V4H5v16h9v-2h2v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9z"/></svg>
+                        Log off
+                    </button>
+                </div>
+                <div class="footer-right-group">
+                    <div class="footer-divider" id="footer-profile-divider"></div>
+                    <div class="footer-user-profile" id="footer-user-profile-box">
+                        <img id="footer-user-avatar" src="https://i.postimg.cc/PxvmH9vP/Untitled2552-20261028230212.png" alt="Profile" class="footer-avatar">
+                        <span id="footer-username-display" class="footer-username">User</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -2103,6 +2180,10 @@
                             <div class="settings-subnav-item" id="subnav-item-taskbar" onclick="switchSettingsTab('taskbar')">
                                 <img src="https://i.postimg.cc/TP7T9TGp/Untitled2555-20261029214828.png" alt="Taskbar Settings" class="settings-nav-icon">
                                 <span>Taskbar settings</span>
+                            </div>
+                            <div class="settings-subnav-item" id="subnav-item-startmenu" onclick="switchSettingsTab('startmenu')">
+                                <img src="https://i.postimg.cc/6pFxHGKV/Untitled2546-20261027110329.png" alt="Start Menu" class="settings-nav-icon">
+                                <span>Start menu</span>
                             </div>
                         </div>
 
@@ -2145,9 +2226,23 @@
                             </div>
                             <select id="taskbar-alignment-select" class="setting-select" onchange="changeTaskbarAlignment(this.value)">
                                 <option value="default">Default</option>
-                                <option value="centered">All centered</option>
                                 <option value="left">All left</option>
                             </select>
+                        </div>
+                    </div>
+
+                    <div class="settings-panel" id="panel-startmenu">
+                        <h3 style="color: #E6E1E5; font-weight: 500; margin-bottom: 8px;">Start Menu Settings</h3>
+                        
+                        <div class="setting-control-card">
+                            <div class="setting-control-info">
+                                <div class="setting-control-title">Show profile & name in the bottom panel</div>
+                                <div class="setting-control-desc">Display user profile picture and name next to the log off button in the start menu</div>
+                            </div>
+                            <label class="switch-container">
+                                <input type="checkbox" id="show-profile-toggle" onchange="toggleShowProfileSetting(this.checked)">
+                                <span class="slider"></span>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -2223,6 +2318,7 @@
         let guestMadeChanges = false;
         let guestTempWallpaper = "";
         let guestTempTaskbarAlignment = "default";
+        let guestTempShowProfile = false;
 
         const defaultWallpapers = [
             'https://i.postimg.cc/NGr5SD8w/Untitled2542-20261027024807.png',
@@ -2309,14 +2405,8 @@
             document.getElementById('clock-calendar-flyout').style.display = 'none';
             document.getElementById('notification-center').style.display = 'none';
 
-            const alignment = getCurrentTaskbarAlignment();
-            if (alignment === 'centered') {
-                startMenu.style.left = '50%';
-                startMenu.style.transform = 'translateX(-50%) translateY(0px) scale(1)';
-            } else {
-                startMenu.style.left = '12px';
-                startMenu.style.transform = 'none';
-            }
+            startMenu.style.left = '12px';
+            startMenu.style.transform = 'none';
 
             if (startMenu.classList.contains('open')) {
                 startMenu.classList.remove('open');
@@ -2375,10 +2465,6 @@
             
             container.innerHTML = '';
 
-            if (alignment === 'centered') {
-                container.insertAdjacentHTML('beforeend', startBtnHTML);
-            }
-
             existingApps.forEach(app => container.appendChild(app));
 
             const settingsWin = document.getElementById('settings-window');
@@ -2405,6 +2491,9 @@
             if (tabName === 'taskbar') {
                 document.getElementById('nav-item-personalization').classList.add('active');
                 document.getElementById('subnav-item-taskbar').classList.add('active');
+            } else if (tabName === 'startmenu') {
+                document.getElementById('nav-item-personalization').classList.add('active');
+                document.getElementById('subnav-item-startmenu').classList.add('active');
             } else {
                 const navItem = document.getElementById(`nav-item-${tabName}`);
                 if (navItem) navItem.classList.add('active');
@@ -2441,7 +2530,7 @@
             });
         }
 
-        /* Settings Actions (Wallpaper & Taskbar Alignment) */
+        /* Settings Actions (Wallpaper, Taskbar Alignment, Start Menu Profile Setting) */
         function openWallpaperModal() {
             const modal = document.getElementById('wallpaper-modal');
             const container = document.getElementById('wallpaper-grid-container');
@@ -2560,6 +2649,50 @@
             updateTaskbarMiddleIcons();
         }
 
+        function getShowProfileSetting() {
+            if (guestSessionActive) {
+                return guestTempShowProfile;
+            }
+            return localStorage.getItem('os_show_profile_in_menu') === 'true';
+        }
+
+        function toggleShowProfileSetting(isChecked) {
+            if (guestSessionActive) {
+                guestTempShowProfile = isChecked;
+                guestMadeChanges = true;
+            } else {
+                localStorage.setItem('os_show_profile_in_menu', isChecked ? 'true' : 'false');
+            }
+            applyShowProfileUI();
+        }
+
+        function applyShowProfileUI() {
+            const show = getShowProfileSetting();
+            const toggleEl = document.getElementById('show-profile-toggle');
+            if (toggleEl) toggleEl.checked = show;
+
+            const profileBox = document.getElementById('footer-user-profile-box');
+            const divider = document.getElementById('footer-profile-divider');
+            const usernameDisplay = document.getElementById('footer-username-display');
+            const avatarDisplay = document.getElementById('footer-user-avatar');
+
+            if (show) {
+                if (guestSessionActive) {
+                    usernameDisplay.innerText = "Guest";
+                    avatarDisplay.src = "https://i.postimg.cc/Dzyg9xcx/Untitled2554-20261029000459.png";
+                } else {
+                    const savedUser = localStorage.getItem('os_username') || "User";
+                    usernameDisplay.innerText = savedUser;
+                    avatarDisplay.src = "https://i.postimg.cc/PxvmH9vP/Untitled2552-20261028230212.png";
+                }
+                profileBox.style.display = 'flex';
+                divider.style.display = 'block';
+            } else {
+                profileBox.style.display = 'none';
+                divider.style.display = 'none';
+            }
+        }
+
         function logOffSystem() {
             if (guestSessionActive && guestMadeChanges) {
                 document.getElementById('guest-warning-modal').style.display = 'flex';
@@ -2579,9 +2712,11 @@
             guestMadeChanges = false;
             guestTempWallpaper = "";
             guestTempTaskbarAlignment = "default";
+            guestTempShowProfile = false;
 
             loadSavedWallpaper();
             applyTaskbarAlignmentUI();
+            applyShowProfileUI();
 
             const startMenu = document.getElementById('start-menu');
             startMenu.classList.remove('open');
@@ -2718,6 +2853,7 @@
         window.addEventListener('DOMContentLoaded', () => {
             loadSavedWallpaper();
             applyTaskbarAlignmentUI();
+            applyShowProfileUI();
             const isSetupDone = localStorage.getItem('os_setup_done');
 
             if (isSetupDone === 'true') {
@@ -2960,9 +3096,11 @@
                     guestMadeChanges = false;
                     guestTempWallpaper = "";
                     guestTempTaskbarAlignment = "default";
+                    guestTempShowProfile = false;
 
                     loadSavedWallpaper();
                     applyTaskbarAlignmentUI();
+                    applyShowProfileUI();
                     updateSettingsUserSession();
 
                     const loginScreen = document.getElementById('login-screen');
@@ -2991,6 +3129,7 @@
             guestMadeChanges = false;
             guestTempWallpaper = "";
             guestTempTaskbarAlignment = "default";
+            guestTempShowProfile = false;
             guestSessionData = {
                 username: "User Guest",
                 sessionStartedAt: new Date()
@@ -2998,6 +3137,7 @@
             
             document.getElementById('desktop').style.backgroundImage = `url('${defaultWallpapers[0]}')`;
             applyTaskbarAlignmentUI();
+            applyShowProfileUI();
             updateSettingsUserSession();
 
             const loginScreen = document.getElementById('login-screen');
@@ -3069,8 +3209,10 @@
                 guestMadeChanges = false;
                 guestTempWallpaper = "";
                 guestTempTaskbarAlignment = "default";
+                guestTempShowProfile = false;
                 loadSavedWallpaper();
                 applyTaskbarAlignmentUI();
+                applyShowProfileUI();
                 updateSettingsUserSession();
 
                 const loginScreen = document.getElementById('login-screen');

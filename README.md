@@ -2,41 +2,8 @@
 
 [![Untitled2559-20261029212854.png](https://i.postimg.cc/Y9szNLhp/Untitled2559-20261029212854.png)](https://postimg.cc/5Y8zb0BG)
 
-## What is Material OS?
-**This is the official repo for Material OS, where the HTML itself is available.**
+## What is Material OS
+**Currently in beta, Material OS is an HTML project. That used the material you design**
 
-## Material OS is currently in beta, meaning the operating system is still being made. There aren’t a whole lot of useful features yet, and things like applications and other parts of the OS are still being worked on.
-**So if you go to certain pages, there’s a good chance Material OS will be incomplete.**
-
-# Try out Material OS BETA 2.1.1
-https://balldexhelp-ship-it.github.io/MaterialOS/
-**(I wouldn’t recommend checking it out just yet, though. There’s currently an issue with local storage, and I don’t have a fix for it yet. Since local storage is also going to be an actual feature, the only way I’ve been able to test if things are being implemented properly is by clearing all my Safari history**.
-So I’d suggest waiting until the OS is a bit more complete.
-
-In the near future, I’ll also have releases available as HTML files, so you can run Material OS directly in your browser.
-
-## Warning
-A lot of parts of the operating system are still being worked on, although things like account creation are already implemented.
-and please, dont use personal info. the sMe passwords when making an account. on login you can use the OS as a guest.
-(Hopefully this is common sense to some people, but save yourself the trouble.)
-
-
-# What’s New?
-
-**Material OS is now in beta version 2.1 Keep in mind that this version number will stay the same for a bit. There should only be around two or three betas for now.**
-
-**Beta 2 focuses on applications like the settings app.**
-
-** - in settings in settings you can now change your wallpaper, and you upload your own set of wallpapers!**
-** - bugs were fixxed up and they washed away!
-
-### small fixes 
-
-- **added more content into settings**
-- **fixxed start menu orb size**
-- **fixxed an issue with saving personalization settings when in guest account as previous versions with the feature would save wallpaper changes from a guest account to the user made account. And version shows pop-up warning before guest logs off.**
-
-## Known Issues
-**these issues come from official testing and official standards 
-
-yay no issues!
+**Version 2.1.1**
+**added taskbar alignment but fixxed issues it had.**

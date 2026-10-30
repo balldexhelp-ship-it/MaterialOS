@@ -8,7 +8,7 @@
 ## Material OS is currently in beta, meaning the operating system is still being made. There aren’t a whole lot of useful features yet, and things like applications and other parts of the OS are still being worked on.
 **So if you go to certain pages, there’s a good chance Material OS will be incomplete.**
 
-# Try out Material OS BETA 2.1
+# Try out Material OS BETA 2.1.1
 https://balldexhelp-ship-it.github.io/MaterialOS/
 **(I wouldn’t recommend checking it out just yet, though. There’s currently an issue with local storage, and I don’t have a fix for it yet. Since local storage is also going to be an actual feature, the only way I’ve been able to test if things are being implemented properly is by clearing all my Safari history**.
 So I’d suggest waiting until the OS is a bit more complete.
@@ -28,6 +28,7 @@ and please, dont use personal info. the sMe passwords when making an account. on
 **Beta 2 focuses on applications like the settings app.**
 
 ** - in settings in settings you can now change your wallpaper, and you upload your own set of wallpapers!**
+** - bugs were fixxed up and they washed away!
 
 ### small fixes 
 
@@ -38,5 +39,4 @@ and please, dont use personal info. the sMe passwords when making an account. on
 ## Known Issues
 **these issues come from official testing and official standards 
 
-- **guest account wallpaper gets changed if the user changes the wallpaper on the user account**
-A change will be made shortly 
+yay no issues!

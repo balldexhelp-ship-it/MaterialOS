@@ -44,30 +44,80 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             display: flex;
-            justify-content: space-between;
             align-items: center;
             padding: 0 12px;
             z-index: 8000;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .taskbar-left-section {
+        /* Taskbar Layout Alignments */
+        #taskbar.align-default {
+            justify-content: space-between;
+        }
+        #taskbar.align-default .taskbar-left-section {
             display: flex;
             align-items: center;
             gap: 8px;
             width: 120px;
+            justify-content: flex-start;
         }
-
-        .taskbar-center-section {
+        #taskbar.align-default .taskbar-center-section {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             flex: 1;
         }
+        #taskbar.align-default .taskbar-right-section {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            width: 120px;
+        }
 
-        .taskbar-right-section {
+        #taskbar.align-centered {
+            justify-content: space-between;
+        }
+        #taskbar.align-centered .taskbar-left-section {
+            display: none; /* In all centered, start orb joins the middle sequence */
+        }
+        #taskbar.align-centered .taskbar-center-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex: 1;
+        }
+        #taskbar.align-centered .taskbar-right-section {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 8px;
+            width: 120px;
+        }
+
+        #taskbar.align-left {
+            justify-content: space-between;
+        }
+        #taskbar.align-left .taskbar-left-section {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: auto;
+            flex: 0;
+            justify-content: flex-start;
+        }
+        #taskbar.align-left .taskbar-center-section {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 8px;
+            flex: 1;
+            margin-left: 8px;
+        }
+        #taskbar.align-left .taskbar-right-section {
             display: flex;
             align-items: center;
             justify-content: flex-end;
@@ -647,51 +697,26 @@
             transform: scale(0.96);
         }
 
-        /* Toggle switch component */
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 44px;
-            height: 24px;
-        }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
+        /* Dropdown Select Styling */
+        .setting-select {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #E6E1E5;
+            padding: 10px 16px;
+            border-radius: 16px;
+            font-size: 13px;
+            outline: none;
             cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(255, 255, 255, 0.2);
-            transition: .3s;
-            border-radius: 24px;
+            transition: background 0.2s ease, border-color 0.2s ease;
         }
 
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: .3s;
-            border-radius: 50%;
+        .setting-select:hover {
+            background: rgba(255, 255, 255, 0.12);
         }
 
-        input:checked + .slider {
-            background-color: #D0BCFF;
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(20px);
-            background-color: #381E72;
+        .setting-select option {
+            background: #1C1B1F;
+            color: #E6E1E5;
         }
 
         /* Full Screen Wallpaper Popup */
@@ -2114,13 +2139,14 @@
                         
                         <div class="setting-control-card">
                             <div class="setting-control-info">
-                                <div class="setting-control-title">Auto-hide Taskbar</div>
-                                <div class="setting-control-desc">Automatically hide taskbar when not in use</div>
+                                <div class="setting-control-title">Taskbar alignment</div>
+                                <div class="setting-control-desc">Choose how taskbar items and the start orb are aligned</div>
                             </div>
-                            <label class="switch">
-                                <input type="checkbox" id="autohide-taskbar-toggle" onchange="toggleAutohideTaskbar(this.checked)">
-                                <span class="slider"></span>
-                            </label>
+                            <select id="taskbar-alignment-select" class="setting-select" onchange="changeTaskbarAlignment(this.value)">
+                                <option value="default">Default</option>
+                                <option value="centered">All centered</option>
+                                <option value="left">All left</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -2163,13 +2189,15 @@
             </div>
         </div>
 
-        <div id="taskbar">
+        <div id="taskbar" class="align-default">
             <div class="taskbar-left-section">
                 <button id="start-button" onclick="toggleStartMenu(event)" title="Launcher">
                     <img src="https://i.postimg.cc/6pFxHGKV/Untitled2546-20261027110329.png" alt="Start Menu">
                 </button>
             </div>
-            <div class="taskbar-center-section" id="taskbar-center-apps"></div>
+            <div class="taskbar-center-section" id="taskbar-center-apps">
+                <!-- If centered, start button is injected here dynamically if needed or handled via flex layout -->
+            </div>
             <div class="taskbar-right-section">
                 <div id="taskbar-clock" onclick="toggleClockCalendar()">
                     <div class="time-text" id="time-display">00:00</div>
@@ -2195,6 +2223,7 @@
         let guestSessionData = {};
         let guestMadeChanges = false;
         let guestTempWallpaper = "";
+        let guestTempTaskbarAlignment = "default";
 
         const defaultWallpapers = [
             'https://i.postimg.cc/NGr5SD8w/Untitled2542-20261027024807.png',
@@ -2320,19 +2349,33 @@
 
         function updateTaskbarMiddleIcons() {
             const container = document.getElementById('taskbar-center-apps');
+            const alignment = getCurrentTaskbarAlignment();
+
+            // Rebuild center section contents safely preserving order
+            const existingApps = container.querySelectorAll('.taskbar-app-icon');
+            const startBtnHTML = `<button id="start-button" onclick="toggleStartMenu(event)" title="Launcher"><img src="https://i.postimg.cc/6pFxHGKV/Untitled2546-20261027110329.png" alt="Start Menu"></button>`;
+            
             container.innerHTML = '';
+
+            if (alignment === 'centered') {
+                container.insertAdjacentHTML('beforeend', startBtnHTML);
+            }
+
+            existingApps.forEach(app => container.appendChild(app));
 
             const settingsWin = document.getElementById('settings-window');
             if (settingsWin && settingsWin.style.display === 'flex') {
-                const appBtn = document.createElement('button');
-                appBtn.className = 'taskbar-app-icon';
-                appBtn.onclick = () => toggleWindowFromTaskbar('settings');
-                appBtn.title = 'Settings';
-                appBtn.innerHTML = `
-                    <img src="https://i.postimg.cc/mkqW0c9K/Untitled2553-20261028234312.png" alt="Settings">
-                    <div class="taskbar-app-indicator"></div>
-                `;
-                container.appendChild(appBtn);
+                if (!container.querySelector('.taskbar-app-icon')) {
+                    const appBtn = document.createElement('button');
+                    appBtn.className = 'taskbar-app-icon';
+                    appBtn.onclick = () => toggleWindowFromTaskbar('settings');
+                    appBtn.title = 'Settings';
+                    appBtn.innerHTML = `
+                        <img src="https://i.postimg.cc/mkqW0c9K/Untitled2553-20261028234312.png" alt="Settings">
+                        <div class="taskbar-app-indicator"></div>
+                    `;
+                    container.appendChild(appBtn);
+                }
             }
         }
 
@@ -2380,7 +2423,7 @@
             });
         }
 
-        /* Settings Actions (Wallpaper & Taskbar) */
+        /* Settings Actions (Wallpaper & Taskbar Alignment) */
         function openWallpaperModal() {
             const modal = document.getElementById('wallpaper-modal');
             const container = document.getElementById('wallpaper-grid-container');
@@ -2469,26 +2512,34 @@
             }
         }
 
-        function toggleAutohideTaskbar(enabled) {
+        function getCurrentTaskbarAlignment() {
             if (guestSessionActive) {
-                guestSessionData.autohideTaskbar = enabled;
-                guestMadeChanges = true;
-            } else {
-                localStorage.setItem('os_autohide_taskbar', enabled ? 'true' : 'false');
+                return guestTempTaskbarAlignment || "default";
             }
-            applyTaskbarSettings();
+            return localStorage.getItem('os_taskbar_alignment') || "default";
         }
 
-        function applyTaskbarSettings() {
-            let isAutohide = false;
+        function changeTaskbarAlignment(alignment) {
             if (guestSessionActive) {
-                isAutohide = guestSessionData.autohideTaskbar === true;
+                guestTempTaskbarAlignment = alignment;
+                guestMadeChanges = true;
             } else {
-                isAutohide = localStorage.getItem('os_autohide_taskbar') === 'true';
+                localStorage.setItem('os_taskbar_alignment', alignment);
             }
+            applyTaskbarAlignmentUI();
+        }
 
-            const toggle = document.getElementById('autohide-taskbar-toggle');
-            if (toggle) toggle.checked = isAutohide;
+        function applyTaskbarAlignmentUI() {
+            const alignment = getCurrentTaskbarAlignment();
+            const taskbar = document.getElementById('taskbar');
+            
+            taskbar.className = '';
+            taskbar.classList.add(`align-${alignment}`);
+
+            const selectEl = document.getElementById('taskbar-alignment-select');
+            if (selectEl) selectEl.value = alignment;
+
+            updateTaskbarMiddleIcons();
         }
 
         function logOffSystem() {
@@ -2509,9 +2560,10 @@
             guestSessionData = {};
             guestMadeChanges = false;
             guestTempWallpaper = "";
+            guestTempTaskbarAlignment = "default";
 
             loadSavedWallpaper();
-            applyTaskbarSettings();
+            applyTaskbarAlignmentUI();
 
             document.getElementById('start-menu').style.display = 'none';
             document.getElementById('desktop').style.display = 'none';
@@ -2640,7 +2692,7 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             loadSavedWallpaper();
-            applyTaskbarSettings();
+            applyTaskbarAlignmentUI();
             const isSetupDone = localStorage.getItem('os_setup_done');
 
             if (isSetupDone === 'true') {
@@ -2882,9 +2934,10 @@
                     guestSessionActive = false;
                     guestMadeChanges = false;
                     guestTempWallpaper = "";
+                    guestTempTaskbarAlignment = "default";
 
                     loadSavedWallpaper();
-                    applyTaskbarSettings();
+                    applyTaskbarAlignmentUI();
                     updateSettingsUserSession();
 
                     const loginScreen = document.getElementById('login-screen');
@@ -2912,15 +2965,15 @@
             guestSessionActive = true;
             guestMadeChanges = false;
             guestTempWallpaper = "";
+            guestTempTaskbarAlignment = "default";
             guestSessionData = {
                 username: "User Guest",
-                sessionStartedAt: new Date(),
-                autohideTaskbar: false
+                sessionStartedAt: new Date()
             };
             
-            // Guest always starts with the default wallpaper independently
+            // Guest always starts with default settings independently
             document.getElementById('desktop').style.backgroundImage = `url('${defaultWallpapers[0]}')`;
-            applyTaskbarSettings();
+            applyTaskbarAlignmentUI();
             updateSettingsUserSession();
 
             const loginScreen = document.getElementById('login-screen');
@@ -2991,8 +3044,9 @@
                 guestSessionActive = false;
                 guestMadeChanges = false;
                 guestTempWallpaper = "";
+                guestTempTaskbarAlignment = "default";
                 loadSavedWallpaper();
-                applyTaskbarSettings();
+                applyTaskbarAlignmentUI();
                 updateSettingsUserSession();
 
                 const loginScreen = document.getElementById('login-screen');

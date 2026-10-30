@@ -81,7 +81,7 @@
             justify-content: space-between;
         }
         #taskbar.align-centered .taskbar-left-section {
-            display: none; /* In all centered, start orb joins the middle sequence */
+            display: none;
         }
         #taskbar.align-centered .taskbar-center-section {
             display: flex;
@@ -2195,9 +2195,7 @@
                     <img src="https://i.postimg.cc/6pFxHGKV/Untitled2546-20261027110329.png" alt="Start Menu">
                 </button>
             </div>
-            <div class="taskbar-center-section" id="taskbar-center-apps">
-                <!-- If centered, start button is injected here dynamically if needed or handled via flex layout -->
-            </div>
+            <div class="taskbar-center-section" id="taskbar-center-apps"></div>
             <div class="taskbar-right-section">
                 <div id="taskbar-clock" onclick="toggleClockCalendar()">
                     <div class="time-text" id="time-display">00:00</div>
@@ -2310,6 +2308,15 @@
             document.getElementById('clock-calendar-flyout').style.display = 'none';
             document.getElementById('notification-center').style.display = 'none';
 
+            const alignment = getCurrentTaskbarAlignment();
+            if (alignment === 'centered') {
+                startMenu.style.left = '50%';
+                startMenu.style.transform = 'translateX(-50%)';
+            } else {
+                startMenu.style.left = '12px';
+                startMenu.style.transform = 'none';
+            }
+
             if (startMenu.style.display === 'flex') {
                 startMenu.style.display = 'none';
             } else {
@@ -2351,7 +2358,6 @@
             const container = document.getElementById('taskbar-center-apps');
             const alignment = getCurrentTaskbarAlignment();
 
-            // Rebuild center section contents safely preserving order
             const existingApps = container.querySelectorAll('.taskbar-app-icon');
             const startBtnHTML = `<button id="start-button" onclick="toggleStartMenu(event)" title="Launcher"><img src="https://i.postimg.cc/6pFxHGKV/Untitled2546-20261027110329.png" alt="Start Menu"></button>`;
             
@@ -2576,7 +2582,7 @@
             const startMenu = document.getElementById('start-menu');
             const startBtn = document.getElementById('start-button');
             if (startMenu && startMenu.style.display === 'flex') {
-                if (!startMenu.contains(e.target) && !startBtn.contains(e.target)) {
+                if (!startMenu.contains(e.target) && (!startBtn || !startBtn.contains(e.target))) {
                     startMenu.style.display = 'none';
                 }
             }

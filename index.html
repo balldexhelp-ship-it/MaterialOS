@@ -788,6 +788,109 @@
             background-color: #381E72;
         }
 
+        /* About Page Styles */
+        .about-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: #E6E1E5;
+            margin-bottom: 8px;
+        }
+
+        .about-info-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 18px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .about-info-text {
+            font-size: 14px;
+            color: #E6E1E5;
+            line-height: 1.4;
+        }
+
+        .about-version-clickable {
+            display: inline-block;
+            font-size: 14px;
+            color: #E6E1E5;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 8px;
+            align-self: flex-start;
+            transition: background 0.2s ease;
+        }
+
+        .about-version-clickable:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Cookie Easter Egg Popup Modal */
+        #cookie-easteregg-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cookie-modal-card {
+            position: relative;
+            width: 320px;
+            background: rgba(30, 29, 36, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 20px 48px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .cookie-modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: transparent;
+            border: none;
+            color: #E6E1E5;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.2s ease;
+        }
+
+        .cookie-modal-close:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .cookie-modal-img {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+        }
+
+        .cookie-modal-text {
+            font-size: 18px;
+            font-weight: 500;
+            color: #E6E1E5;
+        }
+
         /* Full Screen Wallpaper Popup */
         #wallpaper-modal {
             position: fixed;
@@ -2077,6 +2180,15 @@
         </div>
     </div>
 
+    <!-- Cookie Easter Egg Popup Modal -->
+    <div id="cookie-easteregg-modal">
+        <div class="cookie-modal-card">
+            <button class="cookie-modal-close" onclick="closeCookieModal()">✕</button>
+            <img src="https://i.postimg.cc/QNf03bZK/Untitled2562-20261030005431.png" alt="Cookie" class="cookie-modal-img">
+            <div class="cookie-modal-text">nice!</div>
+        </div>
+    </div>
+
     <!-- Guest Logoff Warning Modal -->
     <div id="guest-warning-modal">
         <div class="guest-warning-card">
@@ -2187,6 +2299,13 @@
                             </div>
                         </div>
 
+                        <div class="settings-nav-item" id="nav-item-about" onclick="switchSettingsTab('about')">
+                            <div class="settings-nav-item-left">
+                                <img src="https://i.postimg.cc/1zD3tp89/Untitled2544-20261027050233.png" alt="About" class="settings-nav-icon">
+                                <span>About</span>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="settings-user-profile">
                         <img id="settings-user-avatar" src="https://i.postimg.cc/PxvmH9vP/Untitled2552-20261028230212.png" alt="Profile" class="settings-avatar">
@@ -2243,6 +2362,21 @@
                                 <input type="checkbox" id="show-profile-toggle" onchange="toggleShowProfileSetting(this.checked)">
                                 <span class="slider"></span>
                             </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-panel" id="panel-about">
+                        <h2 class="about-title">About Material OS</h2>
+                        <div class="about-info-box">
+                            <div class="about-info-text">
+                                Version: Beta 2 see more info at our <a href="https://github.com/balldexhelp-ship-it/MaterialOS" target="_blank" class="github-link">Github</a>
+                            </div>
+                            <div class="about-info-text">
+                                Device: emulated
+                            </div>
+                        </div>
+                        <div class="about-version-clickable" onclick="handleVersionClick()">
+                            Version Number: 2.1.2
                         </div>
                     </div>
                 </div>
@@ -2319,6 +2453,9 @@
         let guestTempWallpaper = "";
         let guestTempTaskbarAlignment = "default";
         let guestTempShowProfile = false;
+
+        let versionClickCount = 0;
+        let versionClickTimer = null;
 
         const defaultWallpapers = [
             'https://i.postimg.cc/NGr5SD8w/Untitled2542-20261027024807.png',
@@ -2458,11 +2595,8 @@
 
         function updateTaskbarMiddleIcons() {
             const container = document.getElementById('taskbar-center-apps');
-            const alignment = getCurrentTaskbarAlignment();
 
             const existingApps = container.querySelectorAll('.taskbar-app-icon');
-            const startBtnHTML = `<button id="start-button" onclick="toggleStartMenu(event)" title="Launcher"><img src="https://i.postimg.cc/6pFxHGKV/Untitled2546-20261027110329.png" alt="Start Menu"></button>`;
-            
             container.innerHTML = '';
 
             existingApps.forEach(app => container.appendChild(app));
@@ -2528,6 +2662,51 @@
                     item.style.display = 'none';
                 }
             });
+        }
+
+        /* Easter Egg Functionality */
+        function handleVersionClick() {
+            versionClickCount++;
+            if (versionClickTimer) clearTimeout(versionClickTimer);
+
+            if (versionClickCount === 2) {
+                versionClickCount = 0;
+                openCookieModal();
+            } else {
+                versionClickTimer = setTimeout(() => {
+                    versionClickCount = 0;
+                }, 400);
+            }
+        }
+
+        function openCookieModal() {
+            document.getElementById('cookie-easteregg-modal').style.display = 'flex';
+        }
+
+        function closeCookieModal() {
+            document.getElementById('cookie-easteregg-modal').style.display = 'none';
+            triggerCookieNotification();
+        }
+
+        function triggerCookieNotification() {
+            if (isMuted) return;
+
+            const toast = document.getElementById('toast-banner');
+            document.getElementById('toast-title-text').innerText = "hope you enjoy that cookie! It's home made!";
+            document.getElementById('toast-body-text').innerText = "🍪";
+            
+            toast.style.display = 'flex';
+            toast.style.opacity = '1';
+            document.getElementById('notif-bell-badge').style.display = 'block';
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                    toast.style.opacity = '1';
+                }, 500);
+            }, 6000);
         }
 
         /* Settings Actions (Wallpaper, Taskbar Alignment, Start Menu Profile Setting) */

@@ -16,7 +16,7 @@
 
 ### Setup
 [![IMG-8615.jpg](https://i.postimg.cc/Wz3VqKxk/IMG-8615.jpg)](https://postimg.cc/CBWXWvhh)
-**At the very start of your journey with using our OS. We ask for some info. Not much at all, Just things like info for when making your account! And the setup is very short!**
+At the very start of your journey with using our OS. We ask for some info. Not much at all, Just things like info for when making your account! And the setup is very short!
 
 ### Local Storage
 [![Untitled2561-20261029224005.png](https://i.postimg.cc/Pq2FvxHV/Untitled2561-20261029224005.png)](https://postimg.cc/hJQ0HKfV)

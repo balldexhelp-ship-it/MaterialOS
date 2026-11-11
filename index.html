@@ -51,7 +51,6 @@
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Taskbar Layout Alignments (Default & Left Only) */
         #taskbar.align-default {
             justify-content: space-between;
         }
@@ -386,7 +385,7 @@
             transform: scale(0.96);
         }
 
-        /* Settings App Window */
+        /* Draggable Settings App Window */
         .os-window {
             position: absolute;
             top: 15%;
@@ -419,6 +418,11 @@
             padding: 0 16px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             gap: 12px;
+            cursor: grab;
+        }
+
+        .window-titlebar:active {
+            cursor: grabbing;
         }
 
         .window-close-btn {
@@ -448,6 +452,7 @@
             font-size: 14px;
             font-weight: 500;
             color: #E6E1E5;
+            pointer-events: none;
         }
 
         .settings-body {
@@ -721,7 +726,6 @@
             transform: scale(0.96);
         }
 
-        /* Dropdown Select Styling */
         .setting-select {
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.15);
@@ -743,7 +747,6 @@
             color: #E6E1E5;
         }
 
-        /* Toggle Switch Styling */
         .switch-container {
             position: relative;
             display: inline-block;
@@ -788,7 +791,7 @@
             background-color: #381E72;
         }
 
-        /* About Page Styles */
+        /* About Page & Reset Options Styles */
         .about-title {
             font-size: 24px;
             font-weight: 500;
@@ -825,6 +828,81 @@
 
         .about-version-clickable:hover {
             background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Reset Warning Banner Card */
+        .reset-warning-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            background: rgba(255, 193, 7, 0.08);
+            border: 1px solid rgba(255, 193, 7, 0.25);
+            border-radius: 20px;
+            padding: 18px 20px;
+            margin-bottom: 8px;
+        }
+
+        .reset-warning-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .reset-warning-text {
+            font-size: 14px;
+            color: #F1F3F4;
+            line-height: 1.5;
+        }
+
+        /* Local Storage Reset Confirmation Modal */
+        #localstorage-reset-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .storage-modal-card {
+            width: 440px;
+            background: rgba(30, 29, 36, 0.96);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 28px;
+            padding: 28px;
+            box-shadow: 0 20px 48px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .storage-modal-title {
+            font-size: 20px;
+            font-weight: 500;
+            color: #FFB4AB;
+            letter-spacing: -0.3px;
+        }
+
+        .storage-modal-text {
+            font-size: 14px;
+            color: #E6E1E5;
+            line-height: 1.5;
+        }
+
+        .storage-modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 8px;
         }
 
         /* Cookie Easter Egg Popup Modal */
@@ -2180,6 +2258,20 @@
         </div>
     </div>
 
+    <!-- Local Storage Reset Confirmation Modal -->
+    <div id="localstorage-reset-modal">
+        <div class="storage-modal-card">
+            <div class="storage-modal-title">WARNING STOP AND READ THIS.</div>
+            <div class="storage-modal-text">
+                YOU ARE ABOUT TO RESET THE LOCAL STORAGE WHICH MEANS EVERYTHING WILL BE RESET. YOU'LL HAVE TO DO THE WHOLE SET UP AGAIN IF YOU CONFIRM ON THE NEXT REFRESH. TO CONTINUE, PLEASE TAP THE CONTINUE BUTTON.
+            </div>
+            <div class="storage-modal-actions">
+                <button class="btn-text" style="color: #E6E1E5;" onclick="closeLocalStorageModal()">Back</button>
+                <button class="btn-material" style="background: #B3261E;" onclick="confirmResetLocalStorage()">Continue</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Cookie Easter Egg Popup Modal -->
     <div id="cookie-easteregg-modal">
         <div class="cookie-modal-card">
@@ -2255,9 +2347,9 @@
             </div>
         </div>
 
-        <!-- Settings App Window -->
+        <!-- Draggable Settings App Window -->
         <div class="os-window" id="settings-window">
-            <div class="window-titlebar">
+            <div class="window-titlebar" id="settings-titlebar">
                 <button class="window-close-btn" onclick="closeAppWindow('settings')" title="Close">
                     <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
                 </button>
@@ -2303,6 +2395,13 @@
                             <div class="settings-nav-item-left">
                                 <img src="https://i.postimg.cc/1zD3tp89/Untitled2544-20261027050233.png" alt="About" class="settings-nav-icon">
                                 <span>About</span>
+                            </div>
+                        </div>
+
+                        <div class="settings-nav-item" id="nav-item-resetoptions" onclick="switchSettingsTab('resetoptions')">
+                            <div class="settings-nav-item-left">
+                                <img src="https://i.postimg.cc/1tpcfmR9/Untitled2546-20261111054432.png" alt="Reset options" class="settings-nav-icon">
+                                <span>Reset options</span>
                             </div>
                         </div>
 
@@ -2377,6 +2476,23 @@
                         </div>
                         <div class="about-version-clickable" onclick="handleVersionClick()">
                             Version Number: 2.1.2
+                        </div>
+                    </div>
+
+                    <div class="settings-panel" id="panel-resetoptions">
+                        <h2 class="about-title">Reset options</h2>
+                        <div class="reset-warning-card">
+                            <img src="https://i.postimg.cc/1tpcfmR9/Untitled2546-20261111054432.png" alt="Warning" class="reset-warning-icon">
+                            <div class="reset-warning-text">
+                                be careful when changing settings here as things can get wiped or settings can be reset
+                            </div>
+                        </div>
+                        <div class="setting-control-card">
+                            <div class="setting-control-info">
+                                <div class="setting-control-title">reset local storage</div>
+                                <div class="setting-control-desc">Clear all stored configuration and restart setup</div>
+                            </div>
+                            <button class="setting-control-btn" onclick="openLocalStorageModal()">Reset local storage</button>
                         </div>
                     </div>
                 </div>
@@ -2560,6 +2676,45 @@
             }
         }
 
+        /* Draggable Window Implementation */
+        function makeWindowDraggable(windowId, titlebarId) {
+            const win = document.getElementById(windowId);
+            const titlebar = document.getElementById(titlebarId);
+            if (!win || !titlebar) return;
+
+            let posX = 0, posY = 0, mouseX = 0, mouseY = 0;
+
+            titlebar.onmousedown = dragMouseDown;
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                posX = mouseX - e.clientX;
+                posY = mouseY - e.clientY;
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+
+                win.style.top = (win.offsetTop - posY) + "px";
+                win.style.left = (win.offsetLeft - posX) + "px";
+            }
+
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+
+        makeWindowDraggable('settings-window', 'settings-titlebar');
+
         /* App & Window Management Functions */
         function openAppWindow(appId) {
             const startMenu = document.getElementById('start-menu');
@@ -2707,6 +2862,20 @@
                     toast.style.opacity = '1';
                 }, 500);
             }, 6000);
+        }
+
+        /* Local Storage Reset Functionality */
+        function openLocalStorageModal() {
+            document.getElementById('localstorage-reset-modal').style.display = 'flex';
+        }
+
+        function closeLocalStorageModal() {
+            document.getElementById('localstorage-reset-modal').style.display = 'none';
+        }
+
+        function confirmResetLocalStorage() {
+            localStorage.clear();
+            window.location.reload();
         }
 
         /* Settings Actions (Wallpaper, Taskbar Alignment, Start Menu Profile Setting) */

@@ -9,7 +9,9 @@
 
 ## New and inproved
 **Version 2.1.1**
-**added taskbar alignment but fixxed issues it had.**
+(the version number will change very soon and it should be 2.2 soon.)
+**NEW: dragging Windows is now here. I'll come with a solution to if you drag it up too far to use navigation soon.**
+**NEW: you can reset local storage and more fixes for the feature is coming soon**
 
 
 ## Cool Features 

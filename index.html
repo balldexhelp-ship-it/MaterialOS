@@ -400,6 +400,11 @@
             display: none;
             flex-direction: column;
             overflow: hidden;
+            transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+                        height 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+                        top 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+                        left 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+                        border-radius 0.25s cubic-bezier(0.16, 1, 0.3, 1);
             animation: windowOpen 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -413,9 +418,9 @@
             background: rgba(255, 255, 255, 0.05);
             display: flex;
             align-items: center;
+            justify-content: space-between;
             padding: 0 16px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            gap: 12px;
             cursor: grab;
         }
 
@@ -423,7 +428,20 @@
             cursor: grabbing;
         }
 
-        .window-close-btn {
+        .window-titlebar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            pointer-events: none;
+        }
+
+        .window-titlebar-right {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .window-action-btn {
             width: 28px;
             height: 28px;
             border-radius: 50%;
@@ -436,13 +454,17 @@
             transition: background 0.2s ease;
         }
 
-        .window-close-btn:hover {
+        .window-action-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .window-action-btn.close-btn:hover {
             background: rgba(234, 67, 53, 0.2);
         }
 
-        .window-close-btn svg {
-            width: 18px;
-            height: 18px;
+        .window-action-btn svg {
+            width: 16px;
+            height: 16px;
             fill: #E6E1E5;
         }
 
@@ -450,7 +472,6 @@
             font-size: 14px;
             font-weight: 500;
             color: #E6E1E5;
-            pointer-events: none;
         }
 
         /* Camera App Window Styles */
@@ -2415,7 +2436,7 @@
     <div id="wallpaper-modal">
         <div class="wallpaper-modal-header">
             <div class="wallpaper-modal-title">Select Wallpaper</div>
-            <button class="window-close-btn" onclick="closeWallpaperModal()" title="Close">
+            <button class="window-action-btn close-btn" onclick="closeWallpaperModal()" title="Close">
                 <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
             </button>
         </div>
@@ -2431,7 +2452,7 @@
     <div id="gallery-modal">
         <div class="gallery-header">
             <div class="gallery-title">Captured Images</div>
-            <button class="window-close-btn" onclick="closeGalleryModal()" title="Close">
+            <button class="window-action-btn close-btn" onclick="closeGalleryModal()" title="Close">
                 <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
             </button>
         </div>
@@ -2479,10 +2500,17 @@
         <!-- Draggable Camera App Window -->
         <div class="os-window" id="camera-window" style="width: 680px; height: 520px;">
             <div class="window-titlebar" id="camera-titlebar">
-                <button class="window-close-btn" onclick="closeAppWindow('camera')" title="Close">
-                    <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-                </button>
-                <div class="window-title">Camera</div>
+                <div class="window-titlebar-left">
+                    <div class="window-title">Camera</div>
+                </div>
+                <div class="window-titlebar-right">
+                    <button class="window-action-btn" onclick="toggleMaximizeWindow('camera')" title="Maximize">
+                        <svg viewBox="0 0 24 24"><path d="M4 4h3v2H6v1H4V4m13 0h3v3h-2V6h-1V4M4 17h2v1h1v2H4v-3m16 0v3h-3v-2h1v-1h2Z"/></svg>
+                    </button>
+                    <button class="window-action-btn close-btn" onclick="closeAppWindow('camera')" title="Close">
+                        <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                    </button>
+                </div>
             </div>
             <div class="camera-body">
                 <video id="camera-video-feed" class="camera-viewfinder" autoplay playsinline></video>
@@ -2497,10 +2525,17 @@
         <!-- Draggable Settings App Window -->
         <div class="os-window" id="settings-window">
             <div class="window-titlebar" id="settings-titlebar">
-                <button class="window-close-btn" onclick="closeAppWindow('settings')" title="Close">
-                    <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-                </button>
-                <div class="window-title">Settings</div>
+                <div class="window-titlebar-left">
+                    <div class="window-title">Settings</div>
+                </div>
+                <div class="window-titlebar-right">
+                    <button class="window-action-btn" onclick="toggleMaximizeWindow('settings')" title="Maximize">
+                        <svg viewBox="0 0 24 24"><path d="M4 4h3v2H6v1H4V4m13 0h3v3h-2V6h-1V4M4 17h2v1h1v2H4v-3m16 0v3h-3v-2h1v-1h2Z"/></svg>
+                    </button>
+                    <button class="window-action-btn close-btn" onclick="closeAppWindow('settings')" title="Close">
+                        <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                    </button>
+                </div>
             </div>
             <div class="settings-body">
                 <div class="settings-sidebar">
@@ -2732,6 +2767,9 @@
         let versionClickCount = 0;
         let versionClickTimer = null;
 
+        // Store pre-maximize states for windows
+        const windowStates = {};
+
         const defaultWallpapers = [
             'https://i.postimg.cc/NGr5SD8w/Untitled2542-20261027024807.png',
             'https://i.postimg.cc/RCnNyd15/Untitled2550-20261028213546.png',
@@ -2835,7 +2873,7 @@
             }
         }
 
-        /* Window Centering & Dragging */
+        /* Window Centering, Dragging & Maximize Logic */
         function centerWindow(windowId) {
             const win = document.getElementById(windowId);
             if (!win) return;
@@ -2853,6 +2891,38 @@
             win.style.top = centerTop + "px";
         }
 
+        function toggleMaximizeWindow(appId) {
+            const win = document.getElementById(`${appId}-window`);
+            if (!win) return;
+
+            if (!windowStates[appId]) {
+                windowStates[appId] = { isMaximized: false };
+            }
+
+            const state = windowStates[appId];
+
+            if (!state.isMaximized) {
+                state.prevLeft = win.style.left;
+                state.prevTop = win.style.top;
+                state.prevWidth = win.style.width;
+                state.prevHeight = win.style.height;
+
+                win.style.left = '0px';
+                win.style.top = '0px';
+                win.style.width = '100%';
+                win.style.height = 'calc(100% - 48px)';
+                win.style.borderRadius = '0px';
+                state.isMaximized = true;
+            } else {
+                win.style.left = state.prevLeft;
+                win.style.top = state.prevTop;
+                win.style.width = state.prevWidth;
+                win.style.height = state.prevHeight;
+                win.style.borderRadius = '24px';
+                state.isMaximized = false;
+            }
+        }
+
         function makeWindowDraggable(windowId, titlebarId) {
             const win = document.getElementById(windowId);
             const titlebar = document.getElementById(titlebarId);
@@ -2863,8 +2933,14 @@
             titlebar.onmousedown = dragMouseDown;
 
             function dragMouseDown(e) {
+                if (e.target.closest('button')) return; // Don't drag if clicking buttons
                 e = e || window.event;
                 e.preventDefault();
+                
+                if (windowStates[windowId.replace('-window', '')] && windowStates[windowId.replace('-window', '')].isMaximized) {
+                    return; // Prevent dragging while maximized
+                }
+
                 mouseX = e.clientX;
                 mouseY = e.clientY;
                 document.onmouseup = closeDragElement;

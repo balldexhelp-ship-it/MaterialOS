@@ -480,6 +480,7 @@
             justify-content: center;
             gap: 16px;
             padding: 0 20px;
+            flex-shrink: 0;
         }
 
         .camera-btn {
@@ -775,7 +776,6 @@
             text-decoration: underline;
         }
 
-        /* Settings Card Control */
         .setting-control-card {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -891,7 +891,6 @@
             background-color: #381E72;
         }
 
-        /* About Page & Reset Options Styles */
         .about-title {
             font-size: 24px;
             font-weight: 500;
@@ -930,7 +929,6 @@
             background: rgba(255, 255, 255, 0.08);
         }
 
-        /* Reset Warning Banner Card */
         .reset-warning-card {
             display: flex;
             align-items: flex-start;
@@ -956,7 +954,6 @@
             line-height: 1.5;
         }
 
-        /* Guest Reset Notice View */
         .guest-reset-container {
             display: flex;
             flex-direction: column;
@@ -979,7 +976,6 @@
             padding: 20px;
         }
 
-        /* Local Storage Reset Confirmation Modal */
         #localstorage-reset-modal {
             position: fixed;
             top: 0;
@@ -1028,7 +1024,6 @@
             margin-top: 8px;
         }
 
-        /* Cookie Easter Egg Popup Modal */
         #cookie-easteregg-modal {
             position: fixed;
             top: 0;
@@ -1092,7 +1087,6 @@
             color: #E6E1E5;
         }
 
-        /* Full Screen Wallpaper Popup */
         #wallpaper-modal {
             position: fixed;
             top: 0;
@@ -1166,7 +1160,6 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Guest Logoff Warning Popup */
         #guest-warning-modal {
             position: fixed;
             top: 0;
@@ -2484,7 +2477,7 @@
         </div>
 
         <!-- Draggable Camera App Window -->
-        <div class="os-window" id="camera-window" style="width: 640px; height: 480px;">
+        <div class="os-window" id="camera-window" style="width: 680px; height: 520px;">
             <div class="window-titlebar" id="camera-titlebar">
                 <button class="window-close-btn" onclick="closeAppWindow('camera')" title="Close">
                     <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
@@ -2967,17 +2960,17 @@
             });
         }
 
-        /* Camera Media Streams & Capturing Logic */
+        /* Camera Media Streams & Capturing Logic (Microphone not used) */
         async function startCameraStream() {
             const videoElem = document.getElementById('camera-video-feed');
             try {
                 if (!mediaStreamInstance) {
-                    mediaStreamInstance = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                    mediaStreamInstance = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
                 }
                 videoElem.srcObject = mediaStreamInstance;
             } catch (err) {
-                console.error("Camera/Microphone permission denied or unavailable:", err);
-                alert("Could not access camera and microphone. Please check permissions.");
+                console.error("Camera permission denied or unavailable:", err);
+                alert("Could not access camera. Please check permissions.");
             }
         }
 

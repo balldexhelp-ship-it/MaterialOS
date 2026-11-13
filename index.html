@@ -385,7 +385,7 @@
             transform: scale(0.96);
         }
 
-        /* Draggable Settings App Window */
+        /* Draggable App Windows */
         .os-window {
             position: absolute;
             width: 680px;
@@ -451,6 +451,108 @@
             font-weight: 500;
             color: #E6E1E5;
             pointer-events: none;
+        }
+
+        /* Camera App Window Styles */
+        .camera-body {
+            flex: 1;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .camera-viewfinder {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: #000;
+        }
+
+        .camera-controls-bar {
+            height: 64px;
+            background: rgba(20, 20, 25, 0.85);
+            backdrop-filter: blur(15px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 0 20px;
+        }
+
+        .camera-btn {
+            background: #D0BCFF;
+            color: #381E72;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+        }
+
+        .camera-btn:hover {
+            background: #EADDFF;
+        }
+
+        .camera-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* Gallery Modal View for Images */
+        #gallery-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(18, 18, 22, 0.92);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            z-index: 9500;
+            display: none;
+            flex-direction: column;
+            padding: 36px 48px;
+            color: #E6E1E5;
+        }
+
+        .gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .gallery-title {
+            font-size: 22px;
+            font-weight: 500;
+        }
+
+        .gallery-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        .gallery-thumb {
+            aspect-ratio: 4 / 3;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #222;
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+        }
+
+        .gallery-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .settings-body {
@@ -713,7 +815,7 @@
             font-weight: 500;
             cursor: pointer;
             white-space: nowrap;
-            transition: background 0.2s ease, transform 0.15s ease;
+            transition: background 0.2s ease, transform 0.1s ease;
         }
 
         .setting-control-btn:hover {
@@ -2324,14 +2426,23 @@
                 <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
             </button>
         </div>
-        <div class="wallpaper-grid" id="wallpaper-grid-container">
-            <!-- Wallpapers injected dynamically -->
-        </div>
+        <div class="wallpaper-grid" id="wallpaper-grid-container"></div>
         <div class="wallpaper-modal-footer">
             <input type="file" id="wallpaper-file-input" accept="image/*" style="display: none;" onchange="handleWallpaperUpload(event)">
             <button class="btn-text" style="color: #E6E1E5; background: rgba(255,255,255,0.08);" onclick="document.getElementById('wallpaper-file-input').click()">Upload</button>
             <button class="btn-material" onclick="applySelectedWallpaper()">Apply</button>
         </div>
+    </div>
+
+    <!-- Captured Images Gallery Modal View -->
+    <div id="gallery-modal">
+        <div class="gallery-header">
+            <div class="gallery-title">Captured Images</div>
+            <button class="window-close-btn" onclick="closeGalleryModal()" title="Close">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+        </div>
+        <div class="gallery-grid" id="gallery-grid-container"></div>
     </div>
 
     <div id="desktop">
@@ -2347,6 +2458,10 @@
                     <div class="app-item" onclick="openAppWindow('settings')">
                         <div class="app-icon"><img src="https://i.postimg.cc/mkqW0c9K/Untitled2553-20261028234312.png" alt="Settings"></div>
                         <div class="app-label">Settings</div>
+                    </div>
+                    <div class="app-item" onclick="openAppWindow('camera')">
+                        <div class="app-icon"><img src="https://i.postimg.cc/h49jT2h0/Untitled2647-20261113002033.png" alt="Camera"></div>
+                        <div class="app-label">Camera</div>
                     </div>
                 </div>
             </div>
@@ -2364,6 +2479,24 @@
                         <img id="footer-user-avatar" src="https://i.postimg.cc/PxvmH9vP/Untitled2552-20261028230212.png" alt="Profile" class="footer-avatar">
                         <span id="footer-username-display" class="footer-username">User</span>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Draggable Camera App Window -->
+        <div class="os-window" id="camera-window" style="width: 640px; height: 480px;">
+            <div class="window-titlebar" id="camera-titlebar">
+                <button class="window-close-btn" onclick="closeAppWindow('camera')" title="Close">
+                    <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </button>
+                <div class="window-title">Camera</div>
+            </div>
+            <div class="camera-body">
+                <video id="camera-video-feed" class="camera-viewfinder" autoplay playsinline></video>
+                <canvas id="camera-snapshot-canvas" style="display: none;"></canvas>
+                <div class="camera-controls-bar">
+                    <button class="camera-btn" onclick="takeCameraImage()">Take Image</button>
+                    <button class="camera-btn" onclick="openGalleryModal()">View Images</button>
                 </div>
             </div>
         </div>
@@ -2489,14 +2622,14 @@
                         <h2 class="about-title">About Material OS</h2>
                         <div class="about-info-box">
                             <div class="about-info-text">
-                                Version: Beta 2 see more info at our <a href="https://github.com/balldexhelp-ship-it/MaterialOS" target="_blank" class="github-link">Github</a>
+                                Version: 2.2 see more info at our <a href="https://github.com/balldexhelp-ship-it/MaterialOS" target="_blank" class="github-link">Github</a>
                             </div>
                             <div class="about-info-text">
                                 Device: emulated
                             </div>
                         </div>
                         <div class="about-version-clickable" onclick="handleVersionClick()">
-                            Version Number: 2.1.2
+                            Version Number: 2.2.0
                         </div>
                     </div>
 
@@ -2600,7 +2733,9 @@
         let guestTempWallpaper = "";
         let guestTempTaskbarAlignment = "default";
         let guestTempShowProfile = false;
+        let guestCapturedImages = [];
 
+        let mediaStreamInstance = null;
         let versionClickCount = 0;
         let versionClickTimer = null;
 
@@ -2707,7 +2842,7 @@
             }
         }
 
-        /* Centering and Resetting Window Position */
+        /* Window Centering & Dragging */
         function centerWindow(windowId) {
             const win = document.getElementById(windowId);
             if (!win) return;
@@ -2725,7 +2860,6 @@
             win.style.top = centerTop + "px";
         }
 
-        /* Draggable Window Implementation */
         function makeWindowDraggable(windowId, titlebarId) {
             const win = document.getElementById(windowId);
             const titlebar = document.getElementById(titlebarId);
@@ -2763,9 +2897,10 @@
         }
 
         makeWindowDraggable('settings-window', 'settings-titlebar');
+        makeWindowDraggable('camera-window', 'camera-titlebar');
 
         /* App & Window Management Functions */
-        function openAppWindow(appId) {
+        async function openAppWindow(appId) {
             const startMenu = document.getElementById('start-menu');
             startMenu.classList.remove('open');
             setTimeout(() => { startMenu.style.display = 'none'; }, 250);
@@ -2775,6 +2910,10 @@
 
             win.style.display = 'flex';
             updateTaskbarMiddleIcons();
+
+            if (appId === 'camera') {
+                await startCameraStream();
+            }
         }
 
         function closeAppWindow(appId) {
@@ -2783,6 +2922,10 @@
 
             win.style.display = 'none';
             updateTaskbarMiddleIcons();
+
+            if (appId === 'camera') {
+                stopCameraStream();
+            }
         }
 
         function toggleWindowFromTaskbar(appId) {
@@ -2791,34 +2934,137 @@
 
             if (win.style.display === 'flex') {
                 win.style.display = 'none';
+                if (appId === 'camera') stopCameraStream();
             } else {
                 win.style.display = 'flex';
+                if (appId === 'camera') startCameraStream();
             }
             updateTaskbarMiddleIcons();
         }
 
         function updateTaskbarMiddleIcons() {
             const container = document.getElementById('taskbar-center-apps');
-
-            const existingApps = container.querySelectorAll('.taskbar-app-icon');
             container.innerHTML = '';
 
-            existingApps.forEach(app => container.appendChild(app));
+            const activeWindows = ['settings', 'camera'];
+            activeWindows.forEach(appId => {
+                const win = document.getElementById(`${appId}-window`);
+                if (win && win.style.display === 'flex') {
+                    const iconSrc = appId === 'settings' 
+                        ? 'https://i.postimg.cc/mkqW0c9K/Untitled2553-20261028234312.png'
+                        : 'https://i.postimg.cc/h49jT2h0/Untitled2647-20261113002033.png';
 
-            const settingsWin = document.getElementById('settings-window');
-            if (settingsWin && settingsWin.style.display === 'flex') {
-                if (!container.querySelector('.taskbar-app-icon')) {
                     const appBtn = document.createElement('button');
                     appBtn.className = 'taskbar-app-icon';
-                    appBtn.onclick = () => toggleWindowFromTaskbar('settings');
-                    appBtn.title = 'Settings';
+                    appBtn.onclick = () => toggleWindowFromTaskbar(appId);
+                    appBtn.title = appId.charAt(0).toUpperCase() + appId.slice(1);
                     appBtn.innerHTML = `
-                        <img src="https://i.postimg.cc/mkqW0c9K/Untitled2553-20261028234312.png" alt="Settings">
+                        <img src="${iconSrc}" alt="${appId}">
                         <div class="taskbar-app-indicator"></div>
                     `;
                     container.appendChild(appBtn);
                 }
+            });
+        }
+
+        /* Camera Media Streams & Capturing Logic */
+        async function startCameraStream() {
+            const videoElem = document.getElementById('camera-video-feed');
+            try {
+                if (!mediaStreamInstance) {
+                    mediaStreamInstance = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                }
+                videoElem.srcObject = mediaStreamInstance;
+            } catch (err) {
+                console.error("Camera/Microphone permission denied or unavailable:", err);
+                alert("Could not access camera and microphone. Please check permissions.");
             }
+        }
+
+        function stopCameraStream() {
+            if (mediaStreamInstance) {
+                mediaStreamInstance.getTracks().forEach(track => track.stop());
+                mediaStreamInstance = null;
+            }
+            const videoElem = document.getElementById('camera-video-feed');
+            if (videoElem) videoElem.srcObject = null;
+        }
+
+        function takeCameraImage() {
+            const videoElem = document.getElementById('camera-video-feed');
+            const canvas = document.getElementById('camera-snapshot-canvas');
+            if (!videoElem || !canvas) return;
+
+            canvas.width = videoElem.videoWidth || 640;
+            canvas.height = videoElem.videoHeight || 480;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(videoElem, 0, 0, canvas.width, canvas.height);
+
+            const dataUrl = canvas.toDataURL('image/png');
+
+            if (guestSessionActive) {
+                guestCapturedImages.push(dataUrl);
+            } else {
+                let storedImages = [];
+                try {
+                    storedImages = JSON.parse(localStorage.getItem('os_user_images') || '[]');
+                } catch(e) { storedImages = []; }
+                storedImages.push(dataUrl);
+                localStorage.setItem('os_user_images', JSON.stringify(storedImages));
+            }
+
+            triggerToastNotification("Photo Captured", "Image successfully saved!");
+        }
+
+        function openGalleryModal() {
+            const modal = document.getElementById('gallery-modal');
+            const grid = document.getElementById('gallery-grid-container');
+            grid.innerHTML = '';
+
+            let imagesToDisplay = [];
+            if (guestSessionActive) {
+                imagesToDisplay = guestCapturedImages;
+            } else {
+                try {
+                    imagesToDisplay = JSON.parse(localStorage.getItem('os_user_images') || '[]');
+                } catch(e) { imagesToDisplay = []; }
+            }
+
+            if (imagesToDisplay.length === 0) {
+                grid.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; color: rgba(255,255,255,0.5); padding: 48px;">No images captured yet.</div>`;
+            } else {
+                imagesToDisplay.forEach((url) => {
+                    const thumb = document.createElement('div');
+                    thumb.className = 'gallery-thumb';
+                    thumb.innerHTML = `<img src="${url}" alt="Captured Photo">`;
+                    grid.appendChild(thumb);
+                });
+            }
+
+            modal.style.display = 'flex';
+        }
+
+        function closeGalleryModal() {
+            document.getElementById('gallery-modal').style.display = 'none';
+        }
+
+        function triggerToastNotification(title, message) {
+            const toast = document.getElementById('toast-banner');
+            document.getElementById('toast-title-text').innerText = title;
+            document.getElementById('toast-body-text').innerText = message;
+            
+            toast.style.display = 'flex';
+            toast.style.opacity = '1';
+            document.getElementById('notif-bell-badge').style.display = 'block';
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                    toast.style.opacity = '1';
+                }, 500);
+            }, 4000);
         }
 
         function switchSettingsTab(tabName) {
@@ -2906,28 +3152,7 @@
 
         function closeCookieModal() {
             document.getElementById('cookie-easteregg-modal').style.display = 'none';
-            triggerCookieNotification();
-        }
-
-        function triggerCookieNotification() {
-            if (isMuted) return;
-
-            const toast = document.getElementById('toast-banner');
-            document.getElementById('toast-title-text').innerText = "hope you enjoy that cookie! It's home made!";
-            document.getElementById('toast-body-text').innerText = "🍪";
-            
-            toast.style.display = 'flex';
-            toast.style.opacity = '1';
-            document.getElementById('notif-bell-badge').style.display = 'block';
-
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.5s ease';
-                setTimeout(() => {
-                    toast.style.display = 'none';
-                    toast.style.opacity = '1';
-                }, 500);
-            }, 6000);
+            triggerToastNotification("hope you enjoy that cookie! It's home made!", "🍪");
         }
 
         /* Local Storage Reset Functionality */
@@ -2944,7 +3169,6 @@
             window.location.reload();
         }
 
-        /* Settings Actions (Wallpaper, Taskbar Alignment, Start Menu Profile Setting) */
         function openWallpaperModal() {
             const modal = document.getElementById('wallpaper-modal');
             const container = document.getElementById('wallpaper-grid-container');
@@ -3127,9 +3351,11 @@
             guestTempWallpaper = "";
             guestTempTaskbarAlignment = "default";
             guestTempShowProfile = false;
+            guestCapturedImages = [];
 
-            /* Reset window position back to default centered position */
+            stopCameraStream();
             centerWindow('settings-window');
+            centerWindow('camera-window');
 
             loadSavedWallpaper();
             applyTaskbarAlignmentUI();
@@ -3140,6 +3366,7 @@
             startMenu.style.display = 'none';
             document.getElementById('desktop').style.display = 'none';
             document.getElementById('settings-window').style.display = 'none';
+            document.getElementById('camera-window').style.display = 'none';
             updateTaskbarMiddleIcons();
             showLoginScreen();
         }
@@ -3269,6 +3496,7 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             centerWindow('settings-window');
+            centerWindow('camera-window');
             loadSavedWallpaper();
             applyTaskbarAlignmentUI();
             applyShowProfileUI();
@@ -3515,9 +3743,10 @@
                     guestTempWallpaper = "";
                     guestTempTaskbarAlignment = "default";
                     guestTempShowProfile = false;
+                    guestCapturedImages = [];
 
-                    /* Reset window position to default centered position when logging in */
                     centerWindow('settings-window');
+                    centerWindow('camera-window');
 
                     loadSavedWallpaper();
                     applyTaskbarAlignmentUI();
@@ -3551,13 +3780,15 @@
             guestTempWallpaper = "";
             guestTempTaskbarAlignment = "default";
             guestTempShowProfile = false;
+            guestCapturedImages = [];
+
             guestSessionData = {
                 username: "User Guest",
                 sessionStartedAt: new Date()
             };
             
-            /* Reset window position to default centered position */
             centerWindow('settings-window');
+            centerWindow('camera-window');
 
             document.getElementById('desktop').style.backgroundImage = `url('${defaultWallpapers[0]}')`;
             applyTaskbarAlignmentUI();
@@ -3637,6 +3868,7 @@
                 guestTempShowProfile = false;
 
                 centerWindow('settings-window');
+                centerWindow('camera-window');
 
                 loadSavedWallpaper();
                 applyTaskbarAlignmentUI();

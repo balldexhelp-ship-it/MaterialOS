@@ -8,13 +8,12 @@
 ## Use the OS at https://balldexhelp-ship-it.github.io/MaterialOS/
 
 ## New and inproved
-**Version 2.1.1**
-(the version number will change very soon and it should be 2.2 soon.)
-**NEW: dragging Windows is now here. I'll come with a solution to if you drag it up too far to use navigation soon.**
-**NEW: you can reset local storage and more fixes for the feature is coming soon**
+**Version 2.2
+the things that came out are kinda experimental lol
 
 
-## Cool Features 
+# experimental
+**Camera application | take photos and more!**
 
 
 ### Setup

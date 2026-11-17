@@ -7,6 +7,46 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap');
 
+        :root {
+            --accent-primary: #A8C7FA;
+            --accent-on-primary: #062E6F;
+            --accent-hover: #D3E3FD;
+            --accent-tint-15: rgba(168, 199, 250, 0.15);
+            --accent-tint-25: rgba(168, 199, 250, 0.25);
+            --taskbar-tint: rgba(18, 22, 30, 0.85);
+            --window-tint: rgba(24, 27, 34, 0.95);
+        }
+
+        body.accent-blue {
+            --accent-primary: #A8C7FA;
+            --accent-on-primary: #062E6F;
+            --accent-hover: #D3E3FD;
+            --accent-tint-15: rgba(168, 199, 250, 0.15);
+            --accent-tint-25: rgba(168, 199, 250, 0.25);
+            --taskbar-tint: rgba(18, 22, 30, 0.85);
+            --window-tint: rgba(24, 27, 34, 0.95);
+        }
+
+        body.accent-purple {
+            --accent-primary: #D0BCFF;
+            --accent-on-primary: #381E72;
+            --accent-hover: #EADDFF;
+            --accent-tint-15: rgba(208, 188, 255, 0.15);
+            --accent-tint-25: rgba(208, 188, 255, 0.25);
+            --taskbar-tint: rgba(24, 18, 32, 0.85);
+            --window-tint: rgba(30, 26, 36, 0.95);
+        }
+
+        body.accent-green {
+            --accent-primary: #A6D3A0;
+            --accent-on-primary: #0F3814;
+            --accent-hover: #C4EED0;
+            --accent-tint-15: rgba(166, 211, 160, 0.15);
+            --accent-tint-25: rgba(166, 211, 160, 0.25);
+            --taskbar-tint: rgba(18, 26, 20, 0.85);
+            --window-tint: rgba(24, 31, 26, 0.95);
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -28,7 +68,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://i.postimg.cc/NGr5SD8w/Untitled2542-20261027024807.png');
+            background-image: url('https://i.postimg.cc/c17x90Vx/Untitled2664-20261117045102.png');
             background-size: cover;
             background-position: center;
             display: none;
@@ -40,7 +80,7 @@
             left: 0;
             width: 100%;
             height: 48px;
-            background: linear-gradient(90deg, rgba(18, 18, 22, 0.4) 0%, rgba(18, 18, 22, 0.95) 100%);
+            background: linear-gradient(90deg, rgba(18, 18, 22, 0.45) 0%, var(--taskbar-tint) 100%);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             display: flex;
@@ -160,8 +200,9 @@
             bottom: 3px;
             width: 12px;
             height: 3px;
-            background: #D0BCFF;
+            background: var(--accent-primary);
             border-radius: 3px;
+            transition: background 0.25s ease;
         }
 
         #taskbar-clock {
@@ -221,7 +262,7 @@
             right: 6px;
             width: 8px;
             height: 8px;
-            background: #D0BCFF;
+            background: var(--accent-primary);
             border-radius: 50%;
             display: none;
         }
@@ -233,7 +274,7 @@
             left: 12px;
             width: 320px;
             height: 380px;
-            background: rgba(26, 27, 30, 0.94);
+            background: var(--window-tint);
             border: 1px solid rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(35px);
             -webkit-backdrop-filter: blur(35px);
@@ -245,7 +286,7 @@
             overflow: hidden;
             opacity: 0;
             transform: translateY(16px) scale(0.96);
-            transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease;
         }
 
         #start-menu.open {
@@ -313,7 +354,7 @@
 
         .start-menu-footer {
             height: 64px;
-            background: rgba(35, 36, 40, 0.98);
+            background: rgba(255, 255, 255, 0.04);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -390,7 +431,7 @@
             position: absolute;
             width: 680px;
             height: 460px;
-            background: rgba(28, 27, 31, 0.95);
+            background: var(--window-tint);
             border: 1px solid rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
@@ -404,7 +445,8 @@
                         height 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
                         top 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
                         left 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
-                        border-radius 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+                        border-radius 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                        background 0.25s ease;
             animation: windowOpen 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -415,7 +457,7 @@
 
         .window-titlebar {
             height: 44px;
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--accent-tint-15);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -423,6 +465,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             cursor: grab;
             flex-shrink: 0;
+            transition: background 0.25s ease;
         }
 
         .window-titlebar:active {
@@ -480,7 +523,7 @@
             flex: 1;
             display: flex;
             overflow: hidden;
-            background: rgba(28, 27, 31, 0.96);
+            background: rgba(28, 27, 31, 0.85);
         }
 
         .welcome-app-sidebar {
@@ -536,7 +579,7 @@
         .welcome-checkbox-label input[type="checkbox"] {
             width: 16px;
             height: 16px;
-            accent-color: #D0BCFF;
+            accent-color: var(--accent-primary);
             cursor: pointer;
         }
 
@@ -614,8 +657,8 @@
         }
 
         .camera-btn {
-            background: #D0BCFF;
-            color: #381E72;
+            background: var(--accent-primary);
+            color: var(--accent-on-primary);
             border: none;
             padding: 10px 20px;
             border-radius: 20px;
@@ -626,7 +669,7 @@
         }
 
         .camera-btn:hover {
-            background: #EADDFF;
+            background: var(--accent-hover);
         }
 
         .camera-btn:active {
@@ -694,7 +737,7 @@
 
         .settings-sidebar {
             width: 240px;
-            background: rgba(45, 44, 50, 0.7);
+            background: rgba(45, 44, 50, 0.65);
             border-right: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
             flex-direction: column;
@@ -742,7 +785,7 @@
             padding: 10px 12px;
             border-radius: 14px;
             cursor: pointer;
-            transition: background 0.2s ease;
+            transition: background 0.2s ease, color 0.2s ease;
             color: #E6E1E5;
             font-size: 13px;
             font-weight: 500;
@@ -759,8 +802,8 @@
         }
 
         .settings-nav-item.active {
-            background: rgba(208, 188, 255, 0.15);
-            color: #D0BCFF;
+            background: var(--accent-tint-15);
+            color: var(--accent-primary);
         }
 
         .settings-nav-icon {
@@ -811,7 +854,7 @@
             padding: 8px 10px;
             border-radius: 12px;
             cursor: pointer;
-            transition: background 0.2s ease;
+            transition: background 0.2s ease, color 0.2s ease;
             color: #CAC4D0;
             font-size: 12px;
             font-weight: 500;
@@ -823,8 +866,8 @@
         }
 
         .settings-subnav-item.active {
-            background: rgba(208, 188, 255, 0.15);
-            color: #D0BCFF;
+            background: var(--accent-tint-15);
+            color: var(--accent-primary);
         }
 
         .settings-user-profile {
@@ -898,7 +941,7 @@
         }
 
         .github-link {
-            color: #8AB4F8;
+            color: var(--accent-primary);
             text-decoration: none;
         }
 
@@ -915,6 +958,16 @@
             align-items: center;
             justify-content: space-between;
             gap: 16px;
+        }
+
+        .setting-control-card-vertical {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
         }
 
         .setting-control-info {
@@ -936,8 +989,8 @@
         }
 
         .setting-control-btn {
-            background: #D0BCFF;
-            color: #381E72;
+            background: var(--accent-primary);
+            color: var(--accent-on-primary);
             border: none;
             padding: 10px 18px;
             border-radius: 20px;
@@ -949,11 +1002,62 @@
         }
 
         .setting-control-btn:hover {
-            background: #EADDFF;
+            background: var(--accent-hover);
         }
 
         .setting-control-btn:active {
             transform: scale(0.96);
+        }
+
+        /* Themes & Accents Option Chips */
+        .option-pills-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .theme-choice-chip {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px 8px 10px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 2px solid transparent;
+            color: #E6E1E5;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .theme-choice-chip:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .theme-choice-chip:active {
+            transform: scale(0.96);
+        }
+
+        .theme-choice-chip.active {
+            border-color: var(--accent-primary);
+            background: var(--accent-tint-15);
+        }
+
+        .theme-preview-thumb {
+            width: 32px;
+            height: 20px;
+            border-radius: 6px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .accent-swatch-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.25);
         }
 
         .setting-select {
@@ -1013,12 +1117,12 @@
         }
 
         input:checked + .slider {
-            background-color: #D0BCFF;
+            background-color: var(--accent-primary);
         }
 
         input:checked + .slider:before {
             transform: translateX(20px);
-            background-color: #381E72;
+            background-color: var(--accent-on-primary);
         }
 
         .about-title {
@@ -1276,8 +1380,8 @@
         }
 
         .wallpaper-item.selected {
-            border-color: #D0BCFF;
-            box-shadow: 0 0 0 4px rgba(208, 188, 255, 0.25);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 4px var(--accent-tint-25);
         }
 
         .wallpaper-modal-footer {
@@ -1342,7 +1446,7 @@
             bottom: 56px;
             right: 12px;
             width: 360px;
-            background: rgba(28, 27, 31, 0.92);
+            background: var(--window-tint);
             border: 1px solid rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
@@ -1378,7 +1482,7 @@
         .flyout-ampm {
             font-size: 16px;
             font-weight: 500;
-            color: #D0BCFF;
+            color: var(--accent-primary);
             text-transform: uppercase;
         }
 
@@ -1473,8 +1577,8 @@
         }
 
         .cal-date-cell.today {
-            background: #D0BCFF !important;
-            color: #381E72 !important;
+            background: var(--accent-primary) !important;
+            color: var(--accent-on-primary) !important;
             font-weight: 700;
         }
 
@@ -1484,7 +1588,7 @@
             right: 12px;
             width: 360px;
             max-height: 520px;
-            background: rgba(30, 29, 36, 0.88);
+            background: var(--window-tint);
             border: 1px solid rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
@@ -1536,7 +1640,7 @@
         .notif-card-title {
             font-size: 14px;
             font-weight: 500;
-            color: #D0BCFF;
+            color: var(--accent-primary);
         }
 
         .notif-card-body {
@@ -1585,7 +1689,7 @@
             top: 24px;
             right: 24px;
             width: 360px;
-            background: rgba(30, 29, 36, 0.92);
+            background: var(--window-tint);
             border: 1px solid rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
@@ -1607,7 +1711,7 @@
         .toast-title {
             font-size: 15px;
             font-weight: 500;
-            color: #D0BCFF;
+            color: var(--accent-primary);
         }
 
         .toast-body {
@@ -2121,7 +2225,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://i.postimg.cc/SsGx12j9/Untitled2542-20261027024807.png');
+            background-image: url('https://i.postimg.cc/c17x90Vx/Untitled2664-20261117045102.png');
             background-size: cover;
             background-position: center;
             display: none;
@@ -2195,7 +2299,7 @@
         }
 
         .login-password-input:focus {
-            border-color: #D0BCFF;
+            border-color: var(--accent-primary);
             background: rgba(255, 255, 255, 0.18);
         }
 
@@ -2225,7 +2329,7 @@
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            background: #D0BCFF;
+            background: var(--accent-primary);
             border: none;
             cursor: pointer;
             display: flex;
@@ -2237,11 +2341,11 @@
         .login-submit-btn svg {
             width: 20px;
             height: 20px;
-            fill: #381E72;
+            fill: var(--accent-on-primary);
         }
 
         .login-submit-btn:hover {
-            background: #EADDFF;
+            background: var(--accent-hover);
         }
 
         .login-submit-btn:active {
@@ -2315,7 +2419,7 @@
         }
     </style>
 </head>
-<body>
+<body class="accent-blue">
 
     <div id="boot-screen">
         <img src="https://i.postimg.cc/1zD3tp89/Untitled2544-20261027050233.png" alt="OS Logo" class="boot-logo">
@@ -2553,7 +2657,7 @@
         <div class="wallpaper-modal-footer">
             <input type="file" id="wallpaper-file-input" accept="image/*" style="display: none;" onchange="handleWallpaperUpload(event)">
             <button class="btn-text" style="color: #E6E1E5; background: rgba(255,255,255,0.08);" onclick="document.getElementById('wallpaper-file-input').click()">Upload</button>
-            <button class="btn-material" onclick="applySelectedWallpaper()">Apply</button>
+            <button class="setting-control-btn" onclick="applySelectedWallpaper()">Apply</button>
         </div>
     </div>
 
@@ -2574,7 +2678,7 @@
             <div class="toast-body" id="toast-body-text">take a look around to get to know your new operating system! There's so much to learn and to know. To get started why not check out some apps</div>
         </div>
 
-        <!-- Start Menu (Welcome app intentionally excluded) -->
+        <!-- Start Menu -->
         <div id="start-menu">
             <div class="start-menu-content">
                 <div class="start-app-grid">
@@ -2606,7 +2710,7 @@
             </div>
         </div>
 
-        <!-- Draggable Welcome App Window (Opens on user login if enabled, never on guest) -->
+        <!-- Draggable Welcome App Window -->
         <div class="os-window" id="welcome-window" style="width: 680px; height: 460px;">
             <div class="window-titlebar" id="welcome-titlebar">
                 <div class="window-titlebar-left">
@@ -2764,6 +2868,50 @@
                             </div>
                             <button class="setting-control-btn" onclick="openWallpaperModal()">Change wallpaper</button>
                         </div>
+
+                        <!-- Themes Rounded Rectangle Card -->
+                        <div class="setting-control-card-vertical">
+                            <div class="setting-control-info">
+                                <div class="setting-control-title">Themes</div>
+                                <div class="setting-control-desc">Apply a theme to update your wallpaper and system accent together</div>
+                            </div>
+                            <div class="option-pills-row">
+                                <button class="theme-choice-chip" id="theme-chip-blue" onclick="selectTheme('blue')">
+                                    <img src="https://i.postimg.cc/c17x90Vx/Untitled2664-20261117045102.png" alt="Blue Theme" class="theme-preview-thumb">
+                                    <span>Blue</span>
+                                </button>
+                                <button class="theme-choice-chip" id="theme-chip-purple" onclick="selectTheme('purple')">
+                                    <img src="https://i.postimg.cc/rmF0Vz6h/Untitled2664-20261117045248.png" alt="Purple Theme" class="theme-preview-thumb">
+                                    <span>Purple</span>
+                                </button>
+                                <button class="theme-choice-chip" id="theme-chip-green" onclick="selectTheme('green')">
+                                    <img src="https://i.postimg.cc/YqjP4xNP/Untitled2664-20261117044928.png" alt="Green Theme" class="theme-preview-thumb">
+                                    <span>Green</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Accents Rounded Rectangle Card -->
+                        <div class="setting-control-card-vertical">
+                            <div class="setting-control-info">
+                                <div class="setting-control-title">Accents</div>
+                                <div class="setting-control-desc">Change only the accent color across the taskbar and apps without changing your wallpaper</div>
+                            </div>
+                            <div class="option-pills-row">
+                                <button class="theme-choice-chip" id="accent-chip-blue" onclick="selectAccentOnly('blue')">
+                                    <span class="accent-swatch-dot" style="background: #A8C7FA;"></span>
+                                    <span>Blue</span>
+                                </button>
+                                <button class="theme-choice-chip" id="accent-chip-purple" onclick="selectAccentOnly('purple')">
+                                    <span class="accent-swatch-dot" style="background: #D0BCFF;"></span>
+                                    <span>Purple</span>
+                                </button>
+                                <button class="theme-choice-chip" id="accent-chip-green" onclick="selectAccentOnly('green')">
+                                    <span class="accent-swatch-dot" style="background: #A6D3A0;"></span>
+                                    <span>Green</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="settings-panel" id="panel-taskbar">
@@ -2909,6 +3057,8 @@
         let guestSessionData = {};
         let guestMadeChanges = false;
         let guestTempWallpaper = "";
+        let guestTempTheme = "blue";
+        let guestTempAccent = "blue";
         let guestTempTaskbarAlignment = "default";
         let guestTempShowProfile = false;
         let guestCapturedImages = [];
@@ -2920,11 +3070,25 @@
         // Store pre-maximize states for windows
         const windowStates = {};
 
+        const themeConfigs = {
+            blue: {
+                wallpaper: 'https://i.postimg.cc/c17x90Vx/Untitled2664-20261117045102.png',
+                accent: 'blue'
+            },
+            purple: {
+                wallpaper: 'https://i.postimg.cc/rmF0Vz6h/Untitled2664-20261117045248.png',
+                accent: 'purple'
+            },
+            green: {
+                wallpaper: 'https://i.postimg.cc/YqjP4xNP/Untitled2664-20261117044928.png',
+                accent: 'green'
+            }
+        };
+
         const defaultWallpapers = [
-            'https://i.postimg.cc/NGr5SD8w/Untitled2542-20261027024807.png',
-            'https://i.postimg.cc/RCnNyd15/Untitled2550-20261028213546.png',
-            'https://i.postimg.cc/QNWHwmQR/Untitled2550-20261028214401.png',
-            'https://i.postimg.cc/CMfzX7Cp/Untitled2557-20261029143919.png'
+            'https://i.postimg.cc/c17x90Vx/Untitled2664-20261117045102.png',
+            'https://i.postimg.cc/rmF0Vz6h/Untitled2664-20261117045248.png',
+            'https://i.postimg.cc/YqjP4xNP/Untitled2664-20261117044928.png'
         ];
         let pendingWallpaper = "";
 
@@ -3127,7 +3291,6 @@
 
         function shouldShowWelcomeOnLogin() {
             const val = localStorage.getItem('os_show_welcome_on_login');
-            // Default to true if never set before (first login)
             return val === null ? true : val === 'true';
         }
 
@@ -3429,6 +3592,71 @@
             window.location.reload();
         }
 
+        /* Themes & Accents Logic */
+        function selectTheme(themeName) {
+            const cfg = themeConfigs[themeName] || themeConfigs.blue;
+
+            if (guestSessionActive) {
+                guestTempTheme = themeName;
+                guestTempAccent = cfg.accent;
+                guestTempWallpaper = cfg.wallpaper;
+                guestMadeChanges = true;
+                document.getElementById('desktop').style.backgroundImage = `url('${cfg.wallpaper}')`;
+            } else {
+                localStorage.setItem('os_theme', themeName);
+                localStorage.setItem('os_accent', cfg.accent);
+                localStorage.setItem('os_wallpaper', cfg.wallpaper);
+                document.getElementById('desktop').style.backgroundImage = `url('${cfg.wallpaper}')`;
+                document.getElementById('login-screen').style.backgroundImage = `url('${cfg.wallpaper}')`;
+            }
+
+            applyAccentClass(cfg.accent);
+            updateThemeAndAccentUI();
+        }
+
+        function selectAccentOnly(accentName) {
+            if (guestSessionActive) {
+                guestTempAccent = accentName;
+                guestMadeChanges = true;
+            } else {
+                localStorage.setItem('os_accent', accentName);
+            }
+
+            applyAccentClass(accentName);
+            updateThemeAndAccentUI();
+        }
+
+        function applyAccentClass(accentName) {
+            document.body.classList.remove('accent-blue', 'accent-purple', 'accent-green');
+            document.body.classList.add(`accent-${accentName || 'blue'}`);
+        }
+
+        function updateThemeAndAccentUI() {
+            const activeTheme = guestSessionActive
+                ? (guestTempTheme || 'blue')
+                : (localStorage.getItem('os_theme') || 'blue');
+
+            const activeAccent = guestSessionActive
+                ? (guestTempAccent || 'blue')
+                : (localStorage.getItem('os_accent') || 'blue');
+
+            ['blue', 'purple', 'green'].forEach(key => {
+                const themeChip = document.getElementById(`theme-chip-${key}`);
+                if (themeChip) {
+                    if (key === activeTheme) themeChip.classList.add('active');
+                    else themeChip.classList.remove('active');
+                }
+
+                const accentChip = document.getElementById(`accent-chip-${key}`);
+                if (accentChip) {
+                    if (key === activeAccent) accentChip.classList.add('active');
+                    else accentChip.classList.remove('active');
+                }
+            });
+
+            applyAccentClass(activeAccent);
+        }
+
         function openWallpaperModal() {
             const modal = document.getElementById('wallpaper-modal');
             const container = document.getElementById('wallpaper-grid-container');
@@ -3609,6 +3837,8 @@
             guestSessionData = {};
             guestMadeChanges = false;
             guestTempWallpaper = "";
+            guestTempTheme = "blue";
+            guestTempAccent = "blue";
             guestTempTaskbarAlignment = "default";
             guestTempShowProfile = false;
             guestCapturedImages = [];
@@ -3617,6 +3847,7 @@
             closeAllWindowsAndResetState();
 
             loadSavedWallpaper();
+            updateThemeAndAccentUI();
             applyTaskbarAlignmentUI();
             applyShowProfileUI();
 
@@ -3753,6 +3984,7 @@
         window.addEventListener('DOMContentLoaded', () => {
             closeAllWindowsAndResetState();
             loadSavedWallpaper();
+            updateThemeAndAccentUI();
             applyTaskbarAlignmentUI();
             applyShowProfileUI();
             const isSetupDone = localStorage.getItem('os_setup_done');
@@ -3996,6 +4228,8 @@
                     guestSessionActive = false;
                     guestMadeChanges = false;
                     guestTempWallpaper = "";
+                    guestTempTheme = "blue";
+                    guestTempAccent = "blue";
                     guestTempTaskbarAlignment = "default";
                     guestTempShowProfile = false;
                     guestCapturedImages = [];
@@ -4003,6 +4237,7 @@
                     closeAllWindowsAndResetState();
 
                     loadSavedWallpaper();
+                    updateThemeAndAccentUI();
                     applyTaskbarAlignmentUI();
                     applyShowProfileUI();
                     updateSettingsUserSession();
@@ -4031,7 +4266,9 @@
         function loginAsGuest() {
             guestSessionActive = true;
             guestMadeChanges = false;
-            guestTempWallpaper = "";
+            guestTempWallpaper = defaultWallpapers[0];
+            guestTempTheme = "blue";
+            guestTempAccent = "blue";
             guestTempTaskbarAlignment = "default";
             guestTempShowProfile = false;
             guestCapturedImages = [];
@@ -4044,6 +4281,7 @@
             closeAllWindowsAndResetState();
 
             document.getElementById('desktop').style.backgroundImage = `url('${defaultWallpapers[0]}')`;
+            updateThemeAndAccentUI();
             applyTaskbarAlignmentUI();
             applyShowProfileUI();
             updateSettingsUserSession();
@@ -4062,7 +4300,7 @@
 
             if (guestSessionActive) {
                 usernameDisplay.innerText = "User Guest";
-                avatarDisplay.src = "https://i.postimg.cc/Dzyg9xcx/Untitled2544-20261029000459.png";
+                avatarDisplay.src = "https://i.postimg.cc/Dzyg9xcx/Untitled2554-20261029000459.png";
             } else {
                 const savedUser = localStorage.getItem('os_username') || "User";
                 usernameDisplay.innerText = savedUser;
@@ -4117,12 +4355,15 @@
                 guestSessionActive = false;
                 guestMadeChanges = false;
                 guestTempWallpaper = "";
+                guestTempTheme = "blue";
+                guestTempAccent = "blue";
                 guestTempTaskbarAlignment = "default";
                 guestTempShowProfile = false;
 
                 closeAllWindowsAndResetState();
 
                 loadSavedWallpaper();
+                updateThemeAndAccentUI();
                 applyTaskbarAlignmentUI();
                 applyShowProfileUI();
                 updateSettingsUserSession();
@@ -4142,7 +4383,6 @@
         function launchDesktopEnvironment() {
             document.getElementById('desktop').style.display = 'block';
 
-            // Ensure no apps are left open initially
             closeAllWindowsAndResetState();
 
             if (guestSessionActive) {

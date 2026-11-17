@@ -443,8 +443,6 @@
             overflow: hidden;
             transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
                         height 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
-                        top 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
-                        left 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
                         border-radius 0.25s cubic-bezier(0.16, 1, 0.3, 1),
                         background 0.25s ease;
             animation: windowOpen 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -3067,6 +3065,9 @@
         let versionClickCount = 0;
         let versionClickTimer = null;
 
+        // Global Z-Index counter for bringing windows to front on click
+        let highestZIndex = 7000;
+
         // Store pre-maximize states for windows
         const windowStates = {};
 
@@ -3187,7 +3188,12 @@
             }
         }
 
-        /* Window Centering, Dragging & Maximize Logic */
+        /* Window Centering, Bring-to-Front & 1:1 Mouse-Locked Dragging */
+        function bringWindowToFront(win) {
+            highestZIndex++;
+            win.style.zIndex = highestZIndex;
+        }
+
         function centerWindow(windowId) {
             const win = document.getElementById(windowId);
             if (!win) return;
@@ -3208,6 +3214,8 @@
         function toggleMaximizeWindow(appId) {
             const win = document.getElementById(`${appId}-window`);
             if (!win) return;
+
+            bringWindowToFront(win);
 
             if (!windowStates[appId]) {
                 windowStates[appId] = { isMaximized: false };
@@ -3242,7 +3250,7 @@
             const titlebar = document.getElementById(titlebarId);
             if (!win || !titlebar) return;
 
-            let posX = 0, posY = 0, mouseX = 0, mouseY = 0;
+            let startX = 0, startY = 0;
 
             titlebar.onmousedown = dragMouseDown;
 
@@ -3250,14 +3258,17 @@
                 if (e.target.closest('button')) return;
                 e = e || window.event;
                 e.preventDefault();
-                
+
                 const appKey = windowId.replace('-window', '');
                 if (windowStates[appKey] && windowStates[appKey].isMaximized) {
                     return;
                 }
 
-                mouseX = e.clientX;
-                mouseY = e.clientY;
+                bringWindowToFront(win);
+
+                startX = e.clientX;
+                startY = e.clientY;
+
                 document.onmouseup = closeDragElement;
                 document.onmousemove = elementDrag;
             }
@@ -3265,13 +3276,15 @@
             function elementDrag(e) {
                 e = e || window.event;
                 e.preventDefault();
-                posX = mouseX - e.clientX;
-                posY = mouseY - e.clientY;
-                mouseX = e.clientX;
-                mouseY = e.clientY;
 
-                win.style.top = (win.offsetTop - posY) + "px";
-                win.style.left = (win.offsetLeft - posX) + "px";
+                const deltaX = e.clientX - startX;
+                const deltaY = e.clientY - startY;
+
+                startX = e.clientX;
+                startY = e.clientY;
+
+                win.style.left = (win.offsetLeft + deltaX) + "px";
+                win.style.top = (win.offsetTop + deltaY) + "px";
             }
 
             function closeDragElement() {
@@ -3279,6 +3292,13 @@
                 document.onmousemove = null;
             }
         }
+
+        // Attach click-to-front behavior to all windows
+        document.querySelectorAll('.os-window').forEach(win => {
+            win.addEventListener('mousedown', () => {
+                bringWindowToFront(win);
+            });
+        });
 
         makeWindowDraggable('settings-window', 'settings-titlebar');
         makeWindowDraggable('camera-window', 'camera-titlebar');
@@ -3304,6 +3324,7 @@
             if (!win) return;
 
             win.style.display = 'flex';
+            bringWindowToFront(win);
             updateTaskbarMiddleIcons();
 
             if (appId === 'camera') {
@@ -3332,6 +3353,7 @@
                 if (appId === 'camera') stopCameraStream();
             } else {
                 win.style.display = 'flex';
+                bringWindowToFront(win);
                 if (appId === 'camera') startCameraStream();
             }
             updateTaskbarMiddleIcons();
@@ -3367,11 +3389,13 @@
         }
 
         function closeAllWindowsAndResetState() {
+            highestZIndex = 7000;
             ['settings', 'camera', 'welcome'].forEach(appId => {
                 const win = document.getElementById(`${appId}-window`);
                 if (win) {
                     win.style.display = 'none';
                     win.style.borderRadius = '24px';
+                    win.style.zIndex = '7000';
                 }
                 if (windowStates[appId]) {
                     windowStates[appId].isMaximized = false;

@@ -8,12 +8,9 @@
 ## Use the OS at https://balldexhelp-ship-it.github.io/MaterialOS/
 
 ## New and inproved
-**Version 2.2
-the things that came out are kinda experimental lol
-
-
-# experimental
-**Camera application | take photos and more!**
+## Version 2.2
+**NEW: welcome window: not on guest accounts however, the next time you login, you will be greeted by a welcome window, and you can disable it by unchecking the "show on login" button!**
+**NEW: themes and wallpapers: the older wallpapers are still uploaded in the files of the GitHub. However, you will see that yes you now have a blue purple and green theme and you can use the wallpapers that are used in the themes.**
 
 
 ### Setup

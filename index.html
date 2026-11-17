@@ -422,6 +422,7 @@
             padding: 0 16px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             cursor: grab;
+            flex-shrink: 0;
         }
 
         .window-titlebar:active {
@@ -472,6 +473,114 @@
             font-size: 14px;
             font-weight: 500;
             color: #E6E1E5;
+        }
+
+        /* Welcome App Window Styles */
+        .welcome-app-body {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+            background: rgba(28, 27, 31, 0.96);
+        }
+
+        .welcome-app-sidebar {
+            width: 210px;
+            background: rgba(42, 41, 47, 0.85);
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 28px 16px 20px 16px;
+            flex-shrink: 0;
+        }
+
+        .welcome-sidebar-brand {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .welcome-sidebar-logo {
+            width: 64px;
+            height: 64px;
+            object-fit: contain;
+        }
+
+        .welcome-sidebar-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #E6E1E5;
+            letter-spacing: -0.2px;
+        }
+
+        .welcome-sidebar-footer {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .welcome-checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #CAC4D0;
+            cursor: pointer;
+        }
+
+        .welcome-checkbox-label input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #D0BCFF;
+            cursor: pointer;
+        }
+
+        .welcome-app-content {
+            flex: 1;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            overflow-y: auto;
+        }
+
+        .welcome-content-heading {
+            font-size: 28px;
+            font-weight: 500;
+            color: #FFFFFF;
+            margin-bottom: 12px;
+            letter-spacing: -0.4px;
+        }
+
+        .welcome-content-desc {
+            font-size: 14px;
+            color: #CAC4D0;
+            line-height: 1.55;
+            margin-bottom: 28px;
+        }
+
+        .welcome-section-header {
+            font-size: 16px;
+            font-weight: 500;
+            color: #E6E1E5;
+            margin-bottom: 12px;
+        }
+
+        .welcome-suggestion-card {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            padding: 16px 20px;
+            font-size: 14px;
+            color: #E6E1E5;
+            line-height: 1.5;
         }
 
         /* Camera App Window Styles */
@@ -2465,7 +2574,7 @@
             <div class="toast-body" id="toast-body-text">take a look around to get to know your new operating system! There's so much to learn and to know. To get started why not check out some apps</div>
         </div>
 
-        <!-- Start Menu -->
+        <!-- Start Menu (Welcome app intentionally excluded) -->
         <div id="start-menu">
             <div class="start-menu-content">
                 <div class="start-app-grid">
@@ -2492,6 +2601,47 @@
                     <div class="footer-user-profile" id="footer-user-profile-box">
                         <img id="footer-user-avatar" src="https://i.postimg.cc/PxvmH9vP/Untitled2552-20261028230212.png" alt="Profile" class="footer-avatar">
                         <span id="footer-username-display" class="footer-username">User</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Draggable Welcome App Window (Opens on user login if enabled, never on guest) -->
+        <div class="os-window" id="welcome-window" style="width: 680px; height: 460px;">
+            <div class="window-titlebar" id="welcome-titlebar">
+                <div class="window-titlebar-left">
+                    <div class="window-title">Welcome</div>
+                </div>
+                <div class="window-titlebar-right">
+                    <button class="window-action-btn" onclick="toggleMaximizeWindow('welcome')" title="Maximize">
+                        <svg viewBox="0 0 24 24"><path d="M4 4h3v2H6v1H4V4m13 0h3v3h-2V6h-1V4M4 17h2v1h1v2H4v-3m16 0v3h-3v-2h1v-1h2Z"/></svg>
+                    </button>
+                    <button class="window-action-btn close-btn" onclick="closeAppWindow('welcome')" title="Close">
+                        <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="welcome-app-body">
+                <div class="welcome-app-sidebar">
+                    <div class="welcome-sidebar-brand">
+                        <img src="https://i.postimg.cc/GpWJcx75/Untitled2544-20261027050233.png" alt="materialOS logo" class="welcome-sidebar-logo">
+                        <div class="welcome-sidebar-title">materialOS</div>
+                    </div>
+                    <div class="welcome-sidebar-footer">
+                        <label class="welcome-checkbox-label">
+                            <input type="checkbox" id="show-welcome-login-checkbox" onchange="toggleShowWelcomeOnLogin(this.checked)">
+                            <span>Show on login</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="welcome-app-content">
+                    <h1 class="welcome-content-heading">Welcome</h1>
+                    <p class="welcome-content-desc">
+                        Material OS has tons of updates and way more to offer. No matter if this is your first time or you're coming back, there's always more to experience.
+                    </p>
+                    <h2 class="welcome-section-header">Some things you can do</h2>
+                    <div class="welcome-suggestion-card">
+                        Check out our Github if you want to learn more information <a href="https://github.com/balldexhelp-ship-it/MaterialOS" target="_blank" class="github-link">here</a>
                     </div>
                 </div>
             </div>
@@ -2881,8 +3031,8 @@
             const desktopWidth = desktop ? desktop.clientWidth : window.innerWidth;
             const desktopHeight = desktop ? desktop.clientHeight : window.innerHeight;
 
-            const winWidth = win.offsetWidth || 680;
-            const winHeight = win.offsetHeight || 460;
+            const winWidth = parseInt(win.style.width, 10) || win.offsetWidth || 680;
+            const winHeight = parseInt(win.style.height, 10) || win.offsetHeight || 460;
 
             const centerLeft = Math.max(0, (desktopWidth - winWidth) / 2);
             const centerTop = Math.max(0, (desktopHeight - winHeight - 48) / 2);
@@ -2933,12 +3083,13 @@
             titlebar.onmousedown = dragMouseDown;
 
             function dragMouseDown(e) {
-                if (e.target.closest('button')) return; // Don't drag if clicking buttons
+                if (e.target.closest('button')) return;
                 e = e || window.event;
                 e.preventDefault();
                 
-                if (windowStates[windowId.replace('-window', '')] && windowStates[windowId.replace('-window', '')].isMaximized) {
-                    return; // Prevent dragging while maximized
+                const appKey = windowId.replace('-window', '');
+                if (windowStates[appKey] && windowStates[appKey].isMaximized) {
+                    return;
                 }
 
                 mouseX = e.clientX;
@@ -2967,6 +3118,18 @@
 
         makeWindowDraggable('settings-window', 'settings-titlebar');
         makeWindowDraggable('camera-window', 'camera-titlebar');
+        makeWindowDraggable('welcome-window', 'welcome-titlebar');
+
+        /* Welcome Window Show on Login Preference */
+        function toggleShowWelcomeOnLogin(isChecked) {
+            localStorage.setItem('os_show_welcome_on_login', isChecked ? 'true' : 'false');
+        }
+
+        function shouldShowWelcomeOnLogin() {
+            const val = localStorage.getItem('os_show_welcome_on_login');
+            // Default to true if never set before (first login)
+            return val === null ? true : val === 'true';
+        }
 
         /* App & Window Management Functions */
         async function openAppWindow(appId) {
@@ -3015,13 +3178,17 @@
             const container = document.getElementById('taskbar-center-apps');
             container.innerHTML = '';
 
-            const activeWindows = ['settings', 'camera'];
+            const appIcons = {
+                settings: 'https://i.postimg.cc/mkqW0c9K/Untitled2553-20261028234312.png',
+                camera: 'https://i.postimg.cc/h49jT2h0/Untitled2647-20261113002033.png',
+                welcome: 'https://i.postimg.cc/GpWJcx75/Untitled2544-20261027050233.png'
+            };
+
+            const activeWindows = ['settings', 'camera', 'welcome'];
             activeWindows.forEach(appId => {
                 const win = document.getElementById(`${appId}-window`);
                 if (win && win.style.display === 'flex') {
-                    const iconSrc = appId === 'settings' 
-                        ? 'https://i.postimg.cc/mkqW0c9K/Untitled2553-20261028234312.png'
-                        : 'https://i.postimg.cc/h49jT2h0/Untitled2647-20261113002033.png';
+                    const iconSrc = appIcons[appId];
 
                     const appBtn = document.createElement('button');
                     appBtn.className = 'taskbar-app-icon';
@@ -3034,6 +3201,30 @@
                     container.appendChild(appBtn);
                 }
             });
+        }
+
+        function closeAllWindowsAndResetState() {
+            ['settings', 'camera', 'welcome'].forEach(appId => {
+                const win = document.getElementById(`${appId}-window`);
+                if (win) {
+                    win.style.display = 'none';
+                    win.style.borderRadius = '24px';
+                }
+                if (windowStates[appId]) {
+                    windowStates[appId].isMaximized = false;
+                }
+            });
+            document.getElementById('settings-window').style.width = '680px';
+            document.getElementById('settings-window').style.height = '460px';
+            document.getElementById('camera-window').style.width = '680px';
+            document.getElementById('camera-window').style.height = '520px';
+            document.getElementById('welcome-window').style.width = '680px';
+            document.getElementById('welcome-window').style.height = '460px';
+
+            centerWindow('settings-window');
+            centerWindow('camera-window');
+            centerWindow('welcome-window');
+            updateTaskbarMiddleIcons();
         }
 
         /* Camera Media Streams & Capturing Logic (Microphone not used) */
@@ -3423,8 +3614,7 @@
             guestCapturedImages = [];
 
             stopCameraStream();
-            centerWindow('settings-window');
-            centerWindow('camera-window');
+            closeAllWindowsAndResetState();
 
             loadSavedWallpaper();
             applyTaskbarAlignmentUI();
@@ -3434,9 +3624,6 @@
             startMenu.classList.remove('open');
             startMenu.style.display = 'none';
             document.getElementById('desktop').style.display = 'none';
-            document.getElementById('settings-window').style.display = 'none';
-            document.getElementById('camera-window').style.display = 'none';
-            updateTaskbarMiddleIcons();
             showLoginScreen();
         }
 
@@ -3564,8 +3751,7 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            centerWindow('settings-window');
-            centerWindow('camera-window');
+            closeAllWindowsAndResetState();
             loadSavedWallpaper();
             applyTaskbarAlignmentUI();
             applyShowProfileUI();
@@ -3814,8 +4000,7 @@
                     guestTempShowProfile = false;
                     guestCapturedImages = [];
 
-                    centerWindow('settings-window');
-                    centerWindow('camera-window');
+                    closeAllWindowsAndResetState();
 
                     loadSavedWallpaper();
                     applyTaskbarAlignmentUI();
@@ -3856,8 +4041,7 @@
                 sessionStartedAt: new Date()
             };
             
-            centerWindow('settings-window');
-            centerWindow('camera-window');
+            closeAllWindowsAndResetState();
 
             document.getElementById('desktop').style.backgroundImage = `url('${defaultWallpapers[0]}')`;
             applyTaskbarAlignmentUI();
@@ -3936,8 +4120,7 @@
                 guestTempTaskbarAlignment = "default";
                 guestTempShowProfile = false;
 
-                centerWindow('settings-window');
-                centerWindow('camera-window');
+                closeAllWindowsAndResetState();
 
                 loadSavedWallpaper();
                 applyTaskbarAlignmentUI();
@@ -3959,9 +4142,20 @@
         function launchDesktopEnvironment() {
             document.getElementById('desktop').style.display = 'block';
 
+            // Ensure no apps are left open initially
+            closeAllWindowsAndResetState();
+
             if (guestSessionActive) {
                 document.getElementById('toast-title-text').innerText = "Welcome, Guest!";
                 document.getElementById('toast-body-text').innerText = "You are in a temporary guest session. Any changes will vanish when you log off.";
+            } else {
+                const showWelcome = shouldShowWelcomeOnLogin();
+                const welcomeCheckbox = document.getElementById('show-welcome-login-checkbox');
+                if (welcomeCheckbox) welcomeCheckbox.checked = showWelcome;
+
+                if (showWelcome) {
+                    openAppWindow('welcome');
+                }
             }
 
             const firstLoginDone = localStorage.getItem('os_first_login_done');

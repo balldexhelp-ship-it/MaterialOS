@@ -10,8 +10,12 @@
 ## New and inproved
 ## Version 2.2
 **NEW: welcome window: not on guest accounts however, the next time you login, you will be greeted by a welcome window, and you can disable it by unchecking the "show on login" button!**
+
 **NEW: themes and wallpapers: the older wallpapers are still uploaded in the files of the GitHub. However, you will see that yes you now have a blue purple and green theme and you can use the wallpapers that are used in the themes.**
 
+**FIXXED AND MORE: window issues: before this update, you would not be able to drag the Windows as much and be able to make certain Windows layer over Other Windows when you click on something on a window. Now, both issues are fixed**
+
+**FIXXED AND MORE; camera application is now fully usable! Use the!Camera app however you would like and have fun!**
 
 ### Setup
 [![IMG-8615.jpg](https://i.postimg.cc/Wz3VqKxk/IMG-8615.jpg)](https://postimg.cc/CBWXWvhh)

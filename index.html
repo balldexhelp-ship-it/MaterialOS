@@ -15,6 +15,39 @@
             --accent-tint-25: rgba(168, 199, 250, 0.25);
             --taskbar-tint: rgba(18, 22, 30, 0.85);
             --window-tint: rgba(24, 27, 34, 0.95);
+            --welcome-bg: rgba(255, 255, 255, 0.75);
+            --welcome-card-bg: rgba(255, 255, 255, 0.88);
+            --welcome-card-border: rgba(255, 255, 255, 0.65);
+            --welcome-title-color: #1C1B1F;
+            --welcome-subtext-color: #49454F;
+            --welcome-input-bg: rgba(255, 255, 255, 0.8);
+            --welcome-input-border: #79747E;
+            --welcome-input-text: #1D1B20;
+            --welcome-box-bg: rgba(0, 0, 0, 0.04);
+            --welcome-box-border: rgba(0, 0, 0, 0.08);
+            --welcome-btn-text: #6750A4;
+            --welcome-btn-text-hover: rgba(103, 80, 164, 0.08);
+            --welcome-chip-bg: rgba(0, 0, 0, 0.05);
+            --welcome-chip-hover: rgba(0, 0, 0, 0.09);
+            --welcome-chip-text: #1C1B1F;
+        }
+
+        body.dark-mode {
+            --welcome-bg: rgba(18, 18, 22, 0.85);
+            --welcome-card-bg: rgba(30, 29, 36, 0.92);
+            --welcome-card-border: rgba(255, 255, 255, 0.12);
+            --welcome-title-color: #E6E1E5;
+            --welcome-subtext-color: #CAC4D0;
+            --welcome-input-bg: rgba(255, 255, 255, 0.08);
+            --welcome-input-border: rgba(255, 255, 255, 0.25);
+            --welcome-input-text: #E6E1E5;
+            --welcome-box-bg: rgba(255, 255, 255, 0.05);
+            --welcome-box-border: rgba(255, 255, 255, 0.1);
+            --welcome-btn-text: var(--accent-primary);
+            --welcome-btn-text-hover: var(--accent-tint-15);
+            --welcome-chip-bg: rgba(255, 255, 255, 0.08);
+            --welcome-chip-hover: rgba(255, 255, 255, 0.15);
+            --welcome-chip-text: #E6E1E5;
         }
 
         body.accent-blue {
@@ -1782,7 +1815,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.75);
+            background: var(--welcome-bg);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
             display: none;
@@ -1790,7 +1823,7 @@
             align-items: center;
             z-index: 5000;
             overflow: hidden;
-            transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition: background 0.4s ease, opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .shape {
@@ -1830,8 +1863,8 @@
             position: relative;
             width: 540px;
             min-height: 340px;
-            background: rgba(255, 255, 255, 0.88);
-            border: 1px solid rgba(255, 255, 255, 0.65);
+            background: var(--welcome-card-bg);
+            border: 1px solid var(--welcome-card-border);
             border-radius: 28px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
             padding: 36px;
@@ -1842,7 +1875,8 @@
             transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
                         min-height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
                         transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), 
-                        opacity 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+                        opacity 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                        background 0.4s ease, border-color 0.4s ease;
         }
 
         .welcome-card.expanded-setup-card {
@@ -1861,51 +1895,27 @@
         .welcome-title {
             font-size: 24px;
             font-weight: 500;
-            color: #1C1B1F;
+            color: var(--welcome-title-color);
             letter-spacing: -0.5px;
             margin-bottom: 12px;
+            transition: color 0.3s ease;
         }
 
         .welcome-subtext {
             font-size: 15px;
-            color: #49454F;
+            color: var(--welcome-subtext-color);
             line-height: 1.5;
             font-weight: 400;
-        }
-
-        .step-loader-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 240px;
-            width: 100%;
-            gap: 16px;
-        }
-
-        .material-spinner {
-            width: 44px;
-            height: 44px;
-            border: 4px solid #E6E1E5;
-            border-top: 4px solid #6750A4;
-            border-radius: 50%;
-            animation: spin 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-        }
-
-        .loader-subtext {
-            font-size: 14px;
-            color: #49454F;
-            font-weight: 500;
-            letter-spacing: 0.2px;
+            transition: color 0.3s ease;
         }
 
         .terms-preview-box {
-            background: rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(0, 0, 0, 0.08);
+            background: var(--welcome-box-bg);
+            border: 1px solid var(--welcome-box-border);
             border-radius: 16px;
             padding: 14px 16px;
             font-size: 13px;
-            color: #49454F;
+            color: var(--welcome-subtext-color);
             line-height: 1.4;
             max-height: 110px;
             overflow-y: auto;
@@ -1929,8 +1939,9 @@
         .form-label {
             font-size: 14px;
             font-weight: 500;
-            color: #1C1B1F;
+            color: var(--welcome-title-color);
             width: 140px;
+            transition: color 0.3s ease;
         }
 
         .input-eye-wrapper {
@@ -1944,37 +1955,42 @@
             width: 100%;
             padding: 10px 42px 10px 16px;
             border-radius: 12px;
-            border: 1px solid #79747E;
-            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid var(--welcome-input-border);
+            background: var(--welcome-input-bg);
             font-size: 14px;
-            color: #1D1B20;
+            color: var(--welcome-input-text);
             outline: none;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.3s ease, color 0.3s ease;
             user-select: text;
         }
 
         .form-input:focus {
-            border-color: #6750A4;
-            box-shadow: 0 0 0 2px rgba(103, 80, 164, 0.2);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 2px var(--accent-tint-25);
         }
 
         .setup-select {
             width: 100%;
             padding: 12px 16px;
             border-radius: 14px;
-            border: 1px solid #79747E;
-            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--welcome-input-border);
+            background: var(--welcome-input-bg);
             font-size: 14px;
-            color: #1D1B20;
+            color: var(--welcome-input-text);
             outline: none;
             cursor: pointer;
             margin-top: 14px;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.3s ease, color 0.3s ease;
         }
 
         .setup-select:focus {
-            border-color: #6750A4;
-            box-shadow: 0 0 0 2px rgba(103, 80, 164, 0.2);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 2px var(--accent-tint-25);
+        }
+
+        .setup-select option {
+            background: var(--window-tint);
+            color: var(--welcome-title-color);
         }
 
         .eye-toggle-btn {
@@ -1993,13 +2009,13 @@
         }
 
         .eye-toggle-btn:hover {
-            background: rgba(0, 0, 0, 0.08);
+            background: rgba(128, 128, 128, 0.15);
         }
 
         .eye-toggle-btn svg {
             width: 20px;
             height: 20px;
-            fill: #49454F;
+            fill: var(--welcome-subtext-color);
         }
 
         .error-msg {
@@ -2022,7 +2038,7 @@
         .shield-icon-badge {
             width: 56px;
             height: 56px;
-            background: #E8DEF8;
+            background: var(--accent-tint-15);
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -2033,25 +2049,25 @@
         .shield-icon-badge svg {
             width: 28px;
             height: 28px;
-            fill: #1D192B;
+            fill: var(--welcome-title-color);
         }
 
         .shield-title {
             font-size: 19px;
             font-weight: 500;
-            color: #1C1B1F;
+            color: var(--welcome-title-color);
         }
 
         .shield-description {
             font-size: 13px;
-            color: #49454F;
+            color: var(--welcome-subtext-color);
             line-height: 1.45;
             text-align: left;
             margin-top: 8px;
-            background: rgba(0, 0, 0, 0.03);
+            background: var(--welcome-box-bg);
             padding: 12px 14px;
             border-radius: 12px;
-            border: 1px solid rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--welcome-box-border);
             width: 100%;
         }
 
@@ -2084,7 +2100,7 @@
         .step-fraction-indicator {
             font-size: 14px;
             font-weight: 500;
-            color: #49454F;
+            color: var(--welcome-subtext-color);
         }
 
         .footer-buttons-right {
@@ -2104,7 +2120,7 @@
         .setup-pers-label {
             font-size: 14px;
             font-weight: 500;
-            color: #1C1B1F;
+            color: var(--welcome-title-color);
         }
 
         .setup-wallpaper-row {
@@ -2127,8 +2143,8 @@
         }
 
         .setup-wp-option.selected {
-            border-color: #6750A4;
-            box-shadow: 0 4px 12px rgba(103, 80, 164, 0.25);
+            border-color: var(--accent-primary);
+            box-shadow: 0 4px 12px var(--accent-tint-25);
         }
 
         .setup-wp-option img {
@@ -2148,9 +2164,9 @@
             gap: 8px;
             padding: 8px 16px;
             border-radius: 16px;
-            background: rgba(0, 0, 0, 0.05);
+            background: var(--welcome-chip-bg);
             border: 2px solid transparent;
-            color: #1C1B1F;
+            color: var(--welcome-chip-text);
             font-size: 13px;
             font-weight: 500;
             cursor: pointer;
@@ -2158,24 +2174,24 @@
         }
 
         .setup-accent-chip:hover {
-            background: rgba(0, 0, 0, 0.09);
+            background: var(--welcome-chip-hover);
         }
 
         .setup-accent-chip.selected {
-            border-color: #6750A4;
-            background: rgba(103, 80, 164, 0.12);
+            border-color: var(--accent-primary);
+            background: var(--accent-tint-15);
         }
 
         .setup-hint-note {
             font-size: 12px;
-            color: #49454F;
+            color: var(--welcome-subtext-color);
             margin-top: 4px;
         }
 
         .setup-guest-toggle-box {
             margin-top: 14px;
-            background: rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(0, 0, 0, 0.08);
+            background: var(--welcome-box-bg);
+            border: 1px solid var(--welcome-box-border);
             border-radius: 18px;
             padding: 14px 16px;
             display: flex;
@@ -2193,12 +2209,12 @@
         .setup-guest-title {
             font-size: 14px;
             font-weight: 500;
-            color: #1C1B1F;
+            color: var(--welcome-title-color);
         }
 
         .setup-guest-desc {
             font-size: 12px;
-            color: #49454F;
+            color: var(--welcome-subtext-color);
             line-height: 1.45;
         }
 
@@ -2239,16 +2255,17 @@
         }
 
         .setup-switch-container input:checked + .setup-slider {
-            background-color: #6750A4;
+            background-color: var(--accent-primary);
         }
 
         .setup-switch-container input:checked + .setup-slider:before {
             transform: translateX(20px);
+            background-color: var(--accent-on-primary);
         }
 
         .btn-material {
-            background: #6750A4;
-            color: #FFFFFF;
+            background: var(--accent-primary);
+            color: var(--accent-on-primary);
             border: none;
             padding: 10px 24px;
             border-radius: 20px;
@@ -2259,7 +2276,7 @@
         }
 
         .btn-material:hover {
-            background: #533E85;
+            background: var(--accent-hover);
         }
 
         .btn-material:active {
@@ -2268,7 +2285,7 @@
 
         .btn-text {
             background: transparent;
-            color: #6750A4;
+            color: var(--welcome-btn-text);
             border: none;
             padding: 10px 16px;
             border-radius: 20px;
@@ -2279,7 +2296,30 @@
         }
 
         .btn-text:hover {
-            background: rgba(103, 80, 164, 0.08);
+            background: var(--welcome-btn-text-hover);
+        }
+
+        /* Bottom-Left Theme Toggle on Welcome Screen */
+        .welcome-theme-toggle-container {
+            position: absolute;
+            bottom: 24px;
+            left: 24px;
+            z-index: 5200;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--welcome-card-bg);
+            border: 1px solid var(--welcome-card-border);
+            padding: 8px 14px;
+            border-radius: 20px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(15px);
+        }
+
+        .welcome-theme-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--welcome-title-color);
         }
 
         #terms-modal {
@@ -2288,7 +2328,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--welcome-bg);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
             z-index: 6000;
@@ -2305,23 +2345,23 @@
             width: 44px;
             height: 44px;
             border-radius: 50%;
-            background: rgba(0, 0, 0, 0.06);
+            background: var(--welcome-chip-bg);
             border: none;
             font-size: 20px;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #1C1B1F;
+            color: var(--welcome-title-color);
             transition: background 0.2s ease;
         }
 
         .modal-close-btn:hover {
-            background: rgba(0, 0, 0, 0.12);
+            background: var(--welcome-chip-hover);
         }
 
         .terms-content {
-            color: #1C1B1F;
+            color: var(--welcome-title-color);
             line-height: 1.6;
             margin-top: 20px;
         }
@@ -2335,7 +2375,7 @@
         .terms-content p {
             margin-bottom: 14px;
             font-size: 15px;
-            color: #49454F;
+            color: var(--welcome-subtext-color);
         }
 
         .terms-content ul, .terms-content ol {
@@ -2346,7 +2386,7 @@
         .terms-content li {
             margin-bottom: 10px;
             font-size: 15px;
-            color: #1C1B1F;
+            color: var(--welcome-title-color);
         }
 
         #agreement-popup {
@@ -2366,7 +2406,8 @@
 
         .popup-card {
             width: 440px;
-            background: #ECE6F0;
+            background: var(--welcome-card-bg);
+            border: 1px solid var(--welcome-card-border);
             border-radius: 28px;
             padding: 28px;
             box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
@@ -2378,12 +2419,12 @@
         .popup-title {
             font-size: 20px;
             font-weight: 500;
-            color: #1D1B20;
+            color: var(--welcome-title-color);
         }
 
         .popup-text {
             font-size: 14px;
-            color: #49454F;
+            color: var(--welcome-subtext-color);
             line-height: 1.5;
         }
 
@@ -2633,6 +2674,15 @@
     <div id="welcome-screen">
         <div class="shape shape-1"></div>
         <div class="shape shape-2"></div>
+
+        <!-- Bottom-Left Light/Dark Mode Toggle on Setup -->
+        <div class="welcome-theme-toggle-container">
+            <span class="welcome-theme-label" id="welcome-theme-label-text">Dark mode</span>
+            <label class="setup-switch-container">
+                <input type="checkbox" id="welcome-dark-mode-toggle" onchange="toggleWelcomeDarkMode(this.checked)">
+                <span class="setup-slider"></span>
+            </label>
+        </div>
         
         <div class="welcome-card" id="welcome-card-box">
             <div id="step-1" class="setup-step">
@@ -3461,6 +3511,14 @@
             } else {
                 input.type = 'password';
                 btn.innerHTML = eyeOpenSvg;
+            }
+        }
+
+        function toggleWelcomeDarkMode(isDark) {
+            if (isDark) {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
             }
         }
 
@@ -4415,7 +4473,6 @@
             bootScreen.style.display = 'flex';
             bootScreen.style.opacity = '1';
 
-            // 10 seconds total reboot/boot screen duration as requested
             const duration = 10000;
 
             setTimeout(() => {
@@ -4595,7 +4652,7 @@
 
                 // 1. Play 10-second reboot boot screen (showing starting services)
                 playBootAnimation(true, () => {
-                    // 2. Play greeting sequence ("Hi", "check out our GitHub", etc.)
+                    // 2. Play greeting sequence ("Almost done!", etc.)
                     playGreetingSequence(() => {
                         // 3. 5-second black screen pause
                         const blackScreen = document.createElement('div');
@@ -4625,13 +4682,7 @@
             const greetingScreen = document.getElementById('greeting-screen');
             const greetingText = document.getElementById('greeting-text');
 
-            const additionalMessages = [
-                "once we have things ready you can continue the set up",
-                "Sit back and watch the magic run.",
-                "check out our repo on Github!"
-            ];
-
-            const selectedMessage = additionalMessages[Math.floor(Math.random() * additionalMessages.length)];
+            const selectedMessage = "Almost done! After the next boot, you can log in and explore the operating system.";
 
             greetingScreen.style.display = 'flex';
             greetingScreen.style.opacity = '1';
@@ -4664,7 +4715,7 @@
                                         if (onComplete) onComplete();
                                     }, 800);
                                 }, 800);
-                            }, 3000);
+                            }, 3500);
                         }, 50);
                     }, 800);
                 }, 2000);

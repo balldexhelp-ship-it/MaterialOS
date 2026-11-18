@@ -2643,14 +2643,7 @@
                     </p>
                 </div>
                 <div class="card-actions">
-                    <button class="btn-material" onclick="goToLoadingStep()">Next</button>
-                </div>
-            </div>
-
-            <div id="step-loader" class="setup-step" style="display: none;">
-                <div class="step-loader-container">
-                    <div class="material-spinner"></div>
-                    <div class="loader-subtext" id="loader-status-text">restarting</div>
+                    <button class="btn-material" onclick="goToTermsStep()">Next</button>
                 </div>
             </div>
 
@@ -2830,7 +2823,7 @@
             </p>
             <div class="popup-actions">
                 <button class="btn-text" onclick="closeAgreementPopup()">Close, don't continue</button>
-                <button class="btn-material" onclick="startRestartSequence()">I agree to the terms</button>
+                <button class="btn-material" onclick="acceptTermsAndProceed()">I agree to the terms</button>
             </div>
         </div>
     </div>
@@ -3372,13 +3365,9 @@
         let versionClickCount = 0;
         let versionClickTimer = null;
 
-        // Global Z-Index counter for bringing windows to front on click
         let highestZIndex = 7000;
-
-        // Store pre-maximize states for windows
         const windowStates = {};
 
-        // Temporary Setup Selections
         let setupSelectedWallpaper = 'https://i.postimg.cc/c17x90Vx/Untitled2664-20261117045102.png';
         let setupSelectedAccent = 'blue';
 
@@ -3499,7 +3488,6 @@
             }
         }
 
-        /* Window Centering, Bring-to-Front & 1:1 Mouse-Locked Dragging */
         function bringWindowToFront(win) {
             highestZIndex++;
             win.style.zIndex = highestZIndex;
@@ -3562,7 +3550,6 @@
             if (!win || !titlebar) return;
 
             let startX = 0, startY = 0;
-
             titlebar.onmousedown = dragMouseDown;
 
             function dragMouseDown(e) {
@@ -3576,7 +3563,6 @@
                 }
 
                 bringWindowToFront(win);
-
                 startX = e.clientX;
                 startY = e.clientY;
 
@@ -3604,7 +3590,6 @@
             }
         }
 
-        // Attach click-to-front behavior to all windows
         document.querySelectorAll('.os-window').forEach(win => {
             win.addEventListener('mousedown', () => {
                 bringWindowToFront(win);
@@ -3615,7 +3600,6 @@
         makeWindowDraggable('camera-window', 'camera-titlebar');
         makeWindowDraggable('welcome-window', 'welcome-titlebar');
 
-        /* Welcome Window Show on Login Preference */
         function toggleShowWelcomeOnLogin(isChecked) {
             localStorage.setItem('os_show_welcome_on_login', isChecked ? 'true' : 'false');
         }
@@ -3625,7 +3609,6 @@
             return val === null ? true : val === 'true';
         }
 
-        /* Guest Accounts Enabled Preference */
         function isGuestAccountEnabled() {
             const val = localStorage.getItem('os_guest_enabled');
             return val === null ? true : val === 'true';
@@ -3648,7 +3631,6 @@
             }
         }
 
-        /* App & Window Management Functions */
         async function openAppWindow(appId) {
             const startMenu = document.getElementById('start-menu');
             startMenu.classList.remove('open');
@@ -3748,7 +3730,6 @@
             updateTaskbarMiddleIcons();
         }
 
-        /* Camera Media Streams & Capturing Logic (Microphone not used) */
         async function startCameraStream() {
             const videoElem = document.getElementById('camera-video-feed');
             try {
@@ -3920,7 +3901,6 @@
             });
         }
 
-        /* Easter Egg Functionality */
         function handleVersionClick() {
             versionClickCount++;
             if (versionClickTimer) clearTimeout(versionClickTimer);
@@ -3944,7 +3924,6 @@
             triggerToastNotification("hope you enjoy that cookie! It's home made!", "🍪");
         }
 
-        /* Local Storage Reset Functionality */
         function openLocalStorageModal() {
             document.getElementById('localstorage-reset-modal').style.display = 'flex';
         }
@@ -3958,7 +3937,6 @@
             window.location.reload();
         }
 
-        /* Themes & Accents Logic */
         function selectTheme(themeName) {
             const cfg = themeConfigs[themeName] || themeConfigs.blue;
 
@@ -4235,7 +4213,6 @@
             }
         });
 
-        /* Time Zone Aware Clock */
         function getConfiguredTimeZone() {
             return localStorage.getItem('os_timezone') || Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
         }
@@ -4438,7 +4415,8 @@
             bootScreen.style.display = 'flex';
             bootScreen.style.opacity = '1';
 
-            const duration = showServicesText ? 2800 : 3400;
+            // 10 seconds total reboot/boot screen duration as requested
+            const duration = 10000;
 
             setTimeout(() => {
                 bootScreen.style.opacity = '0';
@@ -4450,15 +4428,9 @@
             }, duration);
         }
 
-        function goToLoadingStep() {
+        function goToTermsStep() {
             document.getElementById('step-1').style.display = 'none';
-            document.getElementById('loader-status-text').style.display = 'none';
-            document.getElementById('step-loader').style.display = 'flex';
-
-            setTimeout(() => {
-                document.getElementById('step-loader').style.display = 'none';
-                document.getElementById('step-terms').style.display = 'flex';
-            }, 1000);
+            document.getElementById('step-terms').style.display = 'flex';
         }
 
         function openFullTerms() {
@@ -4477,84 +4449,10 @@
             document.getElementById('agreement-popup').style.display = 'none';
         }
 
-        function startRestartSequence() {
+        function acceptTermsAndProceed() {
             closeAgreementPopup();
-            
             document.getElementById('step-terms').style.display = 'none';
-            document.getElementById('loader-status-text').innerText = 'restarting';
-            document.getElementById('loader-status-text').style.display = 'block';
-            document.getElementById('step-loader').style.display = 'flex';
-
-            setTimeout(() => {
-                const welcomeScreen = document.getElementById('welcome-screen');
-                welcomeScreen.style.opacity = '0';
-
-                setTimeout(() => {
-                    welcomeScreen.style.display = 'none';
-                    document.getElementById('loader-status-text').style.display = 'none';
-
-                    playBootAnimation(false, () => {
-                        playGreetingSequence();
-                    });
-                }, 800);
-            }, 3000);
-        }
-
-        function playGreetingSequence() {
-            const greetingScreen = document.getElementById('greeting-screen');
-            const greetingText = document.getElementById('greeting-text');
-
-            const additionalMessages = [
-                "once we have things ready you can continue the set up",
-                "Sit back and watch the magic run.",
-                "check out our repo on Github!"
-            ];
-
-            const selectedMessage = additionalMessages[Math.floor(Math.random() * additionalMessages.length)];
-
-            greetingScreen.style.display = 'flex';
-            greetingScreen.style.opacity = '1';
-
-            setTimeout(() => {
-                greetingText.innerText = "Hi";
-                greetingText.style.opacity = '1';
-                greetingText.style.transform = 'translateY(0px)';
-
-                setTimeout(() => {
-                    greetingText.style.opacity = '0';
-                    greetingText.style.transform = 'translateY(-10px)';
-
-                    setTimeout(() => {
-                        greetingText.innerText = selectedMessage;
-                        greetingText.style.transform = 'translateY(10px)';
-
-                        setTimeout(() => {
-                            greetingText.style.opacity = '1';
-                            greetingText.style.transform = 'translateY(0px)';
-
-                            setTimeout(() => {
-                                greetingText.style.opacity = '0';
-                                greetingText.style.transform = 'translateY(-10px)';
-
-                                setTimeout(() => {
-                                    greetingScreen.style.opacity = '0';
-                                    setTimeout(() => {
-                                        greetingScreen.style.display = 'none';
-                                        
-                                        setTimeout(() => {
-                                            playBootAnimation(true, () => {
-                                                document.getElementById('welcome-screen').style.display = 'flex';
-                                                document.getElementById('welcome-screen').style.opacity = '1';
-                                                document.getElementById('step-user-creation').style.display = 'flex';
-                                            });
-                                        }, 4000);
-                                    }, 800);
-                                }, 800);
-                            }, 3000);
-                        }, 50);
-                    }, 800);
-                }, 2000);
-            }, 300);
+            document.getElementById('step-user-creation').style.display = 'flex';
         }
 
         async function validateUserCreation() {
@@ -4663,7 +4561,7 @@
 
             document.getElementById('welcome-card-box').classList.remove('expanded-setup-card');
             document.getElementById('step-personalization').style.display = 'none';
-            finalizeSetupAndLogin();
+            completeSetupAndReboot();
         }
 
         function finishFullSetup() {
@@ -4682,22 +4580,95 @@
 
             document.getElementById('welcome-card-box').classList.remove('expanded-setup-card');
             document.getElementById('step-personalization').style.display = 'none';
-            finalizeSetupAndLogin();
+            completeSetupAndReboot();
         }
 
-        function finalizeSetupAndLogin() {
+        /* Final Setup Completion: Trigger Reboot Sequence, Greetings, 5s Black Screen, then Login */
+        function completeSetupAndReboot() {
             localStorage.setItem('os_setup_done', 'true');
-            loadSavedWallpaper();
-            updateThemeAndAccentUI();
-            updateGuestLoginVisibility();
 
             const welcomeScreen = document.getElementById('welcome-screen');
             welcomeScreen.style.opacity = '0';
 
             setTimeout(() => {
                 welcomeScreen.style.display = 'none';
-                showLoginScreen();
+
+                // 1. Play 10-second reboot boot screen (showing starting services)
+                playBootAnimation(true, () => {
+                    // 2. Play greeting sequence ("Hi", "check out our GitHub", etc.)
+                    playGreetingSequence(() => {
+                        // 3. 5-second black screen pause
+                        const blackScreen = document.createElement('div');
+                        blackScreen.style.position = 'fixed';
+                        blackScreen.style.top = '0';
+                        blackScreen.style.left = '0';
+                        blackScreen.style.width = '100%';
+                        blackScreen.style.height = '100%';
+                        blackScreen.style.backgroundColor = '#000';
+                        blackScreen.style.zIndex = '9500';
+                        document.body.appendChild(blackScreen);
+
+                        setTimeout(() => {
+                            blackScreen.remove();
+                            loadSavedWallpaper();
+                            updateThemeAndAccentUI();
+                            updateGuestLoginVisibility();
+                            // 4. Finally take user to login screen
+                            showLoginScreen();
+                        }, 5000);
+                    });
+                });
             }, 800);
+        }
+
+        function playGreetingSequence(onComplete) {
+            const greetingScreen = document.getElementById('greeting-screen');
+            const greetingText = document.getElementById('greeting-text');
+
+            const additionalMessages = [
+                "once we have things ready you can continue the set up",
+                "Sit back and watch the magic run.",
+                "check out our repo on Github!"
+            ];
+
+            const selectedMessage = additionalMessages[Math.floor(Math.random() * additionalMessages.length)];
+
+            greetingScreen.style.display = 'flex';
+            greetingScreen.style.opacity = '1';
+
+            setTimeout(() => {
+                greetingText.innerText = "Hi";
+                greetingText.style.opacity = '1';
+                greetingText.style.transform = 'translateY(0px)';
+
+                setTimeout(() => {
+                    greetingText.style.opacity = '0';
+                    greetingText.style.transform = 'translateY(-10px)';
+
+                    setTimeout(() => {
+                        greetingText.innerText = selectedMessage;
+                        greetingText.style.transform = 'translateY(10px)';
+
+                        setTimeout(() => {
+                            greetingText.style.opacity = '1';
+                            greetingText.style.transform = 'translateY(0px)';
+
+                            setTimeout(() => {
+                                greetingText.style.opacity = '0';
+                                greetingText.style.transform = 'translateY(-10px)';
+
+                                setTimeout(() => {
+                                    greetingScreen.style.opacity = '0';
+                                    setTimeout(() => {
+                                        greetingScreen.style.display = 'none';
+                                        if (onComplete) onComplete();
+                                    }, 800);
+                                }, 800);
+                            }, 3000);
+                        }, 50);
+                    }, 800);
+                }, 2000);
+            }, 300);
         }
 
         function showLoginScreen() {

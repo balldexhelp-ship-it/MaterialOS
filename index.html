@@ -989,6 +989,12 @@
             align-items: center;
             justify-content: space-between;
             gap: 16px;
+            transition: opacity 0.25s ease;
+        }
+
+        .setting-control-card.disabled-card {
+            opacity: 0.45;
+            pointer-events: none;
         }
 
         .setting-control-card-vertical {
@@ -1241,7 +1247,7 @@
             padding: 20px;
         }
 
-        #localstorage-reset-modal {
+        #localstorage-reset-modal, #guest-password-modal {
             position: fixed;
             top: 0;
             left: 0;
@@ -2607,10 +2613,67 @@
             font-weight: 500;
             cursor: pointer;
             transition: background 0.2s ease;
+            width: 100%;
+            text-align: center;
         }
 
         .guest-login-btn:hover {
             background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Dual Account Login Grid */
+        .login-accounts-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .login-account-tile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 10px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+            width: 100%;
+            text-align: left;
+        }
+
+        .login-account-tile:hover {
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .login-account-tile:active {
+            transform: scale(0.97);
+        }
+
+        .login-account-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .login-account-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .login-account-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #FFFFFF;
+        }
+
+        .login-account-sub {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.65);
         }
 
         .forgot-password-box {
@@ -2747,7 +2810,7 @@
                 </div>
             </div>
 
-            <!-- Centered Password Warning Step (No Loading Spinner) -->
+            <!-- Centered Password Warning Step -->
             <div id="step-shield-warning" class="setup-step" style="display: none;">
                 <div class="shield-container">
                     <div class="shield-icon-badge">
@@ -2756,7 +2819,7 @@
                     <div class="shield-title">Don't forget your password!</div>
                     <div class="shield-description">
                         <div class="expandable-content" id="shield-text-content">
-                            If you ever forget your password, you can always reset the data and history on your browser and re-launch the setup, or click "forgot password" on login. However, if you reset your browser data and history you will lose other stored data, so it's best to reset the password without risking any data (e.g. logging into other unrelated Material OS sites). This is your last chance to go back and change your password to something else if needed.
+                            If you ever forget your password, you can always reset the data and history on your browser and re-launch the setup, or click "forgot password" on login. However, if you reset your browser data and history you will lose other stored data, so it's best to reset the password without risking any data.
                         </div>
                         <button class="btn-text" id="shield-toggle-btn" style="padding: 4px 0; margin-top: 4px; font-size: 12px;" onclick="toggleShieldText()">Show more</button>
                     </div>
@@ -2767,7 +2830,7 @@
                 </div>
             </div>
 
-            <!-- Step 1/2: More Information (Time Zone Selection) -->
+            <!-- Step 1/2: More Information -->
             <div id="step-more-info" class="setup-step" style="display: none;">
                 <div>
                     <h1 class="welcome-title">More Information</h1>
@@ -2782,7 +2845,7 @@
                 </div>
             </div>
 
-            <!-- Step 2/2: Personalization (Wallpaper, Accent Color, Guest Accounts Toggle) -->
+            <!-- Step 2/2: Personalization -->
             <div id="step-personalization" class="setup-step" style="display: none;">
                 <div>
                     <h1 class="welcome-title">Personalization</h1>
@@ -2825,7 +2888,7 @@
                         <div class="setup-guest-info">
                             <div class="setup-guest-title">have guest accounts enabled</div>
                             <div class="setup-guest-desc">
-                                Guest Accounts do not change any of your user account settings or make any other changes, however if you disable this you won't be able to access a guest account which can be useful if you want to test out some settings while not changing anything however guest accounts lose access to some settings.
+                                Guest Accounts do not change any of your user account settings or make any other changes.
                             </div>
                         </div>
                         <label class="setup-switch-container">
@@ -2850,18 +2913,11 @@
         <button class="modal-close-btn" onclick="closeFullTerms()">✕</button>
         <div class="terms-content">
             <h2>Terms and Info</h2>
-            <p>Thank you for using Material OS! However, here are some things that you need to know:</p>
+            <p>Thank you for using Material OS!</p>
             <ul>
-                <li>Material OS is a free project that has its code up on GitHub and runs on your browser from GitHub Pages.</li>
+                <li>Material OS is a free project hosted on GitHub Pages.</li>
                 <li>Material OS uses local storage to make things easier.</li>
-                <li>Do not steal things such as logos, etc., from the official Material OS project without actually getting authorization.</li>
             </ul>
-            <p>Here are some things you need to also keep in mind and to know:</p>
-            <ol>
-                <li>No, this is not a real operating system. This is a fake operating system that uses the Material You design, along with other elements.</li>
-                <li>By reading these terms and notices, you agree to all of them.</li>
-                <li>Contributors and other people are welcome to contribute to the operating system project or Material OS, but it depends on what is being changed or suggested.</li>
-            </ol>
         </div>
     </div>
 
@@ -2885,23 +2941,8 @@
     </div>
 
     <div id="login-screen">
-        <div class="login-card">
-            <img src="https://i.postimg.cc/ydNwc4V8/Untitled2545-20261027054658.png" alt="Profile Avatar" class="login-avatar">
-            <div class="login-username" id="display-login-username">User</div>
-            <div class="login-input-group">
-                <input type="password" id="login-password-field" class="login-password-input" placeholder="Password" onkeydown="if(event.key==='Enter') verifyLoginPassword()">
-                <button class="login-eye-btn" type="button" onclick="togglePasswordVisibility('login-password-field', this)">
-                    <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-                </button>
-                <button class="login-submit-btn" onclick="verifyLoginPassword()">
-                    <svg viewBox="0 0 24 24"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/></svg>
-                </button>
-            </div>
-            <button class="guest-login-btn" id="login-guest-btn" onclick="loginAsGuest()">Continue as Guest</button>
-            <div class="forgot-password-box" id="forgot-password-container">
-                <div class="forgot-password-text">forgot password? Click the button below to reset your password.</div>
-                <button class="btn-material" onclick="openResetModal()">Reset password</button>
-            </div>
+        <div class="login-card" id="login-card-box">
+            <!-- Rendered dynamically depending on whether guest password is set -->
         </div>
     </div>
 
@@ -2932,12 +2973,41 @@
         </div>
     </div>
 
+    <!-- Guest Password Setup Modal -->
+    <div id="guest-password-modal">
+        <div class="storage-modal-card">
+            <div class="storage-modal-title" style="color: var(--welcome-title-color);">Set Guest Account Password</div>
+            <div class="storage-modal-text">
+                Enter a password to secure guest sessions. Leave blank and save to remove the guest password.
+            </div>
+            <div class="form-grid" style="margin-top: 4px;">
+                <div class="input-eye-wrapper">
+                    <input type="password" id="guest-new-pass" class="form-input" placeholder="Guest password">
+                    <button class="eye-toggle-btn" type="button" onclick="togglePasswordVisibility('guest-new-pass', this)">
+                        <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                    </button>
+                </div>
+                <div class="input-eye-wrapper">
+                    <input type="password" id="guest-confirm-pass" class="form-input" placeholder="Confirm guest password">
+                    <button class="eye-toggle-btn" type="button" onclick="togglePasswordVisibility('guest-confirm-pass', this)">
+                        <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="error-msg" id="guest-pass-error" style="display:none;"></div>
+            <div class="storage-modal-actions">
+                <button class="btn-text" style="color: #E6E1E5;" onclick="closeGuestPasswordModal()">Cancel</button>
+                <button class="btn-material" onclick="saveGuestPassword()">Save Password</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Local Storage Reset Confirmation Modal -->
     <div id="localstorage-reset-modal">
         <div class="storage-modal-card">
             <div class="storage-modal-title">WARNING STOP AND READ THIS.</div>
             <div class="storage-modal-text">
-                YOU ARE ABOUT TO RESET THE LOCAL STORAGE WHICH MEANS EVERYTHING WILL BE RESET. YOU'LL HAVE TO DO THE WHOLE SET UP AGAIN IF YOU CONFIRM ON THE NEXT REFRESH. TO CONTINUE, PLEASE TAP THE CONTINUE BUTTON.
+                YOU ARE ABOUT TO RESET THE LOCAL STORAGE WHICH MEANS EVERYTHING WILL BE RESET. YOU'LL HAVE TO DO THE WHOLE SET UP AGAIN IF YOU CONFIRM ON THE NEXT REFRESH.
             </div>
             <div class="storage-modal-actions">
                 <button class="btn-text" style="color: #E6E1E5;" onclick="closeLocalStorageModal()">Back</button>
@@ -2960,7 +3030,7 @@
         <div class="guest-warning-card">
             <div class="guest-warning-title">changes you made will not be saved</div>
             <div class="guest-warning-desc">
-                for obvious reasons settings you changed like wallpaper etc will not be saved on the user account and if you logout your changes will be wiped.
+                settings you changed like wallpaper will not be saved on the user account and if you logout your changes will be wiped.
             </div>
             <div class="guest-warning-actions">
                 <button class="btn-text" style="color: #E6E1E5;" onclick="closeGuestWarningModal()">Back</button>
@@ -2999,7 +3069,7 @@
     <div id="desktop">
         <div id="toast-banner">
             <div class="toast-title" id="toast-title-text">Welcome!</div>
-            <div class="toast-body" id="toast-body-text">take a look around to get to know your new operating system! There's so much to learn and to know. To get started why not check out some apps</div>
+            <div class="toast-body" id="toast-body-text">take a look around to get to know your new operating system!</div>
         </div>
 
         <!-- Start Menu -->
@@ -3065,11 +3135,11 @@
                 <div class="welcome-app-content">
                     <h1 class="welcome-content-heading">Welcome</h1>
                     <p class="welcome-content-desc">
-                        Material OS has tons of updates and way more to offer. No matter if this is your first time or you're coming back, there's always more to experience.
+                        Material OS has tons of updates and way more to offer.
                     </p>
                     <h2 class="welcome-section-header">Some things you can do</h2>
                     <div class="welcome-suggestion-card">
-                        Check out our Github if you want to learn more information <a href="https://github.com/balldexhelp-ship-it/MaterialOS" target="_blank" class="github-link">here</a>
+                        Check out our Github <a href="https://github.com/balldexhelp-ship-it/MaterialOS" target="_blank" class="github-link">here</a>
                     </div>
                 </div>
             </div>
@@ -3130,7 +3200,6 @@
                             </div>
                         </div>
 
-                        <!-- Personalization Category with Dropdown Arrow -->
                         <div class="settings-nav-item" id="nav-item-personalization" onclick="switchSettingsTab('personalization')">
                             <div class="settings-nav-item-left">
                                 <img src="https://i.postimg.cc/fy9x2hCT/Untitled2555-20261029131530.png" alt="Personalization" class="settings-nav-icon">
@@ -3139,7 +3208,6 @@
                             <button class="settings-arrow-btn" id="personalization-arrow-btn" onclick="togglePersonalizationDropdown(event)">▼</button>
                         </div>
 
-                        <!-- Expanded Personalization Sub-items -->
                         <div class="settings-subnav-container" id="personalization-subnav">
                             <div class="settings-subnav-item" id="subnav-item-taskbar" onclick="switchSettingsTab('taskbar')">
                                 <img src="https://i.postimg.cc/TP7T9TGp/Untitled2555-20261029214828.png" alt="Taskbar Settings" class="settings-nav-icon">
@@ -3171,7 +3239,6 @@
                                 <span>Reset options</span>
                             </div>
                         </div>
-
                     </div>
                     <div class="settings-user-profile">
                         <img id="settings-user-avatar" src="https://i.postimg.cc/PxvmH9vP/Untitled2552-20261028230212.png" alt="Profile" class="settings-avatar">
@@ -3184,7 +3251,7 @@
                         <div class="github-promo-card">
                             <img src="https://i.postimg.cc/52qD7hKD/Untitled2555-20261029132852.png" alt="GitHub" class="github-promo-icon">
                             <div class="github-promo-text">
-                                Check out our repo so you can get more news and updates <a href="https://github.com/balldexhelp-ship-it/MaterialOS" target="_blank" class="github-link">here</a>!
+                                Check out our repo <a href="https://github.com/balldexhelp-ship-it/MaterialOS" target="_blank" class="github-link">here</a>!
                             </div>
                         </div>
                     </div>
@@ -3200,7 +3267,6 @@
                             <button class="setting-control-btn" onclick="openWallpaperModal()">Change wallpaper</button>
                         </div>
 
-                        <!-- Themes Rounded Rectangle Card -->
                         <div class="setting-control-card-vertical">
                             <div class="setting-control-info">
                                 <div class="setting-control-title">Themes</div>
@@ -3222,11 +3288,10 @@
                             </div>
                         </div>
 
-                        <!-- Accents Rounded Rectangle Card -->
                         <div class="setting-control-card-vertical">
                             <div class="setting-control-info">
                                 <div class="setting-control-title">Accents</div>
-                                <div class="setting-control-desc">Change only the accent color across the taskbar and apps without changing your wallpaper</div>
+                                <div class="setting-control-desc">Change only the accent color</div>
                             </div>
                             <div class="option-pills-row">
                                 <button class="theme-choice-chip" id="accent-chip-blue" onclick="selectAccentOnly('blue')">
@@ -3266,7 +3331,7 @@
                         <div class="setting-control-card">
                             <div class="setting-control-info">
                                 <div class="setting-control-title">Show profile & name in the bottom panel</div>
-                                <div class="setting-control-desc">Display user profile picture and name next to the log off button in the start menu</div>
+                                <div class="setting-control-desc">Display user profile picture and name next to the log off button</div>
                             </div>
                             <label class="switch-container">
                                 <input type="checkbox" id="show-profile-toggle" onchange="toggleShowProfileSetting(this.checked)">
@@ -3275,6 +3340,7 @@
                         </div>
                     </div>
 
+                    <!-- Guest Settings Panel with Guest Password Control -->
                     <div class="settings-panel" id="panel-guestsettings">
                         <h3 style="color: #E6E1E5; font-weight: 500; margin-bottom: 8px;">Guest settings</h3>
 
@@ -3282,7 +3348,7 @@
                             <div class="setting-control-info">
                                 <div class="setting-control-title">have guest accounts enabled</div>
                                 <div class="setting-control-desc">
-                                    Guest Accounts do not change any of your user account settings or make any other changes, however if you disable this you won't be able to access a guest account which can be useful if you want to test out some settings while not changing anything however guest accounts lose access to some settings.
+                                    Guest Accounts do not change any of your user account settings.
                                 </div>
                             </div>
                             <label class="switch-container" style="margin-top: 2px;">
@@ -3290,17 +3356,22 @@
                                 <span class="slider"></span>
                             </label>
                         </div>
+
+                        <!-- Second Setting: Guest Account Password -->
+                        <div class="setting-control-card" id="guest-password-setting-card">
+                            <div class="setting-control-info">
+                                <div class="setting-control-title">guest account password</div>
+                                <div class="setting-control-desc" id="guest-password-desc">Set or modify a password required to log into guest sessions.</div>
+                            </div>
+                            <button class="setting-control-btn" id="guest-password-btn" onclick="openGuestPasswordModal()">Set a password</button>
+                        </div>
                     </div>
 
                     <div class="settings-panel" id="panel-about">
                         <h2 class="about-title">About Material OS</h2>
                         <div class="about-info-box">
-                            <div class="about-info-text">
-                                Version: 2.2 see more info at our <a href="https://github.com/balldexhelp-ship-it/MaterialOS" target="_blank" class="github-link">Github</a>
-                            </div>
-                            <div class="about-info-text">
-                                Device: emulated
-                            </div>
+                            <div class="about-info-text">Version: 2.2</div>
+                            <div class="about-info-text">Device: emulated</div>
                         </div>
                         <div class="about-version-clickable" onclick="handleVersionClick()">
                             Version Number: 2.2.0
@@ -3308,13 +3379,12 @@
                     </div>
 
                     <div class="settings-panel" id="panel-resetoptions">
-                        <!-- User Reset View -->
                         <div id="user-reset-view">
                             <h2 class="about-title">Reset options</h2>
                             <div class="reset-warning-card">
                                 <img src="https://i.postimg.cc/1tpcfmR9/Untitled2546-20261111054432.png" alt="Warning" class="reset-warning-icon">
                                 <div class="reset-warning-text">
-                                    be careful when changing settings here as things can get wiped or settings can be reset
+                                    be careful when changing settings here as things can get wiped
                                 </div>
                             </div>
                             <div class="setting-control-card">
@@ -3325,11 +3395,10 @@
                                 <button class="setting-control-btn" onclick="openLocalStorageModal()">Reset local storage</button>
                             </div>
                         </div>
-                        <!-- Guest Reset View -->
                         <div id="guest-reset-view" class="guest-reset-container" style="display: none;">
                             <h2 class="guest-reset-title">Looking for the reset option?</h2>
                             <div class="guest-reset-text">
-                                You are a guest, which means you do not have the authority to actually reset the local storage on this device so that the user created account can be safe. If you want to reset guest settings, simply logout, and guest settings that you have applied should automatically reset.
+                                You are a guest, so you do not have permission to reset local storage. Log off to clear guest session changes.
                             </div>
                         </div>
                     </div>
@@ -3362,7 +3431,7 @@
             <div class="notif-list" id="notif-list-container">
                 <div class="notif-card">
                     <div class="notif-card-title">Welcome!</div>
-                    <div class="notif-card-body">take a look around to get to know your new operating system! There's so much to learn and to know. To get started why not check out some apps</div>
+                    <div class="notif-card-body">take a look around to get to know your new operating system!</div>
                 </div>
             </div>
             <div class="notif-dock">
@@ -3398,6 +3467,7 @@
         let createdPasswordHash = "";
         let createdSaltHex = "";
         let failedLoginAttempts = 0;
+        let guestFailedAttempts = 0;
         let isMuted = false;
         let calendarViewDate = new Date();
 
@@ -3422,18 +3492,9 @@
         let setupSelectedAccent = 'blue';
 
         const themeConfigs = {
-            blue: {
-                wallpaper: 'https://i.postimg.cc/c17x90Vx/Untitled2664-20261117045102.png',
-                accent: 'blue'
-            },
-            purple: {
-                wallpaper: 'https://i.postimg.cc/rmF0Vz6h/Untitled2664-20261117045248.png',
-                accent: 'purple'
-            },
-            green: {
-                wallpaper: 'https://i.postimg.cc/YqjP4xNP/Untitled2664-20261117044928.png',
-                accent: 'green'
-            }
+            blue: { wallpaper: 'https://i.postimg.cc/c17x90Vx/Untitled2664-20261117045102.png', accent: 'blue' },
+            purple: { wallpaper: 'https://i.postimg.cc/rmF0Vz6h/Untitled2664-20261117045248.png', accent: 'purple' },
+            green: { wallpaper: 'https://i.postimg.cc/YqjP4xNP/Untitled2664-20261117044928.png', accent: 'green' }
         };
 
         const defaultWallpapers = [
@@ -3451,9 +3512,7 @@
         const eyeClosedSvg = `<svg viewBox="0 0 24 24"><path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.45-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.17c0-1.66-1.34-3-3-3l-.17.02z"/></svg>`;
 
         function bufferToHex(buffer) {
-            return Array.from(new Uint8Array(buffer))
-                .map(b => b.toString(16).padStart(2, '0'))
-                .join('');
+            return Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
         function hexToBuffer(hex) {
@@ -3472,34 +3531,10 @@
         }
 
         async function hashPasswordPBKDF2(password, saltUint8Array) {
-            try {
-                const encoder = new TextEncoder();
-                const passwordBuffer = encoder.encode(password);
-
-                const baseKey = await crypto.subtle.importKey(
-                    'raw',
-                    passwordBuffer,
-                    { name: 'PBKDF2' },
-                    false,
-                    ['deriveBits']
-                );
-
-                const derivedBits = await crypto.subtle.deriveBits(
-                    {
-                        name: 'PBKDF2',
-                        salt: saltUint8Array,
-                        iterations: PBKDF2_ITERATIONS,
-                        hash: 'SHA-256'
-                    },
-                    baseKey,
-                    KEY_BYTE_LENGTH * 8
-                );
-
-                return bufferToHex(derivedBits);
-            } catch (err) {
-                console.error("Encryption error during PBKDF2 calculation:", err);
-                throw err;
-            }
+            const encoder = new TextEncoder();
+            const baseKey = await crypto.subtle.importKey('raw', encoder.encode(password), { name: 'PBKDF2' }, false, ['deriveBits']);
+            const derivedBits = await crypto.subtle.deriveBits({ name: 'PBKDF2', salt: saltUint8Array, iterations: PBKDF2_ITERATIONS, hash: 'SHA-256' }, baseKey, KEY_BYTE_LENGTH * 8);
+            return bufferToHex(derivedBits);
         }
 
         function togglePasswordVisibility(inputId, btn) {
@@ -3515,11 +3550,8 @@
         }
 
         function toggleWelcomeDarkMode(isDark) {
-            if (isDark) {
-                document.body.classList.add('dark-mode');
-            } else {
-                document.body.classList.remove('dark-mode');
-            }
+            if (isDark) document.body.classList.add('dark-mode');
+            else document.body.classList.remove('dark-mode');
         }
 
         function toggleStartMenu(e) {
@@ -3528,21 +3560,12 @@
             document.getElementById('clock-calendar-flyout').style.display = 'none';
             document.getElementById('notification-center').style.display = 'none';
 
-            startMenu.style.left = '12px';
-            startMenu.style.transform = 'none';
-
             if (startMenu.classList.contains('open')) {
                 startMenu.classList.remove('open');
-                setTimeout(() => {
-                    if (!startMenu.classList.contains('open')) {
-                        startMenu.style.display = 'none';
-                    }
-                }, 250);
+                setTimeout(() => { if (!startMenu.classList.contains('open')) startMenu.style.display = 'none'; }, 250);
             } else {
                 startMenu.style.display = 'flex';
-                requestAnimationFrame(() => {
-                    startMenu.classList.add('open');
-                });
+                requestAnimationFrame(() => startMenu.classList.add('open'));
             }
         }
 
@@ -3555,29 +3578,19 @@
             const win = document.getElementById(windowId);
             if (!win) return;
             const desktop = document.getElementById('desktop');
-            const desktopWidth = desktop ? desktop.clientWidth : window.innerWidth;
-            const desktopHeight = desktop ? desktop.clientHeight : window.innerHeight;
-
-            const winWidth = parseInt(win.style.width, 10) || win.offsetWidth || 680;
-            const winHeight = parseInt(win.style.height, 10) || win.offsetHeight || 460;
-
-            const centerLeft = Math.max(0, (desktopWidth - winWidth) / 2);
-            const centerTop = Math.max(0, (desktopHeight - winHeight - 48) / 2);
-
-            win.style.left = centerLeft + "px";
-            win.style.top = centerTop + "px";
+            const dw = desktop ? desktop.clientWidth : window.innerWidth;
+            const dh = desktop ? desktop.clientHeight : window.innerHeight;
+            const ww = parseInt(win.style.width, 10) || 680;
+            const wh = parseInt(win.style.height, 10) || 460;
+            win.style.left = Math.max(0, (dw - ww) / 2) + "px";
+            win.style.top = Math.max(0, (dh - wh - 48) / 2) + "px";
         }
 
         function toggleMaximizeWindow(appId) {
             const win = document.getElementById(`${appId}-window`);
             if (!win) return;
-
             bringWindowToFront(win);
-
-            if (!windowStates[appId]) {
-                windowStates[appId] = { isMaximized: false };
-            }
-
+            if (!windowStates[appId]) windowStates[appId] = { isMaximized: false };
             const state = windowStates[appId];
 
             if (!state.isMaximized) {
@@ -3585,7 +3598,6 @@
                 state.prevTop = win.style.top;
                 state.prevWidth = win.style.width;
                 state.prevHeight = win.style.height;
-
                 win.style.left = '0px';
                 win.style.top = '0px';
                 win.style.width = '100%';
@@ -3608,51 +3620,22 @@
             if (!win || !titlebar) return;
 
             let startX = 0, startY = 0;
-            titlebar.onmousedown = dragMouseDown;
-
-            function dragMouseDown(e) {
+            titlebar.onmousedown = (e) => {
                 if (e.target.closest('button')) return;
-                e = e || window.event;
-                e.preventDefault();
-
                 const appKey = windowId.replace('-window', '');
-                if (windowStates[appKey] && windowStates[appKey].isMaximized) {
-                    return;
-                }
-
+                if (windowStates[appKey] && windowStates[appKey].isMaximized) return;
                 bringWindowToFront(win);
                 startX = e.clientX;
                 startY = e.clientY;
-
-                document.onmouseup = closeDragElement;
-                document.onmousemove = elementDrag;
-            }
-
-            function elementDrag(e) {
-                e = e || window.event;
-                e.preventDefault();
-
-                const deltaX = e.clientX - startX;
-                const deltaY = e.clientY - startY;
-
-                startX = e.clientX;
-                startY = e.clientY;
-
-                win.style.left = (win.offsetLeft + deltaX) + "px";
-                win.style.top = (win.offsetTop + deltaY) + "px";
-            }
-
-            function closeDragElement() {
-                document.onmouseup = null;
-                document.onmousemove = null;
-            }
+                document.onmouseup = () => { document.onmouseup = null; document.onmousemove = null; };
+                document.onmousemove = (ev) => {
+                    const dx = ev.clientX - startX, dy = ev.clientY - startY;
+                    startX = ev.clientX; startY = ev.clientY;
+                    win.style.left = (win.offsetLeft + dx) + "px";
+                    win.style.top = (win.offsetTop + dy) + "px";
+                };
+            };
         }
-
-        document.querySelectorAll('.os-window').forEach(win => {
-            win.addEventListener('mousedown', () => {
-                bringWindowToFront(win);
-            });
-        });
 
         makeWindowDraggable('settings-window', 'settings-titlebar');
         makeWindowDraggable('camera-window', 'camera-titlebar');
@@ -3674,19 +3657,69 @@
 
         function toggleGuestAccountsEnabled(isChecked) {
             localStorage.setItem('os_guest_enabled', isChecked ? 'true' : 'false');
-            updateGuestLoginVisibility();
+            updateGuestSettingsUIState();
+            updateLoginScreenLayout();
         }
 
-        function updateGuestLoginVisibility() {
+        function updateGuestSettingsUIState() {
             const enabled = isGuestAccountEnabled();
-            const loginGuestBtn = document.getElementById('login-guest-btn');
-            if (loginGuestBtn) {
-                loginGuestBtn.style.display = enabled ? 'inline-block' : 'none';
-            }
             const settingsGuestToggle = document.getElementById('settings-guest-enabled-toggle');
-            if (settingsGuestToggle) {
-                settingsGuestToggle.checked = enabled;
+            if (settingsGuestToggle) settingsGuestToggle.checked = enabled;
+
+            const card = document.getElementById('guest-password-setting-card');
+            const desc = document.getElementById('guest-password-desc');
+            const btn = document.getElementById('guest-password-btn');
+
+            if (enabled) {
+                card.classList.remove('disabled-card');
+                const hasPass = localStorage.getItem('os_guest_password_hash');
+                btn.innerText = hasPass ? "Change password" : "Set a password";
+                desc.innerText = hasPass ? "Guest password is active and required for login." : "Set a password to secure guest sessions.";
+            } else {
+                card.classList.add('disabled-card');
+                btn.innerText = "Set a password";
+                desc.innerText = "Guest accounts are disabled.";
             }
+        }
+
+        function openGuestPasswordModal() {
+            if (!isGuestAccountEnabled()) return;
+            document.getElementById('guest-new-pass').value = "";
+            document.getElementById('guest-confirm-pass').value = "";
+            document.getElementById('guest-pass-error').style.display = 'none';
+            document.getElementById('guest-password-modal').style.display = 'flex';
+        }
+
+        function closeGuestPasswordModal() {
+            document.getElementById('guest-password-modal').style.display = 'none';
+        }
+
+        async function saveGuestPassword() {
+            const p1 = document.getElementById('guest-new-pass').value;
+            const p2 = document.getElementById('guest-confirm-pass').value;
+            const err = document.getElementById('guest-pass-error');
+
+            if (p1 !== p2) {
+                err.innerText = "Passwords do not match.";
+                err.style.display = "block";
+                return;
+            }
+
+            if (!p1) {
+                localStorage.removeItem('os_guest_password_hash');
+                localStorage.removeItem('os_guest_password_salt');
+                triggerToastNotification("Guest Password Removed", "Guest accounts can now log in without a password.");
+            } else {
+                const salt = generateRandomSalt();
+                const saltHex = bufferToHex(salt);
+                const hash = await hashPasswordPBKDF2(p1, salt);
+                localStorage.setItem('os_guest_password_hash', hash);
+                localStorage.setItem('os_guest_password_salt', saltHex);
+                triggerToastNotification("Guest Password Set", "Guest login is now secured with a password.");
+            }
+
+            closeGuestPasswordModal();
+            updateGuestSettingsUIState();
         }
 
         async function openAppWindow(appId) {
@@ -3696,32 +3729,24 @@
 
             const win = document.getElementById(`${appId}-window`);
             if (!win) return;
-
             win.style.display = 'flex';
             bringWindowToFront(win);
             updateTaskbarMiddleIcons();
 
-            if (appId === 'camera') {
-                await startCameraStream();
-            }
+            if (appId === 'camera') await startCameraStream();
         }
 
         function closeAppWindow(appId) {
             const win = document.getElementById(`${appId}-window`);
             if (!win) return;
-
             win.style.display = 'none';
             updateTaskbarMiddleIcons();
-
-            if (appId === 'camera') {
-                stopCameraStream();
-            }
+            if (appId === 'camera') stopCameraStream();
         }
 
         function toggleWindowFromTaskbar(appId) {
             const win = document.getElementById(`${appId}-window`);
             if (!win) return;
-
             if (win.style.display === 'flex') {
                 win.style.display = 'none';
                 if (appId === 'camera') stopCameraStream();
@@ -3736,27 +3761,19 @@
         function updateTaskbarMiddleIcons() {
             const container = document.getElementById('taskbar-center-apps');
             container.innerHTML = '';
-
             const appIcons = {
                 settings: 'https://i.postimg.cc/mkqW0c9K/Untitled2553-20261028234312.png',
                 camera: 'https://i.postimg.cc/h49jT2h0/Untitled2647-20261113002033.png',
                 welcome: 'https://i.postimg.cc/GpWJcx75/Untitled2544-20261027050233.png'
             };
 
-            const activeWindows = ['settings', 'camera', 'welcome'];
-            activeWindows.forEach(appId => {
+            ['settings', 'camera', 'welcome'].forEach(appId => {
                 const win = document.getElementById(`${appId}-window`);
                 if (win && win.style.display === 'flex') {
-                    const iconSrc = appIcons[appId];
-
                     const appBtn = document.createElement('button');
                     appBtn.className = 'taskbar-app-icon';
                     appBtn.onclick = () => toggleWindowFromTaskbar(appId);
-                    appBtn.title = appId.charAt(0).toUpperCase() + appId.slice(1);
-                    appBtn.innerHTML = `
-                        <img src="${iconSrc}" alt="${appId}">
-                        <div class="taskbar-app-indicator"></div>
-                    `;
+                    appBtn.innerHTML = `<img src="${appIcons[appId]}" alt="${appId}"><div class="taskbar-app-indicator"></div>`;
                     container.appendChild(appBtn);
                 }
             });
@@ -3766,38 +3783,19 @@
             highestZIndex = 7000;
             ['settings', 'camera', 'welcome'].forEach(appId => {
                 const win = document.getElementById(`${appId}-window`);
-                if (win) {
-                    win.style.display = 'none';
-                    win.style.borderRadius = '24px';
-                    win.style.zIndex = '7000';
-                }
-                if (windowStates[appId]) {
-                    windowStates[appId].isMaximized = false;
-                }
+                if (win) { win.style.display = 'none'; win.style.borderRadius = '24px'; win.style.zIndex = '7000'; }
+                if (windowStates[appId]) windowStates[appId].isMaximized = false;
             });
-            document.getElementById('settings-window').style.width = '680px';
-            document.getElementById('settings-window').style.height = '460px';
-            document.getElementById('camera-window').style.width = '680px';
-            document.getElementById('camera-window').style.height = '520px';
-            document.getElementById('welcome-window').style.width = '680px';
-            document.getElementById('welcome-window').style.height = '460px';
-
-            centerWindow('settings-window');
-            centerWindow('camera-window');
-            centerWindow('welcome-window');
             updateTaskbarMiddleIcons();
         }
 
         async function startCameraStream() {
             const videoElem = document.getElementById('camera-video-feed');
             try {
-                if (!mediaStreamInstance) {
-                    mediaStreamInstance = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
-                }
+                if (!mediaStreamInstance) mediaStreamInstance = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
                 videoElem.srcObject = mediaStreamInstance;
             } catch (err) {
-                console.error("Camera permission denied or unavailable:", err);
-                alert("Could not access camera. Please check permissions.");
+                alert("Could not access camera.");
             }
         }
 
@@ -3814,84 +3812,47 @@
             const videoElem = document.getElementById('camera-video-feed');
             const canvas = document.getElementById('camera-snapshot-canvas');
             if (!videoElem || !canvas) return;
-
             canvas.width = videoElem.videoWidth || 640;
             canvas.height = videoElem.videoHeight || 480;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(videoElem, 0, 0, canvas.width, canvas.height);
-
+            canvas.getContext('2d').drawImage(videoElem, 0, 0, canvas.width, canvas.height);
             const dataUrl = canvas.toDataURL('image/png');
 
-            if (guestSessionActive) {
-                guestCapturedImages.push(dataUrl);
-            } else {
-                let storedImages = [];
-                try {
-                    storedImages = JSON.parse(localStorage.getItem('os_user_images') || '[]');
-                } catch(e) { storedImages = []; }
-                storedImages.push(dataUrl);
-                localStorage.setItem('os_user_images', JSON.stringify(storedImages));
+            if (guestSessionActive) guestCapturedImages.push(dataUrl);
+            else {
+                let stored = JSON.parse(localStorage.getItem('os_user_images') || '[]');
+                stored.push(dataUrl);
+                localStorage.setItem('os_user_images', JSON.stringify(stored));
             }
-
             triggerToastNotification("Photo Captured", "Image successfully saved!");
         }
 
         function openGalleryModal() {
-            const modal = document.getElementById('gallery-modal');
             const grid = document.getElementById('gallery-grid-container');
             grid.innerHTML = '';
-
-            let imagesToDisplay = [];
-            if (guestSessionActive) {
-                imagesToDisplay = guestCapturedImages;
-            } else {
-                try {
-                    imagesToDisplay = JSON.parse(localStorage.getItem('os_user_images') || '[]');
-                } catch(e) { imagesToDisplay = []; }
-            }
-
-            if (imagesToDisplay.length === 0) {
+            let images = guestSessionActive ? guestCapturedImages : JSON.parse(localStorage.getItem('os_user_images') || '[]');
+            if (images.length === 0) {
                 grid.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; color: rgba(255,255,255,0.5); padding: 48px;">No images captured yet.</div>`;
             } else {
-                imagesToDisplay.forEach((url) => {
-                    const thumb = document.createElement('div');
-                    thumb.className = 'gallery-thumb';
-                    thumb.innerHTML = `<img src="${url}" alt="Captured Photo">`;
-                    grid.appendChild(thumb);
+                images.forEach(url => {
+                    grid.innerHTML += `<div class="gallery-thumb"><img src="${url}" alt="Photo"></div>`;
                 });
             }
-
-            modal.style.display = 'flex';
+            document.getElementById('gallery-modal').style.display = 'flex';
         }
 
-        function closeGalleryModal() {
-            document.getElementById('gallery-modal').style.display = 'none';
-        }
+        function closeGalleryModal() { document.getElementById('gallery-modal').style.display = 'none'; }
 
         function triggerToastNotification(title, message) {
             const toast = document.getElementById('toast-banner');
             document.getElementById('toast-title-text').innerText = title;
             document.getElementById('toast-body-text').innerText = message;
-            
             toast.style.display = 'flex';
-            toast.style.opacity = '1';
             document.getElementById('notif-bell-badge').style.display = 'block';
-
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.5s ease';
-                setTimeout(() => {
-                    toast.style.display = 'none';
-                    toast.style.opacity = '1';
-                }, 500);
-            }, 4000);
+            setTimeout(() => { toast.style.display = 'none'; }, 4000);
         }
 
         function switchSettingsTab(tabName) {
-            document.querySelectorAll('.settings-nav-item').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.settings-subnav-item').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.settings-panel').forEach(el => el.classList.remove('active'));
-
+            document.querySelectorAll('.settings-nav-item, .settings-subnav-item, .settings-panel').forEach(el => el.classList.remove('active'));
             if (tabName === 'taskbar') {
                 document.getElementById('nav-item-personalization').classList.add('active');
                 document.getElementById('subnav-item-taskbar').classList.add('active');
@@ -3899,131 +3860,57 @@
                 document.getElementById('nav-item-personalization').classList.add('active');
                 document.getElementById('subnav-item-startmenu').classList.add('active');
             } else {
-                const navItem = document.getElementById(`nav-item-${tabName}`);
-                if (navItem) navItem.classList.add('active');
+                const item = document.getElementById(`nav-item-${tabName}`);
+                if (item) item.classList.add('active');
             }
-
-            if (tabName === 'resetoptions') {
-                updateResetOptionsView();
-            }
-
-            if (tabName === 'guestsettings') {
-                updateGuestLoginVisibility();
-            }
-
+            if (tabName === 'guestsettings') updateGuestSettingsUIState();
             const panel = document.getElementById(`panel-${tabName}`);
             if (panel) panel.classList.add('active');
         }
 
-        function updateResetOptionsView() {
-            const userView = document.getElementById('user-reset-view');
-            const guestView = document.getElementById('guest-reset-view');
-
-            if (guestSessionActive) {
-                userView.style.display = 'none';
-                guestView.style.display = 'flex';
-            } else {
-                userView.style.display = 'block';
-                guestView.style.display = 'none';
-            }
-        }
-
         function togglePersonalizationDropdown(event) {
             if (event) event.stopPropagation();
-            const subnav = document.getElementById('personalization-subnav');
-            const arrowBtn = document.getElementById('personalization-arrow-btn');
-
-            if (subnav.classList.contains('open')) {
-                subnav.classList.remove('open');
-                arrowBtn.classList.remove('expanded');
-            } else {
-                subnav.classList.add('open');
-                arrowBtn.classList.add('expanded');
-            }
+            document.getElementById('personalization-subnav').classList.toggle('open');
+            document.getElementById('personalization-arrow-btn').classList.toggle('expanded');
         }
 
         function filterSettingsNav(query) {
             const q = query.toLowerCase();
-            const navItems = document.querySelectorAll('.settings-sidebar-top .settings-nav-item');
-            navItems.forEach(item => {
-                if (item.id === 'nav-item-guestsettings' && guestSessionActive) {
-                    item.style.display = 'none';
-                    return;
-                }
-                const text = item.innerText.toLowerCase();
-                if (text.includes(q)) {
-                    item.style.display = 'flex';
-                } else {
-                    item.style.display = 'none';
-                }
+            document.querySelectorAll('.settings-sidebar-top .settings-nav-item').forEach(item => {
+                item.style.display = item.innerText.toLowerCase().includes(q) ? 'flex' : 'none';
             });
         }
 
         function handleVersionClick() {
             versionClickCount++;
             if (versionClickTimer) clearTimeout(versionClickTimer);
-
-            if (versionClickCount === 2) {
-                versionClickCount = 0;
-                openCookieModal();
-            } else {
-                versionClickTimer = setTimeout(() => {
-                    versionClickCount = 0;
-                }, 400);
-            }
+            if (versionClickCount === 2) { versionClickCount = 0; document.getElementById('cookie-easteregg-modal').style.display = 'flex'; }
+            else versionClickTimer = setTimeout(() => { versionClickCount = 0; }, 400);
         }
 
-        function openCookieModal() {
-            document.getElementById('cookie-easteregg-modal').style.display = 'flex';
-        }
-
-        function closeCookieModal() {
-            document.getElementById('cookie-easteregg-modal').style.display = 'none';
-            triggerToastNotification("hope you enjoy that cookie! It's home made!", "🍪");
-        }
-
-        function openLocalStorageModal() {
-            document.getElementById('localstorage-reset-modal').style.display = 'flex';
-        }
-
-        function closeLocalStorageModal() {
-            document.getElementById('localstorage-reset-modal').style.display = 'none';
-        }
-
-        function confirmResetLocalStorage() {
-            localStorage.clear();
-            window.location.reload();
-        }
+        function closeCookieModal() { document.getElementById('cookie-easteregg-modal').style.display = 'none'; }
+        function openLocalStorageModal() { document.getElementById('localstorage-reset-modal').style.display = 'flex'; }
+        function closeLocalStorageModal() { document.getElementById('localstorage-reset-modal').style.display = 'none'; }
+        function confirmResetLocalStorage() { localStorage.clear(); window.location.reload(); }
 
         function selectTheme(themeName) {
             const cfg = themeConfigs[themeName] || themeConfigs.blue;
-
             if (guestSessionActive) {
-                guestTempTheme = themeName;
-                guestTempAccent = cfg.accent;
-                guestTempWallpaper = cfg.wallpaper;
-                guestMadeChanges = true;
+                guestTempTheme = themeName; guestTempAccent = cfg.accent; guestTempWallpaper = cfg.wallpaper; guestMadeChanges = true;
                 document.getElementById('desktop').style.backgroundImage = `url('${cfg.wallpaper}')`;
             } else {
                 localStorage.setItem('os_theme', themeName);
                 localStorage.setItem('os_accent', cfg.accent);
                 localStorage.setItem('os_wallpaper', cfg.wallpaper);
                 document.getElementById('desktop').style.backgroundImage = `url('${cfg.wallpaper}')`;
-                document.getElementById('login-screen').style.backgroundImage = `url('${cfg.wallpaper}')`;
             }
-
             applyAccentClass(cfg.accent);
             updateThemeAndAccentUI();
         }
 
         function selectAccentOnly(accentName) {
-            if (guestSessionActive) {
-                guestTempAccent = accentName;
-                guestMadeChanges = true;
-            } else {
-                localStorage.setItem('os_accent', accentName);
-            }
-
+            if (guestSessionActive) { guestTempAccent = accentName; guestMadeChanges = true; }
+            else localStorage.setItem('os_accent', accentName);
             applyAccentClass(accentName);
             updateThemeAndAccentUI();
         }
@@ -4034,42 +3921,21 @@
         }
 
         function updateThemeAndAccentUI() {
-            const activeTheme = guestSessionActive
-                ? (guestTempTheme || 'blue')
-                : (localStorage.getItem('os_theme') || 'blue');
-
-            const activeAccent = guestSessionActive
-                ? (guestTempAccent || 'blue')
-                : (localStorage.getItem('os_accent') || 'blue');
-
+            const activeTheme = guestSessionActive ? (guestTempTheme || 'blue') : (localStorage.getItem('os_theme') || 'blue');
+            const activeAccent = guestSessionActive ? (guestTempAccent || 'blue') : (localStorage.getItem('os_accent') || 'blue');
             ['blue', 'purple', 'green'].forEach(key => {
-                const themeChip = document.getElementById(`theme-chip-${key}`);
-                if (themeChip) {
-                    if (key === activeTheme) themeChip.classList.add('active');
-                    else themeChip.classList.remove('active');
-                }
-
-                const accentChip = document.getElementById(`accent-chip-${key}`);
-                if (accentChip) {
-                    if (key === activeAccent) accentChip.classList.add('active');
-                    else accentChip.classList.remove('active');
-                }
+                const tc = document.getElementById(`theme-chip-${key}`);
+                if (tc) tc.classList.toggle('active', key === activeTheme);
+                const ac = document.getElementById(`accent-chip-${key}`);
+                if (ac) ac.classList.toggle('active', key === activeAccent);
             });
-
             applyAccentClass(activeAccent);
         }
 
         function openWallpaperModal() {
-            const modal = document.getElementById('wallpaper-modal');
             const container = document.getElementById('wallpaper-grid-container');
             container.innerHTML = '';
-
-            let currentBg = defaultWallpapers[0];
-            if (guestSessionActive) {
-                currentBg = guestTempWallpaper || defaultWallpapers[0];
-            } else {
-                currentBg = localStorage.getItem('os_wallpaper') || defaultWallpapers[0];
-            }
+            let currentBg = guestSessionActive ? (guestTempWallpaper || defaultWallpapers[0]) : (localStorage.getItem('os_wallpaper') || defaultWallpapers[0]);
             pendingWallpaper = currentBg;
 
             defaultWallpapers.forEach(url => {
@@ -4080,36 +3946,25 @@
                     item.classList.add('selected');
                     pendingWallpaper = url;
                 };
-                item.innerHTML = `<img src="${url}" alt="Wallpaper Option">`;
+                item.innerHTML = `<img src="${url}" alt="Wallpaper">`;
                 container.appendChild(item);
             });
-
-            modal.style.display = 'flex';
+            document.getElementById('wallpaper-modal').style.display = 'flex';
         }
 
-        function closeWallpaperModal() {
-            document.getElementById('wallpaper-modal').style.display = 'none';
-        }
-
+        function closeWallpaperModal() { document.getElementById('wallpaper-modal').style.display = 'none'; }
+        
         function handleWallpaperUpload(event) {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
-                    const customDataUrl = e.target.result;
-                    pendingWallpaper = customDataUrl;
-
+                reader.onload = e => {
+                    pendingWallpaper = e.target.result;
                     const container = document.getElementById('wallpaper-grid-container');
                     document.querySelectorAll('.wallpaper-item').forEach(el => el.classList.remove('selected'));
-
                     const item = document.createElement('div');
                     item.className = 'wallpaper-item selected';
-                    item.innerHTML = `<img src="${customDataUrl}" alt="Uploaded Wallpaper">`;
-                    item.onclick = () => {
-                        document.querySelectorAll('.wallpaper-item').forEach(el => el.classList.remove('selected'));
-                        item.classList.add('selected');
-                        pendingWallpaper = customDataUrl;
-                    };
+                    item.innerHTML = `<img src="${pendingWallpaper}" alt="Uploaded">`;
                     container.prepend(item);
                 };
                 reader.readAsDataURL(file);
@@ -4118,101 +3973,47 @@
 
         function applySelectedWallpaper() {
             if (pendingWallpaper) {
-                if (guestSessionActive) {
-                    guestTempWallpaper = pendingWallpaper;
-                    guestMadeChanges = true;
-                    document.getElementById('desktop').style.backgroundImage = `url('${pendingWallpaper}')`;
-                } else {
-                    localStorage.setItem('os_wallpaper', pendingWallpaper);
-                    document.getElementById('desktop').style.backgroundImage = `url('${pendingWallpaper}')`;
-                    document.getElementById('login-screen').style.backgroundImage = `url('${pendingWallpaper}')`;
-                }
+                if (guestSessionActive) { guestTempWallpaper = pendingWallpaper; guestMadeChanges = true; document.getElementById('desktop').style.backgroundImage = `url('${pendingWallpaper}')`; }
+                else { localStorage.setItem('os_wallpaper', pendingWallpaper); document.getElementById('desktop').style.backgroundImage = `url('${pendingWallpaper}')`; }
             }
             closeWallpaperModal();
         }
 
         function loadSavedWallpaper() {
-            if (guestSessionActive) {
-                const bg = guestTempWallpaper || defaultWallpapers[0];
-                document.getElementById('desktop').style.backgroundImage = `url('${bg}')`;
-            } else {
-                const savedBg = localStorage.getItem('os_wallpaper');
-                if (savedBg) {
-                    document.getElementById('desktop').style.backgroundImage = `url('${savedBg}')`;
-                    document.getElementById('login-screen').style.backgroundImage = `url('${savedBg}')`;
-                } else {
-                    document.getElementById('desktop').style.backgroundImage = `url('${defaultWallpapers[0]}')`;
-                    document.getElementById('login-screen').style.backgroundImage = `url('${defaultWallpapers[0]}')`;
-                }
-            }
-        }
-
-        function getCurrentTaskbarAlignment() {
-            if (guestSessionActive) {
-                return guestTempTaskbarAlignment || "default";
-            }
-            return localStorage.getItem('os_taskbar_alignment') || "default";
+            const bg = guestSessionActive ? (guestTempWallpaper || defaultWallpapers[0]) : (localStorage.getItem('os_wallpaper') || defaultWallpapers[0]);
+            document.getElementById('desktop').style.backgroundImage = `url('${bg}')`;
+            document.getElementById('login-screen').style.backgroundImage = `url('${bg}')`;
         }
 
         function changeTaskbarAlignment(alignment) {
-            if (guestSessionActive) {
-                guestTempTaskbarAlignment = alignment;
-                guestMadeChanges = true;
-            } else {
-                localStorage.setItem('os_taskbar_alignment', alignment);
-            }
+            if (guestSessionActive) { guestTempTaskbarAlignment = alignment; guestMadeChanges = true; }
+            else localStorage.setItem('os_taskbar_alignment', alignment);
             applyTaskbarAlignmentUI();
         }
 
         function applyTaskbarAlignmentUI() {
-            const alignment = getCurrentTaskbarAlignment();
-            const taskbar = document.getElementById('taskbar');
-            
-            taskbar.className = '';
-            taskbar.classList.add(`align-${alignment}`);
-
-            const selectEl = document.getElementById('taskbar-alignment-select');
-            if (selectEl) selectEl.value = alignment;
-
+            const alignment = guestSessionActive ? (guestTempTaskbarAlignment || 'default') : (localStorage.getItem('os_taskbar_alignment') || 'default');
+            document.getElementById('taskbar').className = `align-${alignment}`;
+            const sel = document.getElementById('taskbar-alignment-select');
+            if (sel) sel.value = alignment;
             updateTaskbarMiddleIcons();
         }
 
-        function getShowProfileSetting() {
-            if (guestSessionActive) {
-                return guestTempShowProfile;
-            }
-            return localStorage.getItem('os_show_profile_in_menu') === 'true';
-        }
-
         function toggleShowProfileSetting(isChecked) {
-            if (guestSessionActive) {
-                guestTempShowProfile = isChecked;
-                guestMadeChanges = true;
-            } else {
-                localStorage.setItem('os_show_profile_in_menu', isChecked ? 'true' : 'false');
-            }
+            if (guestSessionActive) { guestTempShowProfile = isChecked; guestMadeChanges = true; }
+            else localStorage.setItem('os_show_profile_in_menu', isChecked ? 'true' : 'false');
             applyShowProfileUI();
         }
 
         function applyShowProfileUI() {
-            const show = getShowProfileSetting();
+            const show = guestSessionActive ? guestTempShowProfile : (localStorage.getItem('os_show_profile_in_menu') === 'true');
             const toggleEl = document.getElementById('show-profile-toggle');
             if (toggleEl) toggleEl.checked = show;
-
             const profileBox = document.getElementById('footer-user-profile-box');
             const divider = document.getElementById('footer-profile-divider');
-            const usernameDisplay = document.getElementById('footer-username-display');
-            const avatarDisplay = document.getElementById('footer-user-avatar');
-
             if (show) {
-                if (guestSessionActive) {
-                    usernameDisplay.innerText = "Guest";
-                    avatarDisplay.src = "https://i.postimg.cc/Dzyg9xcx/Untitled2554-20261029000459.png";
-                } else {
-                    const savedUser = localStorage.getItem('os_username') || "User";
-                    usernameDisplay.innerText = savedUser;
-                    avatarDisplay.src = "https://i.postimg.cc/PxvmH9vP/Untitled2552-20261028230212.png";
-                }
+                document.getElementById('footer-username-display').innerText = guestSessionActive ? "Guest" : (localStorage.getItem('os_username') || "User");
+                document.getElementById('footer-user-avatar').src = guestSessionActive ? "https://i.postimg.cc/Dzyg9xcx/Untitled2554-20261029000459.png" : "https://i.postimg.cc/PxvmH9vP/Untitled2552-20261028230212.png";
                 profileBox.style.display = 'flex';
                 divider.style.display = 'block';
             } else {
@@ -4222,107 +4023,43 @@
         }
 
         function logOffSystem() {
-            if (guestSessionActive && guestMadeChanges) {
-                document.getElementById('guest-warning-modal').style.display = 'flex';
-                return;
-            }
+            if (guestSessionActive && guestMadeChanges) { document.getElementById('guest-warning-modal').style.display = 'flex'; return; }
             executeGuestLogOff();
         }
 
-        function closeGuestWarningModal() {
-            document.getElementById('guest-warning-modal').style.display = 'none';
-        }
+        function closeGuestWarningModal() { document.getElementById('guest-warning-modal').style.display = 'none'; }
 
         function executeGuestLogOff() {
             closeGuestWarningModal();
             guestSessionActive = false;
-            guestSessionData = {};
             guestMadeChanges = false;
-            guestTempWallpaper = "";
-            guestTempTheme = "blue";
-            guestTempAccent = "blue";
-            guestTempTaskbarAlignment = "default";
-            guestTempShowProfile = false;
             guestCapturedImages = [];
-
             stopCameraStream();
             closeAllWindowsAndResetState();
-
             loadSavedWallpaper();
             updateThemeAndAccentUI();
             applyTaskbarAlignmentUI();
             applyShowProfileUI();
-
-            const startMenu = document.getElementById('start-menu');
-            startMenu.classList.remove('open');
-            startMenu.style.display = 'none';
+            document.getElementById('start-menu').classList.remove('open');
+            document.getElementById('start-menu').style.display = 'none';
             document.getElementById('desktop').style.display = 'none';
             showLoginScreen();
         }
 
-        document.addEventListener('click', (e) => {
-            const startMenu = document.getElementById('start-menu');
-            const startBtn = document.getElementById('start-button');
-            if (startMenu && startMenu.classList.contains('open')) {
-                if (!startMenu.contains(e.target) && (!startBtn || !startBtn.contains(e.target))) {
-                    startMenu.classList.remove('open');
-                    setTimeout(() => { startMenu.style.display = 'none'; }, 250);
-                }
-            }
-        });
-
-        function getConfiguredTimeZone() {
-            return localStorage.getItem('os_timezone') || Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
-        }
-
         function updateClock() {
             const now = new Date();
-            const tz = getConfiguredTimeZone();
-
+            const tz = localStorage.getItem('os_timezone') || Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
             try {
-                const timeFormatter = new Intl.DateTimeFormat('en-US', {
-                    timeZone: tz,
-                    hour: 'numeric',
-                    minute: '2-digit',
-                    second: '2-digit',
-                    hour12: true
-                });
-                const parts = timeFormatter.formatToParts(now);
-                const hourVal = parts.find(p => p.type === 'hour')?.value || '12';
-                const minVal = parts.find(p => p.type === 'minute')?.value || '00';
-                const secVal = parts.find(p => p.type === 'second')?.value || '00';
-                const dayPeriod = parts.find(p => p.type === 'dayPeriod')?.value || 'AM';
-
-                document.getElementById('time-display').innerText = `${hourVal}:${minVal} ${dayPeriod}`;
-                document.getElementById('flyout-time').innerText = `${String(hourVal).padStart(2, '0')}:${minVal}:${secVal}`;
-                document.getElementById('flyout-ampm').innerText = dayPeriod;
-
-                const shortDateFormatter = new Intl.DateTimeFormat('en-GB', {
-                    timeZone: tz,
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: '2-digit'
-                });
-                document.getElementById('date-display').innerText = shortDateFormatter.format(now);
-
-                const fullDateFormatter = new Intl.DateTimeFormat('en-US', {
-                    timeZone: tz,
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-                document.getElementById('flyout-full-date').innerText = fullDateFormatter.format(now);
-            } catch (e) {
-                let hours = now.getHours();
-                const minutes = String(now.getMinutes()).padStart(2, '0');
-                const seconds = String(now.getSeconds()).padStart(2, '0');
-                const ampm = hours >= 12 ? 'PM' : 'AM';
-                const displayHours = hours % 12 ? hours % 12 : 12;
-                document.getElementById('time-display').innerText = `${displayHours}:${minutes} ${ampm}`;
-                document.getElementById('flyout-time').innerText = `${String(displayHours).padStart(2, '0')}:${minutes}:${seconds}`;
-                document.getElementById('flyout-ampm').innerText = ampm;
-            }
+                const tf = new Intl.DateTimeFormat('en-US', { timeZone: tz, hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true });
+                const parts = tf.formatToParts(now);
+                const h = parts.find(p => p.type === 'hour')?.value || '12';
+                const m = parts.find(p => p.type === 'minute')?.value || '00';
+                const s = parts.find(p => p.type === 'second')?.value || '00';
+                const ap = parts.find(p => p.type === 'dayPeriod')?.value || 'AM';
+                document.getElementById('time-display').innerText = `${h}:${m} ${ap}`;
+                document.getElementById('flyout-time').innerText = `${h}:${m}:${s}`;
+                document.getElementById('flyout-ampm').innerText = ap;
+            } catch (e) {}
         }
         setInterval(updateClock, 1000);
         updateClock();
@@ -4331,27 +4068,12 @@
             const select = document.getElementById('setup-timezone-select');
             if (!select) return;
             select.innerHTML = '';
-
-            let zones = [];
-            if (typeof Intl !== 'undefined' && typeof Intl.supportedValuesOf === 'function') {
-                zones = Intl.supportedValuesOf('timeZone');
-            } else {
-                zones = [
-                    'UTC', 'America/New_York', 'America/Chicago', 'America/Denver',
-                    'America/Los_Angeles', 'America/Anchorage', 'Pacific/Honolulu',
-                    'Europe/London', 'Europe/Paris', 'Europe/Berlin', 'Asia/Tokyo',
-                    'Asia/Shanghai', 'Asia/Kolkata', 'Australia/Sydney'
-                ];
-            }
-
-            const detectedZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            let zones = Intl.supportedValuesOf ? Intl.supportedValuesOf('timeZone') : ['UTC', 'America/New_York', 'America/Los_Angeles', 'Europe/London', 'Asia/Tokyo'];
+            const detected = Intl.DateTimeFormat().resolvedOptions().timeZone;
             zones.forEach(tz => {
                 const opt = document.createElement('option');
-                opt.value = tz;
-                opt.textContent = tz.replace(/_/g, ' ');
-                if (tz === detectedZone) {
-                    opt.selected = true;
-                }
+                opt.value = tz; opt.textContent = tz.replace(/_/g, ' ');
+                if (tz === detected) opt.selected = true;
                 select.appendChild(opt);
             });
         }
@@ -4359,89 +4081,26 @@
         function renderCalendar() {
             const grid = document.getElementById('cal-grid');
             grid.innerHTML = '';
-
-            const dayNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-            dayNames.forEach(d => {
-                const header = document.createElement('div');
-                header.className = 'cal-day-header';
-                header.innerText = d;
-                grid.appendChild(header);
-            });
-
-            const year = calendarViewDate.getFullYear();
-            const month = calendarViewDate.getMonth();
-
-            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            document.getElementById('cal-month-year-text').innerText = `${monthNames[month]} ${year}`;
-
-            const firstDayIndex = new Date(year, month, 1).getDay();
-            const totalDays = new Date(year, month + 1, 0).getDate();
-            const prevMonthTotalDays = new Date(year, month, 0).getDate();
-
-            const today = new Date();
-
-            for (let x = firstDayIndex; x > 0; x--) {
-                const cell = document.createElement('div');
-                cell.className = 'cal-date-cell other-month';
-                cell.innerText = prevMonthTotalDays - x + 1;
-                grid.appendChild(cell);
-            }
-
-            for (let day = 1; day <= totalDays; day++) {
-                const cell = document.createElement('div');
-                cell.className = 'cal-date-cell';
-                cell.innerText = day;
-
-                if (day === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
-                    cell.classList.add('today');
-                }
-                grid.appendChild(cell);
-            }
-
-            const totalCells = firstDayIndex + totalDays;
-            const remainingCells = (7 - (totalCells % 7)) % 7;
-            for (let i = 1; i <= remainingCells; i++) {
-                const cell = document.createElement('div');
-                cell.className = 'cal-date-cell other-month';
-                cell.innerText = i;
-                grid.appendChild(cell);
+            ['S','M','T','W','T','F','S'].forEach(d => grid.innerHTML += `<div class="cal-day-header">${d}</div>`);
+            const y = calendarViewDate.getFullYear(), m = calendarViewDate.getMonth();
+            document.getElementById('cal-month-year-text').innerText = ["January","February","March","April","May","June","July","August","September","October","November","December"][m] + ` ${y}`;
+            const first = new Date(y, m, 1).getDay(), total = new Date(y, m + 1, 0).getDate();
+            for (let i = 0; i < first; i++) grid.innerHTML += `<div class="cal-date-cell other-month"></div>`;
+            for (let d = 1; d <= total; d++) {
+                const isToday = d === new Date().getDate() && m === new Date().getMonth() && y === new Date().getFullYear();
+                grid.innerHTML += `<div class="cal-date-cell${isToday ? ' today' : ''}">${d}</div>`;
             }
         }
 
-        function navigateMonth(direction) {
-            calendarViewDate.setMonth(calendarViewDate.getMonth() + direction);
-            renderCalendar();
-        }
-
+        function navigateMonth(dir) { calendarViewDate.setMonth(calendarViewDate.getMonth() + dir); renderCalendar(); }
         function toggleClockCalendar() {
-            const flyout = document.getElementById('clock-calendar-flyout');
-            document.getElementById('notification-center').style.display = 'none';
-            const startMenu = document.getElementById('start-menu');
-            startMenu.classList.remove('open');
-            startMenu.style.display = 'none';
-
-            if (flyout.style.display === 'flex') {
-                flyout.style.display = 'none';
-            } else {
-                calendarViewDate = new Date();
-                renderCalendar();
-                flyout.style.display = 'flex';
-            }
+            const fly = document.getElementById('clock-calendar-flyout');
+            fly.style.display = fly.style.display === 'flex' ? 'none' : 'flex';
+            if (fly.style.display === 'flex') { calendarViewDate = new Date(); renderCalendar(); }
         }
-
         function toggleNotificationCenter() {
-            const center = document.getElementById('notification-center');
-            document.getElementById('clock-calendar-flyout').style.display = 'none';
-            const startMenu = document.getElementById('start-menu');
-            startMenu.classList.remove('open');
-            startMenu.style.display = 'none';
-
-            if (center.style.display === 'flex') {
-                center.style.display = 'none';
-            } else {
-                center.style.display = 'flex';
-                document.getElementById('notif-bell-badge').style.display = 'none';
-            }
+            const c = document.getElementById('notification-center');
+            c.style.display = c.style.display === 'flex' ? 'none' : 'flex';
         }
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -4450,164 +4109,75 @@
             updateThemeAndAccentUI();
             applyTaskbarAlignmentUI();
             applyShowProfileUI();
-            updateGuestLoginVisibility();
             populateTimeZonesDropdown();
-            const isSetupDone = localStorage.getItem('os_setup_done');
-
-            if (isSetupDone === 'true') {
+            if (localStorage.getItem('os_setup_done') === 'true') {
                 document.getElementById('boot-screen').style.display = 'none';
                 document.getElementById('welcome-screen').style.display = 'none';
                 showLoginScreen();
             } else {
-                playBootAnimation(false, () => {
-                    document.getElementById('welcome-screen').style.display = 'flex';
-                });
+                playBootAnimation(false, () => { document.getElementById('welcome-screen').style.display = 'flex'; });
             }
         });
 
-        function playBootAnimation(showServicesText, onComplete) {
-            const bootScreen = document.getElementById('boot-screen');
-            const bootSubtext = document.getElementById('boot-subtext');
-
-            bootSubtext.style.display = showServicesText ? 'block' : 'none';
-            bootScreen.style.display = 'flex';
-            bootScreen.style.opacity = '1';
-
-            const duration = 10000;
-
+        function playBootAnimation(showText, onComplete) {
+            const boot = document.getElementById('boot-screen');
+            document.getElementById('boot-subtext').style.display = showText ? 'block' : 'none';
+            boot.style.display = 'flex'; boot.style.opacity = '1';
             setTimeout(() => {
-                bootScreen.style.opacity = '0';
-                setTimeout(() => {
-                    bootScreen.style.display = 'none';
-                    bootSubtext.style.display = 'none';
-                    if (onComplete) onComplete();
-                }, 800);
-            }, duration);
+                boot.style.opacity = '0';
+                setTimeout(() => { boot.style.display = 'none'; if (onComplete) onComplete(); }, 800);
+            }, 6000);
         }
 
-        function goToTermsStep() {
-            document.getElementById('step-1').style.display = 'none';
-            document.getElementById('step-terms').style.display = 'flex';
-        }
-
-        function openFullTerms() {
-            document.getElementById('terms-modal').style.display = 'flex';
-        }
-
-        function closeFullTerms() {
-            document.getElementById('terms-modal').style.display = 'none';
-        }
-
-        function openAgreementPopup() {
-            document.getElementById('agreement-popup').style.display = 'flex';
-        }
-
-        function closeAgreementPopup() {
-            document.getElementById('agreement-popup').style.display = 'none';
-        }
-
-        function acceptTermsAndProceed() {
-            closeAgreementPopup();
-            document.getElementById('step-terms').style.display = 'none';
-            document.getElementById('step-user-creation').style.display = 'flex';
-        }
+        function goToTermsStep() { document.getElementById('step-1').style.display = 'none'; document.getElementById('step-terms').style.display = 'flex'; }
+        function openFullTerms() { document.getElementById('terms-modal').style.display = 'flex'; }
+        function closeFullTerms() { document.getElementById('terms-modal').style.display = 'none'; }
+        function openAgreementPopup() { document.getElementById('agreement-popup').style.display = 'flex'; }
+        function closeAgreementPopup() { document.getElementById('agreement-popup').style.display = 'none'; }
+        function acceptTermsAndProceed() { closeAgreementPopup(); document.getElementById('step-terms').style.display = 'none'; document.getElementById('step-user-creation').style.display = 'flex'; }
 
         async function validateUserCreation() {
-            const usernameInput = document.getElementById('username-input').value.trim();
-            const passwordInput = document.getElementById('password-input').value;
-            const confirmPasswordInput = document.getElementById('confirm-password-input').value;
-            const errorMsg = document.getElementById('user-creation-error');
-
-            if (!usernameInput || !passwordInput) {
-                errorMsg.innerText = "Please fill in all fields.";
-                errorMsg.style.display = "block";
-                return;
-            }
-
-            if (passwordInput !== confirmPasswordInput) {
-                errorMsg.innerText = "Passwords do not match.";
-                errorMsg.style.display = "block";
-                return;
-            }
-
-            try {
-                errorMsg.style.display = "none";
-                createdUsername = usernameInput;
-
-                const saltBytes = generateRandomSalt();
-                createdSaltHex = bufferToHex(saltBytes);
-                createdPasswordHash = await hashPasswordPBKDF2(passwordInput, saltBytes);
-
-                document.getElementById('step-user-creation').style.display = 'none';
-                document.getElementById('step-shield-warning').style.display = 'flex';
-            } catch (err) {
-                errorMsg.innerText = "Error securing password. Please try again.";
-                errorMsg.style.display = "block";
-            }
+            const u = document.getElementById('username-input').value.trim();
+            const p1 = document.getElementById('password-input').value;
+            const p2 = document.getElementById('confirm-password-input').value;
+            const err = document.getElementById('user-creation-error');
+            if (!u || !p1) { err.innerText = "Please fill in all fields."; err.style.display = "block"; return; }
+            if (p1 !== p2) { err.innerText = "Passwords do not match."; err.style.display = "block"; return; }
+            createdUsername = u;
+            const salt = generateRandomSalt();
+            createdSaltHex = bufferToHex(salt);
+            createdPasswordHash = await hashPasswordPBKDF2(p1, salt);
+            document.getElementById('step-user-creation').style.display = 'none';
+            document.getElementById('step-shield-warning').style.display = 'flex';
         }
 
-        function goBackToUserCreation() {
-            document.getElementById('step-shield-warning').style.display = 'none';
-            document.getElementById('step-user-creation').style.display = 'flex';
-        }
+        function goBackToUserCreation() { document.getElementById('step-shield-warning').style.display = 'none'; document.getElementById('step-user-creation').style.display = 'flex'; }
+        function toggleShieldText() { document.getElementById('shield-text-content').classList.toggle('expanded'); }
 
-        function toggleShieldText() {
-            const content = document.getElementById('shield-text-content');
-            const btn = document.getElementById('shield-toggle-btn');
-
-            if (content.classList.contains('expanded')) {
-                content.classList.remove('expanded');
-                btn.innerText = "Show more";
-            } else {
-                content.classList.add('expanded');
-                btn.innerText = "Show less";
-            }
-        }
-
-        /* Step 1/2: More Information */
         function proceedToMoreInformation() {
             localStorage.setItem('os_username', createdUsername);
             localStorage.setItem('os_password_hash', createdPasswordHash);
             localStorage.setItem('os_password_salt', createdSaltHex);
-
             document.getElementById('step-shield-warning').style.display = 'none';
-            populateTimeZonesDropdown();
             document.getElementById('step-more-info').style.display = 'flex';
         }
 
-        /* Step 2/2: Setup Personalization */
         function goToSetupPersonalization() {
-            const tzSelect = document.getElementById('setup-timezone-select');
-            if (tzSelect && tzSelect.value) {
-                localStorage.setItem('os_timezone', tzSelect.value);
-                updateClock();
-            }
-
+            const tz = document.getElementById('setup-timezone-select').value;
+            if (tz) localStorage.setItem('os_timezone', tz);
             document.getElementById('step-more-info').style.display = 'none';
             document.getElementById('welcome-card-box').classList.add('expanded-setup-card');
             document.getElementById('step-personalization').style.display = 'flex';
         }
 
-        function selectSetupWallpaper(index) {
-            setupSelectedWallpaper = defaultWallpapers[index] || defaultWallpapers[0];
-            [0, 1, 2].forEach(i => {
-                const el = document.getElementById(`setup-wp-${i}`);
-                if (el) {
-                    if (i === index) el.classList.add('selected');
-                    else el.classList.remove('selected');
-                }
-            });
+        function selectSetupWallpaper(idx) {
+            setupSelectedWallpaper = defaultWallpapers[idx];
+            [0,1,2].forEach(i => document.getElementById(`setup-wp-${i}`).classList.toggle('selected', i === idx));
         }
 
-        function selectSetupAccent(accentName) {
-            setupSelectedAccent = accentName;
-            ['blue', 'purple', 'green'].forEach(acc => {
-                const chip = document.getElementById(`setup-acc-${acc}`);
-                if (chip) {
-                    if (acc === accentName) chip.classList.add('selected');
-                    else chip.classList.remove('selected');
-                }
-            });
+        function selectSetupAccent(acc) {
+            setupSelectedAccent = acc;
+            ['blue','purple','green'].forEach(a => document.getElementById(`setup-acc-${a}`).classList.toggle('selected', a === acc));
         }
 
         function skipSetupPersonalization() {
@@ -4615,347 +4185,222 @@
             localStorage.setItem('os_accent', 'blue');
             localStorage.setItem('os_theme', 'blue');
             localStorage.setItem('os_guest_enabled', 'true');
-
-            document.getElementById('welcome-card-box').classList.remove('expanded-setup-card');
-            document.getElementById('step-personalization').style.display = 'none';
             completeSetupAndReboot();
         }
 
         function finishFullSetup() {
             localStorage.setItem('os_wallpaper', setupSelectedWallpaper);
             localStorage.setItem('os_accent', setupSelectedAccent);
-
-            if (setupSelectedWallpaper === themeConfigs[setupSelectedAccent]?.wallpaper) {
-                localStorage.setItem('os_theme', setupSelectedAccent);
-            } else {
-                localStorage.setItem('os_theme', 'blue');
-            }
-
-            const guestCheckbox = document.getElementById('setup-guest-enabled-checkbox');
-            const guestEnabled = guestCheckbox ? guestCheckbox.checked : true;
-            localStorage.setItem('os_guest_enabled', guestEnabled ? 'true' : 'false');
-
-            document.getElementById('welcome-card-box').classList.remove('expanded-setup-card');
-            document.getElementById('step-personalization').style.display = 'none';
+            localStorage.setItem('os_theme', setupSelectedAccent);
+            localStorage.setItem('os_guest_enabled', document.getElementById('setup-guest-enabled-checkbox').checked ? 'true' : 'false');
             completeSetupAndReboot();
         }
 
-        /* Final Setup Completion: Trigger Reboot Sequence, Greetings, 5s Black Screen, then Login */
         function completeSetupAndReboot() {
             localStorage.setItem('os_setup_done', 'true');
-
-            const welcomeScreen = document.getElementById('welcome-screen');
-            welcomeScreen.style.opacity = '0';
-
+            const welcome = document.getElementById('welcome-screen');
+            welcome.style.opacity = '0';
             setTimeout(() => {
-                welcomeScreen.style.display = 'none';
-
-                // 1. Play 10-second reboot boot screen (showing starting services)
+                welcome.style.display = 'none';
                 playBootAnimation(true, () => {
-                    // 2. Play greeting sequence ("Almost done!", etc.)
-                    playGreetingSequence(() => {
-                        // 3. 5-second black screen pause
-                        const blackScreen = document.createElement('div');
-                        blackScreen.style.position = 'fixed';
-                        blackScreen.style.top = '0';
-                        blackScreen.style.left = '0';
-                        blackScreen.style.width = '100%';
-                        blackScreen.style.height = '100%';
-                        blackScreen.style.backgroundColor = '#000';
-                        blackScreen.style.zIndex = '9500';
-                        document.body.appendChild(blackScreen);
-
-                        setTimeout(() => {
-                            blackScreen.remove();
-                            loadSavedWallpaper();
-                            updateThemeAndAccentUI();
-                            updateGuestLoginVisibility();
-                            // 4. Finally take user to login screen
-                            showLoginScreen();
-                        }, 5000);
-                    });
+                    playGreetingSequence(() => { showLoginScreen(); });
                 });
             }, 800);
         }
 
         function playGreetingSequence(onComplete) {
-            const greetingScreen = document.getElementById('greeting-screen');
-            const greetingText = document.getElementById('greeting-text');
-
-            const selectedMessage = "Almost done! After the next boot, you can log in and explore the operating system.";
-
-            greetingScreen.style.display = 'flex';
-            greetingScreen.style.opacity = '1';
-
+            const gs = document.getElementById('greeting-screen');
+            const gt = document.getElementById('greeting-text');
+            gs.style.display = 'flex'; gs.style.opacity = '1';
+            gt.innerText = "Almost done! After the next boot, you can log in and explore the operating system.";
+            gt.style.opacity = '1';
             setTimeout(() => {
-                greetingText.innerText = "Hi";
-                greetingText.style.opacity = '1';
-                greetingText.style.transform = 'translateY(0px)';
-
-                setTimeout(() => {
-                    greetingText.style.opacity = '0';
-                    greetingText.style.transform = 'translateY(-10px)';
-
-                    setTimeout(() => {
-                        greetingText.innerText = selectedMessage;
-                        greetingText.style.transform = 'translateY(10px)';
-
-                        setTimeout(() => {
-                            greetingText.style.opacity = '1';
-                            greetingText.style.transform = 'translateY(0px)';
-
-                            setTimeout(() => {
-                                greetingText.style.opacity = '0';
-                                greetingText.style.transform = 'translateY(-10px)';
-
-                                setTimeout(() => {
-                                    greetingScreen.style.opacity = '0';
-                                    setTimeout(() => {
-                                        greetingScreen.style.display = 'none';
-                                        if (onComplete) onComplete();
-                                    }, 800);
-                                }, 800);
-                            }, 3500);
-                        }, 50);
-                    }, 800);
-                }, 2000);
-            }, 300);
+                gs.style.opacity = '0';
+                setTimeout(() => { gs.style.display = 'none'; if (onComplete) onComplete(); }, 800);
+            }, 3000);
         }
 
+        /* Dual Button Login Screen Logic based on Guest Password and Guest Account Enabled State */
         function showLoginScreen() {
-            const savedUsername = localStorage.getItem('os_username') || "User";
-            document.getElementById('display-login-username').innerText = savedUsername;
-            updateGuestLoginVisibility();
-            
-            const loginScreen = document.getElementById('login-screen');
-            loginScreen.style.display = 'flex';
-            loginScreen.style.opacity = '1';
+            const savedUser = localStorage.getItem('os_username') || "User";
+            const guestEnabled = isGuestAccountEnabled();
+            const hasGuestPass = localStorage.getItem('os_guest_password_hash');
+            const card = document.getElementById('login-card-box');
+
+            if (guestEnabled && hasGuestPass) {
+                // Two distinct buttons on bottom left / center
+                card.innerHTML = `
+                    <div class="login-username">Welcome back, ${savedUser}</div>
+                    <div class="login-accounts-container">
+                        <button class="login-account-tile" onclick="renderUserLoginForm()">
+                            <img src="https://i.postimg.cc/PxvmH9vP/Untitled2552-20261028230212.png" class="login-account-avatar">
+                            <div class="login-account-info">
+                                <span class="login-account-name">${savedUser}</span>
+                                <span class="login-account-sub">User Account</span>
+                            </div>
+                        </button>
+                        <button class="login-account-tile" onclick="renderGuestLoginForm()">
+                            <img src="https://i.postimg.cc/Dzyg9xcx/Untitled2554-20261029000459.png" class="login-account-avatar">
+                            <div class="login-account-info">
+                                <span class="login-account-name">Guest</span>
+                                <span class="login-account-sub">Secured Guest Session</span>
+                            </div>
+                        </button>
+                    </div>
+                `;
+            } else {
+                // Standard default login UI
+                card.innerHTML = `
+                    <img src="https://i.postimg.cc/ydNwc4V8/Untitled2545-20261027054658.png" alt="Avatar" class="login-avatar">
+                    <div class="login-username">${savedUser}</div>
+                    <div class="login-input-group">
+                        <input type="password" id="login-password-field" class="login-password-input" placeholder="Password" onkeydown="if(event.key==='Enter') verifyLoginPassword()">
+                        <button class="eye-toggle-btn" type="button" onclick="togglePasswordVisibility('login-password-field', this)">
+                            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                        </button>
+                        <button class="login-submit-btn" onclick="verifyLoginPassword()">
+                            <svg viewBox="0 0 24 24"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/></svg>
+                        </button>
+                    </div>
+                    ${guestEnabled ? `<button class="guest-login-btn" onclick="loginAsGuest()">Continue as Guest</button>` : ''}
+                    <div class="forgot-password-box" id="forgot-password-container">
+                        <div class="forgot-password-text">forgot password?</div>
+                        <button class="btn-material" onclick="openResetModal()">Reset password</button>
+                    </div>
+                `;
+            }
+
+            const ls = document.getElementById('login-screen');
+            ls.style.display = 'flex';
+            ls.style.opacity = '1';
+        }
+
+        function renderUserLoginForm() {
+            const card = document.getElementById('login-card-box');
+            card.innerHTML = `
+                <img src="https://i.postimg.cc/ydNwc4V8/Untitled2545-20261027054658.png" alt="Avatar" class="login-avatar">
+                <div class="login-username">${localStorage.getItem('os_username') || "User"}</div>
+                <div class="login-input-group">
+                    <input type="password" id="login-password-field" class="login-password-input" placeholder="Password" onkeydown="if(event.key==='Enter') verifyLoginPassword()">
+                    <button class="eye-toggle-btn" type="button" onclick="togglePasswordVisibility('login-password-field', this)">
+                        <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                    </button>
+                    <button class="login-submit-btn" onclick="verifyLoginPassword()">
+                        <svg viewBox="0 0 24 24"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/></svg>
+                    </button>
+                </div>
+                <button class="btn-text" style="margin-top: 4px;" onclick="showLoginScreen()">Back to accounts</button>
+            `;
+        }
+
+        function renderGuestLoginForm() {
+            const card = document.getElementById('login-card-box');
+            card.innerHTML = `
+                <img src="https://i.postimg.cc/Dzyg9xcx/Untitled2554-20261029000459.png" alt="Guest Avatar" class="login-avatar">
+                <div class="login-username">Guest Session</div>
+                <div class="login-input-group">
+                    <input type="password" id="guest-login-password-field" class="login-password-input" placeholder="Guest Password" onkeydown="if(event.key==='Enter') verifyGuestPassword()">
+                    <button class="eye-toggle-btn" type="button" onclick="togglePasswordVisibility('guest-login-password-field', this)">
+                        <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                    </button>
+                    <button class="login-submit-btn" onclick="verifyGuestPassword()">
+                        <svg viewBox="0 0 24 24"><path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/></svg>
+                    </button>
+                </div>
+                <div class="error-msg" id="guest-login-error" style="display:none;">Incorrect guest password.</div>
+                <button class="btn-text" style="margin-top: 4px;" onclick="showLoginScreen()">Back to accounts</button>
+            `;
+        }
+
+        async function verifyGuestPassword() {
+            const entered = document.getElementById('guest-login-password-field').value;
+            const savedHash = localStorage.getItem('os_guest_password_hash');
+            const saltHex = localStorage.getItem('os_guest_password_salt');
+            const err = document.getElementById('guest-login-error');
+
+            const computed = await hashPasswordPBKDF2(entered, new Uint8Array(hexToBuffer(saltHex)));
+            if (computed === savedHash) {
+                guestFailedAttempts = 0;
+                loginAsGuest();
+            } else {
+                guestFailedAttempts++;
+                err.style.display = 'block';
+                if (guestFailedAttempts >= 5) {
+                    err.innerText = "Too many failed attempts. Locked out temporarily.";
+                    document.getElementById('guest-login-password-field').disabled = true;
+                }
+            }
         }
 
         async function verifyLoginPassword() {
-            const enteredPassword = document.getElementById('login-password-field').value;
+            const entered = document.getElementById('login-password-field').value;
             const savedHash = localStorage.getItem('os_password_hash');
-            const savedSaltHex = localStorage.getItem('os_password_salt');
+            const saltHex = localStorage.getItem('os_password_salt');
+            const computed = await hashPasswordPBKDF2(entered, new Uint8Array(hexToBuffer(saltHex)));
 
-            if (!savedHash || !savedSaltHex) {
-                alert("Account error: Saved security details missing.");
-                return;
-            }
-
-            try {
-                const saltBytes = new Uint8Array(hexToBuffer(savedSaltHex));
-                const computedHash = await hashPasswordPBKDF2(enteredPassword, saltBytes);
-
-                if (computedHash === savedHash) {
-                    guestSessionActive = false;
-                    guestMadeChanges = false;
-                    guestTempWallpaper = "";
-                    guestTempTheme = "blue";
-                    guestTempAccent = "blue";
-                    guestTempTaskbarAlignment = "default";
-                    guestTempShowProfile = false;
-                    guestCapturedImages = [];
-
-                    closeAllWindowsAndResetState();
-
-                    loadSavedWallpaper();
-                    updateThemeAndAccentUI();
-                    applyTaskbarAlignmentUI();
-                    applyShowProfileUI();
-                    updateSettingsUserSession();
-
-                    const loginScreen = document.getElementById('login-screen');
-                    loginScreen.style.opacity = '0';
-                    setTimeout(() => {
-                        loginScreen.style.display = 'none';
-                        launchDesktopEnvironment();
-                    }, 800);
-                } else {
-                    failedLoginAttempts++;
-                    const passwordInput = document.getElementById('login-password-field');
-                    passwordInput.value = '';
-                    passwordInput.style.borderColor = '#B3261E';
-
-                    if (failedLoginAttempts >= 3) {
-                        document.getElementById('forgot-password-container').style.display = 'flex';
-                    }
-                }
-            } catch (err) {
-                console.error("Login verification failed:", err);
-            }
-        }
-
-        function loginAsGuest() {
-            if (!isGuestAccountEnabled()) return;
-
-            guestSessionActive = true;
-            guestMadeChanges = false;
-            guestTempWallpaper = defaultWallpapers[0];
-            guestTempTheme = "blue";
-            guestTempAccent = "blue";
-            guestTempTaskbarAlignment = "default";
-            guestTempShowProfile = false;
-            guestCapturedImages = [];
-
-            guestSessionData = {
-                username: "User Guest",
-                sessionStartedAt: new Date()
-            };
-            
-            closeAllWindowsAndResetState();
-
-            document.getElementById('desktop').style.backgroundImage = `url('${defaultWallpapers[0]}')`;
-            updateThemeAndAccentUI();
-            applyTaskbarAlignmentUI();
-            applyShowProfileUI();
-            updateSettingsUserSession();
-
-            const loginScreen = document.getElementById('login-screen');
-            loginScreen.style.opacity = '0';
-            setTimeout(() => {
-                loginScreen.style.display = 'none';
-                launchDesktopEnvironment();
-            }, 800);
-        }
-
-        function updateSettingsUserSession() {
-            const usernameDisplay = document.getElementById('settings-username-display');
-            const avatarDisplay = document.getElementById('settings-user-avatar');
-            const guestSettingsNav = document.getElementById('nav-item-guestsettings');
-
-            if (guestSessionActive) {
-                usernameDisplay.innerText = "User Guest";
-                avatarDisplay.src = "https://i.postimg.cc/Dzyg9xcx/Untitled2554-20261029000459.png";
-                if (guestSettingsNav) guestSettingsNav.style.display = 'none';
-            } else {
-                const savedUser = localStorage.getItem('os_username') || "User";
-                usernameDisplay.innerText = savedUser;
-                avatarDisplay.src = "https://i.postimg.cc/PxvmH9vP/Untitled2552-20261028230212.png";
-                if (guestSettingsNav) guestSettingsNav.style.display = 'flex';
-            }
-            updateResetOptionsView();
-            updateGuestLoginVisibility();
-        }
-
-        function openResetModal() {
-            const modal = document.getElementById('reset-modal');
-            modal.style.display = 'flex';
-            document.getElementById('reset-loader').style.display = 'flex';
-            document.getElementById('reset-form').style.display = 'none';
-
-            setTimeout(() => {
-                document.getElementById('reset-loader').style.display = 'none';
-                document.getElementById('reset-form').style.display = 'flex';
-            }, 2000);
-        }
-
-        function closeResetModal() {
-            document.getElementById('reset-modal').style.display = 'none';
-        }
-
-        async function saveNewPasswordAndLogin() {
-            const newPass = document.getElementById('new-reset-password').value;
-            const confirmPass = document.getElementById('confirm-reset-password').value;
-            const errorMsg = document.getElementById('reset-error-msg');
-
-            if (!newPass) {
-                errorMsg.innerText = "Please enter a new password.";
-                errorMsg.style.display = "block";
-                return;
-            }
-
-            if (newPass !== confirmPass) {
-                errorMsg.innerText = "Passwords do not match.";
-                errorMsg.style.display = "block";
-                return;
-            }
-
-            try {
-                const newSaltBytes = generateRandomSalt();
-                const newSaltHex = bufferToHex(newSaltBytes);
-                const newHash = await hashPasswordPBKDF2(newPass, newSaltBytes);
-
-                localStorage.setItem('os_password_hash', newHash);
-                localStorage.setItem('os_password_salt', newSaltHex);
-
-                closeResetModal();
-
+            if (computed === savedHash) {
                 guestSessionActive = false;
                 guestMadeChanges = false;
-                guestTempWallpaper = "";
-                guestTempTheme = "blue";
-                guestTempAccent = "blue";
-                guestTempTaskbarAlignment = "default";
-                guestTempShowProfile = false;
-
                 closeAllWindowsAndResetState();
-
                 loadSavedWallpaper();
                 updateThemeAndAccentUI();
                 applyTaskbarAlignmentUI();
                 applyShowProfileUI();
                 updateSettingsUserSession();
-
-                const loginScreen = document.getElementById('login-screen');
-                loginScreen.style.opacity = '0';
-                setTimeout(() => {
-                    loginScreen.style.display = 'none';
-                    launchDesktopEnvironment();
-                }, 800);
-            } catch (err) {
-                errorMsg.innerText = "Error updating password. Try again.";
-                errorMsg.style.display = "block";
-            }
-        }
-
-        function launchDesktopEnvironment() {
-            document.getElementById('desktop').style.display = 'block';
-
-            closeAllWindowsAndResetState();
-
-            if (guestSessionActive) {
-                document.getElementById('toast-title-text').innerText = "Welcome, Guest!";
-                document.getElementById('toast-body-text').innerText = "You are in a temporary guest session. Any changes will vanish when you log off.";
+                fadeOutLoginAndLaunch();
             } else {
-                const showWelcome = shouldShowWelcomeOnLogin();
-                const welcomeCheckbox = document.getElementById('show-welcome-login-checkbox');
-                if (welcomeCheckbox) welcomeCheckbox.checked = showWelcome;
-
-                if (showWelcome) {
-                    openAppWindow('welcome');
-                }
-            }
-
-            const firstLoginDone = localStorage.getItem('os_first_login_done');
-            if (firstLoginDone !== 'true' || guestSessionActive) {
-                triggerWelcomeNotification();
-                if (!guestSessionActive) {
-                    localStorage.setItem('os_first_login_done', 'true');
-                }
+                failedLoginAttempts++;
+                const field = document.getElementById('login-password-field');
+                field.value = '';
+                field.style.borderColor = '#B3261E';
+                if (failedLoginAttempts >= 3) document.getElementById('forgot-password-container').style.display = 'flex';
             }
         }
 
-        function triggerWelcomeNotification() {
-            if (isMuted) return;
+        function loginAsGuest() {
+            if (!isGuestAccountEnabled()) return;
+            guestSessionActive = true;
+            guestMadeChanges = false;
+            guestCapturedImages = [];
+            closeAllWindowsAndResetState();
+            document.getElementById('desktop').style.backgroundImage = `url('${defaultWallpapers[0]}')`;
+            updateThemeAndAccentUI();
+            applyTaskbarAlignmentUI();
+            applyShowProfileUI();
+            updateSettingsUserSession();
+            fadeOutLoginAndLaunch();
+        }
 
-            const toast = document.getElementById('toast-banner');
-            toast.style.display = 'flex';
-
-            document.getElementById('notif-bell-badge').style.display = 'block';
-
+        function fadeOutLoginAndLaunch() {
+            const ls = document.getElementById('login-screen');
+            ls.style.opacity = '0';
             setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.5s ease';
-                setTimeout(() => {
-                    toast.style.display = 'none';
-                    toast.style.opacity = '1';
-                }, 500);
-            }, 6000);
+                ls.style.display = 'none';
+                document.getElementById('desktop').style.display = 'block';
+                if (shouldShowWelcomeOnLogin() && !guestSessionActive) openAppWindow('welcome');
+            }, 800);
         }
 
-        function toggleMuteNotifs() {
-            isMuted = !isMuted;
-            document.getElementById('mute-btn-text').innerText = isMuted ? "Unmute notifications" : "Mute notifications";
+        function updateSettingsUserSession() {
+            document.getElementById('settings-username-display').innerText = guestSessionActive ? "User Guest" : (localStorage.getItem('os_username') || "User");
+            document.getElementById('settings-user-avatar').src = guestSessionActive ? "https://i.postimg.cc/Dzyg9xcx/Untitled2554-20261029000459.png" : "https://i.postimg.cc/PxvmH9vP/Untitled2552-20261028230212.png";
+            document.getElementById('nav-item-guestsettings').style.display = guestSessionActive ? 'none' : 'flex';
+            document.getElementById('user-reset-view').style.display = guestSessionActive ? 'none' : 'block';
+            document.getElementById('guest-reset-view').style.display = guestSessionActive ? 'flex' : 'none';
+        }
+
+        function openResetModal() { document.getElementById('reset-modal').style.display = 'flex'; setTimeout(() => { document.getElementById('reset-loader').style.display = 'none'; document.getElementById('reset-form').style.display = 'flex'; }, 1500); }
+        function closeResetModal() { document.getElementById('reset-modal').style.display = 'none'; }
+
+        async function saveNewPasswordAndLogin() {
+            const p1 = document.getElementById('new-reset-password').value;
+            const p2 = document.getElementById('confirm-reset-password').value;
+            if (p1 !== p2) { document.getElementById('reset-error-msg').innerText = "Passwords do not match."; document.getElementById('reset-error-msg').style.display = "block"; return; }
+            const salt = generateRandomSalt();
+            localStorage.setItem('os_password_salt', bufferToHex(salt));
+            localStorage.setItem('os_password_hash', await hashPasswordPBKDF2(p1, salt));
+            closeResetModal();
+            showLoginScreen();
         }
     </script>
 </body>

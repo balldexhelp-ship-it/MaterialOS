@@ -86,6 +86,7 @@
             padding: 0;
             font-family: 'Google Sans', sans-serif;
             user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body, html {
@@ -436,10 +437,14 @@
             text-overflow: ellipsis;
         }
 
-        .logoff-btn {
+        .logoff-btn,
+        .logoff-btn:hover,
+        .logoff-btn:active,
+        .logoff-btn:focus,
+        .logoff-btn:focus-visible {
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.12);
-            color: #E6E1E5;
+            color: #FFFFFF;
             font-size: 13px;
             font-weight: 500;
             padding: 8px 16px;
@@ -448,7 +453,8 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: background 0.2s ease, transform 0.1s ease;
+            outline: none;
+            transition: background 0.2s ease, transform 0.1s ease, color 0.2s ease;
         }
 
         .logoff-btn:hover {
@@ -1922,11 +1928,12 @@
             padding: 14px 16px;
             font-size: 13px;
             color: var(--welcome-subtext-color);
-            line-height: 1.4;
-            max-height: 110px;
+            line-height: 1.45;
+            max-height: 130px;
             overflow-y: auto;
-            margin-top: 8px;
+            margin-top: 12px;
             margin-bottom: 12px;
+            white-space: pre-line;
         }
 
         .form-grid {
@@ -2305,7 +2312,7 @@
             background: var(--welcome-btn-text-hover);
         }
 
-        /* Bottom-Left Theme Toggle on Welcome Screen */
+        /* Bottom-Left Rounded Rectangle Theme Toggle on Welcome Screen */
         .welcome-theme-toggle-container {
             position: absolute;
             bottom: 24px;
@@ -2313,11 +2320,11 @@
             z-index: 5200;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             background: var(--welcome-card-bg);
             border: 1px solid var(--welcome-card-border);
-            padding: 8px 14px;
-            border-radius: 20px;
+            padding: 10px 16px;
+            border-radius: 16px;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
             backdrop-filter: blur(15px);
         }
@@ -2340,7 +2347,7 @@
             z-index: 6000;
             display: none;
             flex-direction: column;
-            padding: 40px 20%;
+            padding: 40px 15%;
             overflow-y: auto;
         }
 
@@ -2370,27 +2377,36 @@
             color: var(--welcome-title-color);
             line-height: 1.6;
             margin-top: 20px;
+            padding-bottom: 60px;
         }
 
         .terms-content h2 {
             font-size: 28px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             font-weight: 500;
         }
 
+        .terms-content h3 {
+            font-size: 18px;
+            margin-top: 22px;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--welcome-title-color);
+        }
+
         .terms-content p {
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             font-size: 15px;
             color: var(--welcome-subtext-color);
         }
 
         .terms-content ul, .terms-content ol {
             margin-left: 24px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .terms-content li {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-size: 15px;
             color: var(--welcome-title-color);
         }
@@ -2738,7 +2754,7 @@
         <div class="shape shape-1"></div>
         <div class="shape shape-2"></div>
 
-        <!-- Bottom-Left Light/Dark Mode Toggle on Setup -->
+        <!-- Bottom-Left Rounded Rectangle Theme Toggle on Setup -->
         <div class="welcome-theme-toggle-container">
             <span class="welcome-theme-label" id="welcome-theme-label-text">Dark mode</span>
             <label class="setup-switch-container">
@@ -2762,11 +2778,16 @@
 
             <div id="step-terms" class="setup-step" style="display: none;">
                 <div>
-                    <h1 class="welcome-title">Terms and how things work</h1>
-                    <div class="terms-preview-box">
-                        Thank you for using Material OS! Here are some things you need to know:
-                        Material OS is a free project hosted on GitHub Pages...
-                    </div>
+                    <h1 class="welcome-title">Terms and conditions</h1>
+                    <p class="welcome-subtext">
+                        Please read the terms and conditions to fully understand what you, the user, have agreed upon. If you don't accept the terms, then please do not use Material OS.
+                    </p>
+                    <div class="terms-preview-box">MATERIAL OS — TERMS OF SERVICE
+Version: 1.0 | Effective Date: November 20, 2026 | Project Status: Beta
+Official Repository: https://github.com/balldexhelp-ship-it/MaterialOS
+
+1. Acceptance of Terms
+By accessing or using Material OS, you acknowledge that you have read, understood, and agreed to these Terms of Service. You must have sufficient understanding of these terms to provide meaningful consent. There is currently no specific minimum age requirement. If you do not agree to these terms, you must discontinue use of Material OS.</div>
                     <button class="btn-text" onclick="openFullTerms()">Show more</button>
                 </div>
                 <div class="card-actions">
@@ -2912,12 +2933,164 @@
     <div id="terms-modal">
         <button class="modal-close-btn" onclick="closeFullTerms()">✕</button>
         <div class="terms-content">
-            <h2>Terms and Info</h2>
-            <p>Thank you for using Material OS!</p>
+            <h2>MATERIAL OS — TERMS OF SERVICE</h2>
+            <p><strong>Version:</strong> 1.0 &nbsp;|&nbsp; <strong>Effective Date:</strong> November 20, 2026 &nbsp;|&nbsp; <strong>Project Status:</strong> Beta<br>
+            <strong>Official Repository:</strong> <a href="https://github.com/balldexhelp-ship-it/MaterialOS" target="_blank" class="github-link">https://github.com/balldexhelp-ship-it/MaterialOS</a></p>
+
+            <h3>1. Acceptance of Terms</h3>
+            <p>By accessing or using Material OS, you acknowledge that you have read, understood, and agreed to these Terms of Service.</p>
+            <p>You must have sufficient understanding of these terms to provide meaningful consent. There is currently no specific minimum age requirement.</p>
+            <p>If you do not agree to these terms, you must discontinue use of Material OS.</p>
+
+            <h3>2. Project Description and Availability</h3>
+            <p>Material OS is a free, independently developed software project. It is provided without a purchase requirement, subscription, or paid access.</p>
+            <p>Material OS is not affiliated with, sponsored by, endorsed by, or officially associated with Google or any other company or organization.</p>
+            <p>Material OS is an independent project inspired by modern software design principles.</p>
+
+            <h3>3. Local Storage and User Information</h3>
+            <p>Material OS uses browser Local Storage to store application information, settings, preferences, and other user-related data.</p>
+            <p>Information stored through Local Storage remains within the browser’s storage for the Material OS website.</p>
+            <p>Material OS does not intentionally collect or maintain a centralized database of personal user information.</p>
+            <p>Users acknowledge that browser storage is associated with their device and browser environment. Information stored locally may not automatically transfer between devices or browsers.</p>
+
+            <h3>4. Data Loss and Recovery</h3>
+            <p>Users are responsible for managing and maintaining their own information.</p>
+            <p>Clearing browser storage, deleting website data, resetting browser settings, or performing similar actions may permanently erase information associated with Material OS.</p>
+            <p>Users acknowledge the following:</p>
             <ul>
-                <li>Material OS is a free project hosted on GitHub Pages.</li>
-                <li>Material OS uses local storage to make things easier.</li>
+                <li>Material OS does not guarantee data recovery.</li>
+                <li>Deleted Local Storage information cannot be restored through Material OS.</li>
+                <li>Material OS does not provide a guaranteed backup or recovery service.</li>
+                <li>Data loss may occur due to browser changes, software errors, unexpected behavior, or user actions.</li>
             </ul>
+            <p>Material OS provides an option to clear locally stored application information. This option is intended to remain available as part of the application’s functionality.</p>
+
+            <h3>5. Beta Development and Software Changes</h3>
+            <p>Material OS is currently under active beta development.</p>
+            <p>Features and functionality may be incomplete, unstable, modified, replaced, or removed at any time.</p>
+            <p>Users acknowledge that the software may contain bugs, errors, compatibility issues, security vulnerabilities, or unexpected behavior.</p>
+            <p>Material OS does not guarantee that all features will function correctly or remain available throughout development.</p>
+            <p>The project is continuously maintained, tested, and improved as development progresses.</p>
+
+            <h3>6. Copyright and Intellectual Property</h3>
+            <p>Unless otherwise indicated, the original code, branding, graphics, designs, and project-specific assets created for Material OS are the intellectual property of the project owner.</p>
+            <p>Material OS is provided for public viewing and personal use under the permissions established in these terms.</p>
+            <p>Public access to the source code does not automatically grant permission to commercially exploit, redistribute, republish, or claim ownership of the project.</p>
+            <p>Certain third-party resources, including Google Material Icons and other externally sourced assets, remain the property of their respective owners and are subject to their applicable licenses and usage conditions.</p>
+
+            <h3>7. Personal Use and Modifications</h3>
+            <p>Users may inspect and modify Material OS for personal, non-commercial purposes.</p>
+            <p>Personal modifications are permitted provided that users comply with the following restrictions:</p>
+            <ul>
+                <li>Modified versions must remain for personal use.</li>
+                <li>Modified versions must not be commercially distributed.</li>
+                <li>Modified versions must not be publicly redistributed without authorization.</li>
+                <li>Users must not claim ownership of the original Material OS project.</li>
+                <li>Third-party assets must remain subject to their respective licenses.</li>
+            </ul>
+            <p>These permissions do not transfer ownership of the original project or its protected assets.</p>
+
+            <h3>8. Commercial Use and Redistribution</h3>
+            <p>Material OS is not intended for commercial use or resale.</p>
+            <p>Without explicit authorization from the project owner, users may not:</p>
+            <ul>
+                <li>Sell Material OS or unauthorized versions of it.</li>
+                <li>Charge others for access to the project.</li>
+                <li>Redistribute or republish the original project.</li>
+                <li>Publicly distribute modified versions.</li>
+                <li>Incorporate protected Material OS assets into commercial products.</li>
+                <li>Present the project or its original assets as their own work.</li>
+            </ul>
+            <p>Nothing in these restrictions overrides permissions independently granted by applicable third-party licenses or platform terms.</p>
+
+            <h3>9. Demonstrations and Attribution</h3>
+            <p>Users are permitted to showcase, review, demonstrate, and discuss Material OS publicly.</p>
+            <p>Permitted demonstrations include:</p>
+            <ul>
+                <li>Screenshots and screen recordings.</li>
+                <li>YouTube videos and other video content.</li>
+                <li>Tutorials and demonstrations.</li>
+                <li>Reviews and discussions.</li>
+                <li>Educational content.</li>
+            </ul>
+            <p>When publicly demonstrating Material OS, users must provide appropriate attribution by linking to the official GitHub repository.</p>
+            <p>General discussions about Material OS do not require attribution. However, sharing the official repository is encouraged when recommending or referring others to the project.</p>
+
+            <h3>10. Impersonation and Misrepresentation</h3>
+            <p>Users must not falsely represent themselves as the official creator, owner, developer, or representative of Material OS.</p>
+            <p>Users may not:</p>
+            <ul>
+                <li>Impersonate the project owner.</li>
+                <li>Claim to operate the official project without authorization.</li>
+                <li>Misrepresent unauthorized copies as official releases.</li>
+                <li>Falsely claim ownership of Material OS or its original assets.</li>
+                <li>Mislead others regarding the project’s official source.</li>
+            </ul>
+            <p>The official GitHub repository is the authoritative source for Material OS.</p>
+
+            <h3>11. Security and Software Limitations</h3>
+            <p>Material OS is provided as beta software and may contain undiscovered defects, vulnerabilities, or other technical limitations.</p>
+            <p>Users acknowledge that the project is not guaranteed to provide uninterrupted operation, complete security, or compatibility with every browser or device.</p>
+            <p>Users are responsible for exercising appropriate caution when testing and using beta software.</p>
+
+            <h3>12. Third-Party Services and Resources</h3>
+            <p>Material OS may use, reference, or incorporate third-party resources, services, libraries, and assets.</p>
+            <p>Such resources remain subject to their respective owners’ licensing agreements, terms, and conditions.</p>
+            <p>Material OS does not claim ownership of third-party intellectual property unless explicitly stated.</p>
+            <p>The availability or use of third-party resources does not imply an official partnership, sponsorship, or endorsement.</p>
+
+            <h3>13. External Websites and Content</h3>
+            <p>Material OS may contain references or links to external websites and independent resources.</p>
+            <p>External websites operate independently of Material OS and maintain their own content, policies, and practices.</p>
+            <p>Material OS is not responsible for the accuracy, availability, security, or content of independent external websites.</p>
+            <p>Statements, reviews, opinions, or claims published by third parties do not necessarily represent the views or positions of the Material OS project.</p>
+            <p>Users are encouraged to consult the official repository when accessing project information or obtaining the original software.</p>
+
+            <h3>14. Updates to These Terms</h3>
+            <p>These Terms of Service may be revised, modified, or updated at any time as the project develops.</p>
+            <p>The latest version will be made available through the official Material OS website or GitHub repository.</p>
+            <p>Users are responsible for reviewing updated terms when they become available.</p>
+            <p>Where legally required, continued use alone will not substitute for obtaining renewed consent to material changes.</p>
+
+            <h3>15. Discontinuation of Material OS</h3>
+            <p>Material OS may be modified, suspended, or permanently discontinued at the discretion of the project owner.</p>
+            <p>Individual features, services, or components may also be removed or replaced without a guarantee of continued availability.</p>
+            <p>Users acknowledge that Material OS is an independent development project and that its future availability is not guaranteed.</p>
+
+            <h3>16. Limitation of Liability</h3>
+            <p>To the maximum extent permitted by applicable law, Material OS and its project owner shall not be liable for damages arising from the use or inability to use the project, including data loss, software errors, interruptions, compatibility issues, or other unexpected behavior.</p>
+            <p>This provision does not exclude liability that cannot legally be excluded or limited under applicable law.</p>
+
+            <h3>17. User Responsibilities</h3>
+            <p>By using Material OS, users agree to:</p>
+            <ul>
+                <li>Respect the project’s intellectual property.</li>
+                <li>Follow the permitted personal-use conditions.</li>
+                <li>Avoid unauthorized commercial use and redistribution.</li>
+                <li>Refrain from impersonating the project owner.</li>
+                <li>Manage their own locally stored information.</li>
+                <li>Understand the limitations of beta software.</li>
+                <li>Respect third-party intellectual property and licensing conditions.</li>
+                <li>Use Material OS responsibly.</li>
+            </ul>
+
+            <h3>18. Official Project Repository</h3>
+            <p>The official Material OS GitHub repository serves as the primary source for the project’s original source code, development information, and updates.</p>
+            <p>Users should refer to the official repository when seeking authentic project information.</p>
+            <p><strong>Official Repository:</strong> <a href="https://github.com/balldexhelp-ship-it/MaterialOS" target="_blank" class="github-link">https://github.com/balldexhelp-ship-it/MaterialOS</a></p>
+
+            <h3>FINAL AGREEMENT</h3>
+            <p>By selecting “I Agree”, you acknowledge and confirm that:</p>
+            <ul>
+                <li>You have been provided access to these Terms of Service.</li>
+                <li>You understand how Material OS stores application information.</li>
+                <li>You understand that clearing Local Storage may permanently delete your information.</li>
+                <li>You understand that Material OS is currently in beta development.</li>
+                <li>You acknowledge the project’s copyright and intellectual property restrictions.</li>
+                <li>You agree to the conditions and responsibilities outlined in this document.</li>
+            </ul>
+            <p>If you do not agree to these terms, you must discontinue use of Material OS.</p>
+            <p><strong>Material OS</strong><br>An independent project, developed and maintained independently.</p>
         </div>
     </div>
 
@@ -3091,7 +3264,7 @@
                 <div class="footer-left-group">
                     <button class="logoff-btn" onclick="logOffSystem()">
                         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M16 17v-3H9v-4h7V7l5 5-5 5M14 2a2 2 0 0 1 2 2v2h-2V4H5v16h9v-2h2v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9z"/></svg>
-                        Log off
+                        <span>Log off</span>
                     </button>
                 </div>
                 <div class="footer-right-group">
@@ -3370,11 +3543,11 @@
                     <div class="settings-panel" id="panel-about">
                         <h2 class="about-title">About Material OS</h2>
                         <div class="about-info-box">
-                            <div class="about-info-text">Version: 2.2</div>
+                            <div class="about-info-text">Version: 2.3</div>
                             <div class="about-info-text">Device: emulated</div>
                         </div>
                         <div class="about-version-clickable" onclick="handleVersionClick()">
-                            Version Number: 2.2.0
+                            Version Number: 2.3.0
                         </div>
                     </div>
 
@@ -3658,7 +3831,6 @@
         function toggleGuestAccountsEnabled(isChecked) {
             localStorage.setItem('os_guest_enabled', isChecked ? 'true' : 'false');
             updateGuestSettingsUIState();
-            updateLoginScreenLayout();
         }
 
         function updateGuestSettingsUIState() {
@@ -4228,7 +4400,6 @@
             const card = document.getElementById('login-card-box');
 
             if (guestEnabled && hasGuestPass) {
-                // Two distinct buttons on bottom left / center
                 card.innerHTML = `
                     <div class="login-username">Welcome back, ${savedUser}</div>
                     <div class="login-accounts-container">
@@ -4249,7 +4420,6 @@
                     </div>
                 `;
             } else {
-                // Standard default login UI
                 card.innerHTML = `
                     <img src="https://i.postimg.cc/ydNwc4V8/Untitled2545-20261027054658.png" alt="Avatar" class="login-avatar">
                     <div class="login-username">${savedUser}</div>
